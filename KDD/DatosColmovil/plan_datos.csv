@@ -1,0 +1,9 @@
+1,Sin plan de datos,0,0,0
+2,Plan 5 Megas,Fija,14000,3
+3,Plan 50 Megas,Fija,20000,3
+4,Plan 100 Megas,Fija,25000,3
+5,Plan 1Gb,Fija,53000,5
+6,Plan Ilimitado,Fija,65000,0
+7,Estandar por kilobyte,Por volumen,6,10
+8,Premium por kilobyte,Por volumen,5,8
+9,Gold por kilobyte,Por volumen,4,6

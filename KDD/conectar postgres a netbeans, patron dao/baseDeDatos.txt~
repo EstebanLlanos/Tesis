@@ -1,0 +1,16 @@
+
+
+
+CREATE TABLE participante(
+idPart varchar(40) NOT NULL PRIMARY KEY,
+nomPart varchar(50) NOT NULL,
+edad integer,
+nroCel varchar(20),
+correo varchar(40) NOT NULL,
+nivelFormacion varchar(50),
+genero varchar(2)
+);
+
+INSERT INTO participante VALUES('0001','jairo',23,'33210044','jairo@','secundaria','M');
+INSERT INTO participante VALUES('0002','marta',21,'3276865','marta@','pregrado','F');
+INSERT INTO participante VALUES('0003','pedro',19,'7341234','pedro@','pregrado','M');
