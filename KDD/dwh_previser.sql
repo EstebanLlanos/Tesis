@@ -1,18 +1,4 @@
-﻿/*Nombre del esquema: colmovil-dwh*/
-
-CREATE DOMAIN dominio_tipo_id CHAR (5) CHECK ( VALUE IN ( 'C.C.', 'C.E.' ) );
-CREATE DOMAIN dominio_flag CHAR (5) CHECK ( VALUE IN ( 'true', 'false' ) );
-CREATE DOMAIN dominio_genero CHAR (9) CHECK ( VALUE IN ( 'Masculino', 'Femenino' ) );
-CREATE DOMAIN dominio_dia_noche CHAR (5) CHECK ( VALUE IN ( 'Dia', 'Noche' ) );
-CREATE DOMAIN dominio_periodo_dia CHAR (20) CHECK ( VALUE IN ( 'Mañana', 'Mediodia', 'Tarde', 'Noche' ));
-CREATE DOMAIN dominio_periodo_anio CHAR (30) CHECK ( VALUE IN ( 'Primer_Trimestre', 'Segundo Trimestre', 'Tercer_Trimestre', 'Cuarto_Trimestre' ) );
-CREATE DOMAIN dominio_estado_civil CHAR (9) CHECK ( VALUE IN ( 'Soltero', 'Divorciado', 'Union Libre', 'Casado', 'Viudo' ) );
-
-/*==============================================================*/
-/* Dimensión: Plan                                              */
-/*==============================================================*/
-
-CREATE SEQUENCE seq_plan INCREMENT BY 1 START WITH 1;
+﻿CREATE SEQUENCE seq_plan INCREMENT BY 1 START WITH 1;
 
 create table plan
 (
@@ -68,7 +54,7 @@ create table sede
 
 
 /*==============================================================*/
-/* Dimensión: Vendedor						*/
+/* Dimensión: Vendedor											*/
 /*==============================================================*/
 
 CREATE SEQUENCE seq_vendedor INCREMENT BY 1 START WITH 1;
@@ -82,7 +68,7 @@ create table vendedor
 );
 
 /*==============================================================*/
-/* Dimensión: Tiempo						*/
+/* Dimensión: Tiempo											*/
 /*==============================================================*/
 
 CREATE SEQUENCE seq_tiempo INCREMENT BY 1 START WITH 1;
@@ -144,7 +130,7 @@ create table localizacion
 );
 
 /*==============================================================*/
-/* Dimensión: Examen                                       */
+/* Dimensión: Examen                                       		*/
 /*==============================================================*/
 
 CREATE SEQUENCE seq_examen INCREMENT BY 1 START WITH 1;
@@ -173,7 +159,7 @@ create table institucion
 );
 
 /*==============================================================*/
-/* Dimensión: Tipo Servicio                                       */
+/* Dimensión: Tipo Servicio                                     */
 /*==============================================================*/
 
 CREATE SEQUENCE seq_tipo_servicio INCREMENT BY 1 START WITH 1;
@@ -186,7 +172,7 @@ create table tipo_servicio
 );
 
 /*============================================================================================================================*/
-/*=========================================================== HECHOS  =========================================================*/
+/*=========================================================== HECHOS  ========================================================*/
 /*============================================================================================================================*/
 
 
@@ -210,7 +196,7 @@ create table afiliacion
 );
 
 /*==============================================================*/
-/* Hecho: Cita_Especialidad    			                            */
+/* Hecho: Cita_Especialidad    			                        */
 /*==============================================================*/
 
 CREATE SEQUENCE seq_cita_especialidad INCREMENT BY 1 START WITH 1;
@@ -228,7 +214,7 @@ create table cita_especialidad
 );
 
 /*==============================================================*/
-/* Hecho: Cita_Otros_Servicios    			                            */
+/* Hecho: Cita_Otros_Servicios    			                    */
 /*==============================================================*/
 
 CREATE SEQUENCE seq_cita_otros_servicios INCREMENT BY 1 START WITH 1;
