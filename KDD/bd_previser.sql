@@ -15,7 +15,7 @@ create table ciudad
 (
   cod_ciudad VARCHAR(5) NOT NULL,
   nombre_ciudad VARCHAR(50) NOT NULL,
-  region_ciudad VARCHAR(50) NOT NULL,
+  departamento_ciudad VARCHAR(50) NOT NULL,
   PRIMARY KEY (cod_ciudad, nombre_ciudad)
 );
 
@@ -40,7 +40,7 @@ create table personal
   id_personal VARCHAR(5) NOT NULL,
   nombre_personal VARCHAR(50) NOT NULL,
   apellido_personal VARCHAR(50) NOT NULL,
-  rol_personal VARCHAR(2) NOT NULL,
+  tipo_personal VARCHAR(2) NOT NULL,
   PRIMARY KEY (id_personal) 
 );
 
