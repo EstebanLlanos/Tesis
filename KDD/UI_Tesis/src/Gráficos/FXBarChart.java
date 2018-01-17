@@ -37,11 +37,8 @@ public class FXBarChart {
         final JFXPanel fxPanel = new JFXPanel();
         Visualizador.panelPestanas.addTab("Bar Chart", fxPanel);
         
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel, chartName, tags, tagName, values, valuesName, legend);
-            }
+        Platform.runLater(() -> {
+            initFX(fxPanel, chartName, tags, tagName, values, valuesName, legend);
         });
     }
 
