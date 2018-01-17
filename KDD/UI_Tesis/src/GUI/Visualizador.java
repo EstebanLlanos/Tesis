@@ -1,7 +1,19 @@
 package GUI;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import javafx.scene.control.ChoiceDialog;
+import javafx.stage.Stage;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -42,7 +54,7 @@ public class Visualizador extends javax.swing.JFrame {
         for (String[] arregloPregunta : arregloPreguntas) {
             comboBoxPreguntas.addItem(arregloPregunta[0]);
         }
-
+        
         return comboBoxPreguntas;
     }
 
@@ -183,6 +195,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
@@ -205,7 +218,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.setMinimumSize(new java.awt.Dimension(150, 0));
         panelOpciones.setLayout(new java.awt.GridLayout(1, 0));
 
-        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder("Preguntas"));
+        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder("Consultas Disponibles"));
         panelPreguntas.setMinimumSize(new java.awt.Dimension(150, 0));
         panelPreguntas.setLayout(new javax.swing.BoxLayout(panelPreguntas, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -213,6 +226,20 @@ public class Visualizador extends javax.swing.JFrame {
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jCheckBoxMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jCheckBoxMenuItem1.setText("Seleccionar Objeto de Consulta");
+        Image img = new ImageIcon(getClass().getResource("/Recursos/gmail.png")).getImage();
+        ImageIcon processedIcon = new ImageIcon(getScaledImage(img, 30, 30));
+        jCheckBoxMenuItem1.setIcon(processedIcon);
+        jCheckBoxMenuItem1.setIconTextGap(2);
+        jCheckBoxMenuItem1.setMaximumSize(new java.awt.Dimension(2000, 2000));
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        salir.add(jCheckBoxMenuItem1);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Salir...");
@@ -263,6 +290,23 @@ public class Visualizador extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        
+        JOptionPane.showMessageDialog(this, "Seleccionando Opción");
+        
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
+    private Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
+    }
+    
     private void preguntasActionPerformed(java.awt.event.ActionEvent evt) {
 
         String preguntaSeleccionada = "" + comboBoxPreguntas.getSelectedItem();
@@ -313,6 +357,7 @@ public class Visualizador extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLayeredPane jLayeredPane1;
