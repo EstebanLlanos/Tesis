@@ -9,15 +9,14 @@ package Logico.Afiliaciones;
  *
  * @author Miguel Torrres
  */
-public class TopVentas {
+public class TopVentasVendedor {
     
     String ciudad, sede, vendedor;
     
-    public TopVentas(){
+    public TopVentasVendedor(){
     
         ciudad = "";
-        sede = ""; 
-        vendedor = "";
+        sede = "";
         
     }
 
