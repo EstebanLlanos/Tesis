@@ -193,6 +193,7 @@ public class Visualizador extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
@@ -226,7 +227,7 @@ public class Visualizador extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         Image img = new ImageIcon(getClass().getResource("/Recursos/seleccionar.png")).getImage();
-        ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 20, 20));
+        ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 40, 40));
         jMenuItem2.setIcon(selectIcon);
         jMenuItem2.setLabel("Seleccionar Objeto de Consulta");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -236,9 +237,21 @@ public class Visualizador extends javax.swing.JFrame {
         });
         salir.add(jMenuItem2);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
+        ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 40, 40));
+        jMenuItem3.setIcon(resumeIcon);
+        jMenuItem3.setText("Resúmenes");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        salir.add(jMenuItem3);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
-        ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 20, 20));
+        ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 40, 40));
         jMenuItem1.setIcon(exitIcon);
         jMenuItem1.setText("Salir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +304,10 @@ public class Visualizador extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -360,6 +377,7 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPanel panelOpciones;

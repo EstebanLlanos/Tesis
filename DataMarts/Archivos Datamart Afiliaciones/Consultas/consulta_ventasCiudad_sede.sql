@@ -1,0 +1,1 @@
+﻿SELECT cd.nombre_ciudad, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN ciudad cd ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) WHERE dv.sede_venta = 5 GROUP BY cd.nombre_ciudad ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;

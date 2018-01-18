@@ -9,14 +9,15 @@ package Logico.Afiliaciones;
  *
  * @author Miguel Torrres
  */
-public class TopVentasVendedor {
+public class VentasVendedores {
     
-    String ciudad, sede, vendedor;
+    String ciudad, sede, region;
     
-    public TopVentasVendedor(){
+    public VentasVendedores(){
     
         ciudad = "";
         sede = "";
+        region = "";
         
     }
 
@@ -36,13 +37,12 @@ public class TopVentasVendedor {
         this.sede = sede;
     }
 
-    public String getVendedor() {
-        return vendedor;
+    public String getRegion() {
+        return region;
     }
 
-    public void setVendedor(String vendedor) {
-        this.vendedor = vendedor;
-    }
-    
+    public void setRegion(String region) {
+        this.region = region;
+    }   
     
 }

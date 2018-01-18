@@ -1,0 +1,1 @@
+﻿SELECT cd.departamento_ciudad, SUM(dv.total_ventas) FROM dim_venta dv INNER JOIN ciudad cd ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) GROUP BY cd.departamento_ciudad ORDER BY cd.departamento_ciudad;

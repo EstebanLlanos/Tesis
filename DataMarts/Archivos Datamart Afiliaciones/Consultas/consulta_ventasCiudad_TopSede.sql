@@ -1,0 +1,1 @@
+﻿SELECT sd.nombre_sede, SUM(dv.total_ventas) FROM dim_venta dv INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede) GROUP BY sd.nombre_sede;
