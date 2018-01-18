@@ -60,22 +60,18 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image img = new ImageIcon(getClass().getResource(&quot;/Recursos/seleccionar.png&quot;)).getImage();&#xa;ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 20, 20));">
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Seleccionar Objeto de Consulta" postCode="Image img = new ImageIcon(getClass().getResource(&quot;/Recursos/seleccionar.png&quot;)).getImage();&#xa;ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 20, 20));"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="selectIcon" type="code"/>
                 </Property>
-                <Property name="iconTextGap" type="int" value="2"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[2000, 2000]"/>
-                </Property>
+                <Property name="label" type="java.lang.String" value="Seleccionar Objeto de Consulta"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
