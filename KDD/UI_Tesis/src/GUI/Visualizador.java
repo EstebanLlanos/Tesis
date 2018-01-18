@@ -8,9 +8,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import javafx.scene.control.ChoiceDialog;
-import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -229,9 +226,9 @@ public class Visualizador extends javax.swing.JFrame {
 
         jCheckBoxMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jCheckBoxMenuItem1.setText("Seleccionar Objeto de Consulta");
-        Image img = new ImageIcon(getClass().getResource("/Recursos/gmail.png")).getImage();
-        ImageIcon processedIcon = new ImageIcon(getScaledImage(img, 30, 30));
-        jCheckBoxMenuItem1.setIcon(processedIcon);
+        Image img = new ImageIcon(getClass().getResource("/Recursos/seleccionar.png")).getImage();
+        ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 20, 20));
+        jCheckBoxMenuItem1.setIcon(selectIcon);
         jCheckBoxMenuItem1.setIconTextGap(2);
         jCheckBoxMenuItem1.setMaximumSize(new java.awt.Dimension(2000, 2000));
         jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +239,9 @@ public class Visualizador extends javax.swing.JFrame {
         salir.add(jCheckBoxMenuItem1);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
+        ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 20, 20));
+        jMenuItem1.setIcon(exitIcon);
         jMenuItem1.setText("Salir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
