@@ -64,22 +64,26 @@ public class DaoVentasCiudades {
                 + " ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) "+ where +" GROUP BY cd.nombre_ciudad"
                 + " ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";
         
-        System.out.println("Consulta: " + sql_select);
+        //System.out.println("Consulta: " + sql_select);
 
         try {
             conn = BaseDeDatos.conectar();
-            System.out.println("Conexión establecida");
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery(sql_select);
 
+            System.out.println("Conexión establecida");
+            
             while (tabla.next()) {
                 
                 String[] registro = new String[2];
                 registro[0] = tabla.getString("nombre_ciudad");
                 registro[1] = tabla.getString("total_ventas");
+                
                 conteoVentas.add(registro);
                 
             }
+            
+            return conteoVentas;
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -98,14 +102,6 @@ public class DaoVentasCiudades {
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static void main(String args[]) {
-        DaoVentasCiudades prueba = new DaoVentasCiudades();
-        VentasCiudades ventaPrueba = new VentasCiudades();
-        ventaPrueba.setSede("5");
-        ventaPrueba.setDepartamento("Escoger una opción");
-        prueba.conteoVentasSede(prueba.prepararRestriccionesClausulaWhereVentas(ventaPrueba));
     }
     
 }

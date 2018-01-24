@@ -47,10 +47,9 @@ public class ControladorTendenciaPlanVoz {
                 contratosAnios.add(valores[j]);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontró tendencia en los años seleccionados");
+            JOptionPane.showMessageDialog(null, "No se encontraron ventas en los años seleccionados");
         }
-        for (int j = 0; j < contratosAnios.size(); j++) {
-        }
+        
         return contratosAnios;
     }
 

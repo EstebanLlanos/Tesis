@@ -171,6 +171,19 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(perfil.getConsultar());
         panelOpciones.updateUI();
     }
+    
+    private void asignaComponentesVentasCiudad(UiPerfil perfil) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(perfil.getLabelAnioInicio());
+        panelOpciones.add(perfil.getLabelVacia());
+        panelOpciones.add(perfil.getComboBoxInicioAnios());
+        panelOpciones.add(perfil.getLabelAnioFin());
+        panelOpciones.add(perfil.getLabelVacia());
+        panelOpciones.add(perfil.getComboBoxFinAnios());
+        panelOpciones.add(perfil.getConsultar());
+        panelOpciones.updateUI();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

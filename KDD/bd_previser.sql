@@ -64,13 +64,12 @@ create table sede
 /* Dimensión: Ventas                                            */
 /*==============================================================*/
 
-CREATE SEQUENCE seq_venta INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE seq_dim_venta INCREMENT BY 1 START WITH 1;
 
-create table ventas
+create table dim_venta
 (
-  id_venta BIGINT NOT NULL DEFAULT nextval('seq_venta'::regclass),
-  anio_venta VARCHAR(50) NOT NULL,
-  mes_venta VARCHAR(50) NOT NULL,
+  id_venta BIGINT NOT NULL DEFAULT nextval('seq_dim_venta'::regclass),
+  fecha_venta BIGINT NOT NULL,
   plan_venta BIGINT NOT NULL,
   sede_venta BIGINT NOT NULL,
   ciudad_venta BIGINT NOT NULL,
