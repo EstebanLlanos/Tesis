@@ -85,10 +85,12 @@ public class UiVentasCiudades {
 
         ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede);
 
-        if (ventasPorCiudad.size() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para ver los resultados. "
-                    + "No fue posible realizar la consulta");
-        } else {
+        if (ventasPorCiudad.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
+                    + "No existen registros que coincidan con los filtros solicitados");
+        } else if(ventasPorCiudad.get(0)[0].equals("Error")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
+        }else {
             ArrayList<String> ciudades = new ArrayList();
             ArrayList<Integer> ventas = new ArrayList();
             for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {

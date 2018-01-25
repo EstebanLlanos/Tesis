@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -36,18 +37,41 @@ public class FXPieChart {
         this.chartName = chartName;
         final JFXPanel panelVisualizador = new JFXPanel();
         
-        Visualizador.panelPestanas.removeAll();
-        Visualizador.panelPestanas.addTab("Pie Chart", panelVisualizador);
-        panelVisualizador.setVisible(true);
+        //Visualizador.panelPestanas.removeAll();
+        panelVisualizador.removeAll();
         
         System.out.println("Se prepara PieChart");
         
-        Platform.runLater(new Runnable() {
+        Task task = new Task<Void>() { 
+            
+            @Override
+            public Void call() {
+                initFX(panelVisualizador, chartName, tags, values);
+                return null;
+            }
+        };
+        
+        new Thread(task).start();
+        
+        if (Visualizador.panelPestanas.getTabCount() == 3) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Pie Chart")) {
+                Visualizador.panelPestanas.removeTabAt(0);
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Pie Chart")){
+                Visualizador.panelPestanas.removeTabAt(1);
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Pie Chart")){
+                Visualizador.panelPestanas.removeTabAt(2);
+            }
+        }
+        
+        Visualizador.panelPestanas.addTab("Pie Chart", panelVisualizador);
+        panelVisualizador.setVisible(true);
+        
+        /*Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 initFX(panelVisualizador, chartName, tags, values);
             }
-        });
+        });*/
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
@@ -71,17 +95,17 @@ public class FXPieChart {
         chart.setTitle(chartName);
 
         final Label caption = new Label("");
-        caption.setTextFill(Color.WHITE);
-        caption.setStyle("-fx-font: 24 arial;");
+        caption.setTextFill(Color.BLACK);
+        caption.setStyle("-fx-font: 20 arial;-fx-text-fill: midnightblue;");
 
         for (final PieChart.Data data : chart.getData()) {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+            data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET,
                     new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
                             caption.setTranslateX(e.getSceneX());
                             caption.setTranslateY(e.getSceneY());
-                            caption.setText(String.valueOf(data.getPieValue()));
+                            caption.setText(String.valueOf((int)data.getPieValue()));
                         }
                     });
         }

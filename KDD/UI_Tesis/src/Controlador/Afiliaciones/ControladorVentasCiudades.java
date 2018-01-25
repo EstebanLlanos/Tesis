@@ -34,7 +34,12 @@ public class ControladorVentasCiudades {
         ventasCiudades.setSede(sedeVentas);
 
         String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades);
+        
         if (restriccionesClausulaWhere.equals("Error")) {
+            String[] error = new String[1];
+            error[0] = "Error";
+            conteoVentas.add(error);
+            
             return conteoVentas;
         }
         

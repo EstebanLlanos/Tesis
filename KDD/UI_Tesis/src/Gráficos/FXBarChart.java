@@ -8,6 +8,7 @@ package Gráficos;
 import GUI.Visualizador;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -35,17 +36,38 @@ public class FXBarChart {
         this.legend = legend;
         final JFXPanel panelVisualizador = new JFXPanel();
         
+        System.out.println("Se prepara BarChart");
+        
+        Task task = new Task<Void>() { 
+            
+            @Override
+            public Void call() {
+                initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
+                return null;
+            }
+        };
+        
+        new Thread(task).start();
+        
+        if (Visualizador.panelPestanas.getTabCount() == 3) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Bar Chart")) {
+                Visualizador.panelPestanas.removeTabAt(0);
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Bar Chart")){
+                Visualizador.panelPestanas.removeTabAt(1);
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Bar Chart")){
+                Visualizador.panelPestanas.removeTabAt(2);
+            }
+        }
+        
         Visualizador.panelPestanas.addTab("Bar Chart", panelVisualizador);
         panelVisualizador.setVisible(true);
         
-        System.out.println("Se prepara BarChart");
-        
-        Platform.runLater(new Runnable() {
+        /*Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
             }
-        });
+        });*/
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
@@ -75,6 +97,7 @@ public class FXBarChart {
         for (int i = 0; i < tags.size(); i++) {
             series1.getData().add(new XYChart.Data(tags.get(i), values.get(i)));
         }
+        
         Scene scene = new Scene(bc);
         bc.getData().addAll(series1);
 
