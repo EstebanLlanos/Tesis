@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Miguel Torrres
+ * @author Esteban
  */
 public class DaoVentasCiudades {
     
@@ -64,7 +64,7 @@ public class DaoVentasCiudades {
                 + " ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) "+ where +" GROUP BY cd.nombre_ciudad"
                 + " ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";
         
-        //System.out.println("Consulta: " + sql_select);
+        System.out.println("Consulta: " + sql_select);
 
         try {
             conn = BaseDeDatos.conectar();

@@ -49,6 +49,17 @@ create table personal
 );
 
 /*==============================================================*/
+/* Dimensión: Departamento                                      */
+/*==============================================================*/
+
+create table departamento 
+(
+  id_departamento BIGINT NOT NULL,
+  nombre_departamento VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_departamento) 
+);
+
+/*==============================================================*/
 /* Dimensión: Sede                                            	*/
 /*==============================================================*/
 

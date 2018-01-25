@@ -8,9 +8,8 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author john
+/*
+ * @author Esteban
  */
 public class UiPerfilUsuarioServicioRoamming extends UiPerfil {
 

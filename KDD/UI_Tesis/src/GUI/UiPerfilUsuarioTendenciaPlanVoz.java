@@ -54,7 +54,5 @@ public class UiPerfilUsuarioTendenciaPlanVoz extends UiPerfil {
                 JOptionPane.showMessageDialog(null, "No se ha extraido la información");
             }
         }
-
     }
-
 }

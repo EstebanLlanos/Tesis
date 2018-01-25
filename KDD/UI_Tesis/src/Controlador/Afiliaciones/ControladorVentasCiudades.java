@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Esteban - Casa
+ * @author Esteban
  */
 public class ControladorVentasCiudades {
     

@@ -7,7 +7,7 @@ package Logico.Afiliaciones;
 
 /**
  *
- * @author Miguel Torrres
+ * @author Esteban
  */
 public class VentasCiudades {
     

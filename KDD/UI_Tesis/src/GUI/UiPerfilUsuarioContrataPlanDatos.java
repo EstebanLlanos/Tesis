@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author john
+ * @author Esteban
  */
 public class UiPerfilUsuarioContrataPlanDatos extends UiPerfil {
 

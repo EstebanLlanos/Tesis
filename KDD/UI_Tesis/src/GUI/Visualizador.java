@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Afiliaciones.UiVentasCiudades;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -36,7 +37,7 @@ public class Visualizador extends javax.swing.JFrame {
 
         comboBoxPreguntas = new JComboBox();
         //columna #0 = Pregunta
-        arregloPreguntas = new String[10][1];
+        arregloPreguntas = new String[11][1];
         arregloPreguntas[0][0] = "Escoger una Opción";
         arregloPreguntas[1][0] = "Perfil de Usuarios que abandonan a PREVISER";
         arregloPreguntas[2][0] = "Franja de Edad con Mayor Cantidad de Clientes";
@@ -47,6 +48,7 @@ public class Visualizador extends javax.swing.JFrame {
         arregloPreguntas[7][0] = "Perfil de Usuarios que Contratan Servicios de Recreación";
         arregloPreguntas[8][0] = "Municipios donde más Servicios son vendidos";
         arregloPreguntas[9][0] = "Tendencia de Compra de Servicios";
+        arregloPreguntas[10][0] = "Venta de Afiliaciones por Sede y Departamento";
 
         for (String[] arregloPregunta : arregloPreguntas) {
             comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -58,7 +60,10 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignarComponentes(int codigoDePregunta) {
 
         //según la pregunta que se elija asignamos unos componentes a la interfaz
-        if (codigoDePregunta == 1 || codigoDePregunta == 2 || codigoDePregunta == 3 || codigoDePregunta == 4 || codigoDePregunta == 5 || codigoDePregunta == 6 || codigoDePregunta == 7 || codigoDePregunta == 9|| codigoDePregunta == 8) {
+        if (codigoDePregunta == 1 || codigoDePregunta == 2 || codigoDePregunta == 3 
+                || codigoDePregunta == 4 || codigoDePregunta == 5 || codigoDePregunta == 6 
+                || codigoDePregunta == 7 || codigoDePregunta == 8 || codigoDePregunta == 9 
+                || codigoDePregunta == 10) {
 
             switch (codigoDePregunta) {
                 case 1:
@@ -96,6 +101,10 @@ public class Visualizador extends javax.swing.JFrame {
                 case 9:
                     UiPerfilUsuarioTendenciaPlanVoz tendenciaPLanVoz = new UiPerfilUsuarioTendenciaPlanVoz();
                     asignaComponentesTendencia(tendenciaPLanVoz);
+                    break;
+                case 10:
+                    UiVentasCiudades ventasPorCiudad = new UiVentasCiudades();
+                    asignaComponentesVentasCiudad(ventasPorCiudad);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -172,16 +181,14 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.updateUI();
     }
     
-    private void asignaComponentesVentasCiudad(UiPerfil perfil) {
+    private void asignaComponentesVentasCiudad(UiVentasCiudades ventasPorCiudad) {
 
         panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelAnioInicio());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getComboBoxInicioAnios());
-        panelOpciones.add(perfil.getLabelAnioFin());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getComboBoxFinAnios());
-        panelOpciones.add(perfil.getConsultar());
+        panelOpciones.add(ventasPorCiudad.getLabelDepartamento());
+        panelOpciones.add(ventasPorCiudad.getLabelSede());
+        panelOpciones.add(ventasPorCiudad.getComboBoxDepartamentos());
+        panelOpciones.add(ventasPorCiudad.getComboBoxSedes());
+        panelOpciones.add(ventasPorCiudad.getBotonConsultar());
         panelOpciones.updateUI();
     }
 

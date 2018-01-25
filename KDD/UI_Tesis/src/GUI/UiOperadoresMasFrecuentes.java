@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author luisfemm
+ * @author Esteban
  */
 public class UiOperadoresMasFrecuentes extends UiPerfil {
 
