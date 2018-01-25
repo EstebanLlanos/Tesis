@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +28,7 @@ public class Visualizador extends javax.swing.JFrame {
 
         //Inicializamos y asignamos las Preguntas
         comboBoxPreguntas = this.setPreguntas();
-        comboBoxPreguntas.addActionListener((java.awt.event.ActionEvent evt) -> {
-            preguntasActionPerformed(evt);
-        });
+        comboBoxPreguntas.addActionListener(this::preguntasActionPerformed);
         panelPreguntas.add(comboBoxPreguntas);
     }
 
@@ -37,18 +36,9 @@ public class Visualizador extends javax.swing.JFrame {
 
         comboBoxPreguntas = new JComboBox();
         //columna #0 = Pregunta
-        arregloPreguntas = new String[11][1];
-        arregloPreguntas[0][0] = "Escoger una Opción";
-        arregloPreguntas[1][0] = "Perfil de Usuarios que abandonan a PREVISER";
-        arregloPreguntas[2][0] = "Franja de Edad con Mayor Cantidad de Clientes";
-        arregloPreguntas[3][0] = "Planes más Escogidos";
-        arregloPreguntas[4][0] = "Perfil de Usuarios de Planes Plata";
-        arregloPreguntas[5][0] = "Perfil de Usuarios de Planes Oro";
-        arregloPreguntas[6][0] = "Perfil de Usuarios que Contratan Servicios de Salud";
-        arregloPreguntas[7][0] = "Perfil de Usuarios que Contratan Servicios de Recreación";
-        arregloPreguntas[8][0] = "Municipios donde más Servicios son vendidos";
-        arregloPreguntas[9][0] = "Tendencia de Compra de Servicios";
-        arregloPreguntas[10][0] = "Venta de Afiliaciones por Sede y Departamento";
+        arregloPreguntas = new String[2][1];
+        arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+        arregloPreguntas[1][0] = "Venta de Afiliaciones por Sede y Departamento";
 
         for (String[] arregloPregunta : arregloPreguntas) {
             comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -60,49 +50,10 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignarComponentes(int codigoDePregunta) {
 
         //según la pregunta que se elija asignamos unos componentes a la interfaz
-        if (codigoDePregunta == 1 || codigoDePregunta == 2 || codigoDePregunta == 3 
-                || codigoDePregunta == 4 || codigoDePregunta == 5 || codigoDePregunta == 6 
-                || codigoDePregunta == 7 || codigoDePregunta == 8 || codigoDePregunta == 9 
-                || codigoDePregunta == 10) {
+        if (codigoDePregunta == 1) {
 
             switch (codigoDePregunta) {
                 case 1:
-                    UiPerfilUsuarioAbandonaColmovil abandono = new UiPerfilUsuarioAbandonaColmovil();
-                    asignaComponentes(abandono);
-                    break;
-                case 2:
-                    UiFranjasUsoRed franjasUsoRed = new UiFranjasUsoRed();
-                    asignaComponentesFranjas(franjasUsoRed);
-                    break;
-                case 3:
-                    UiPlanesMasEscogidos planesMasEscogidos = new UiPlanesMasEscogidos();
-                    asignaComponentesPlanes(planesMasEscogidos);
-                    break;
-                case 4:
-                    UiPerfilUsuarioPlanPrepago planesPrepago = new UiPerfilUsuarioPlanPrepago();
-                    asignaComponentes(planesPrepago);
-                    break;
-                case 5:
-                    UiPerfilUsuarioPlanPospago planesPospago = new UiPerfilUsuarioPlanPospago();
-                    asignaComponentes(planesPospago);
-                    break;
-                case 6:
-                    UiPerfilUsuarioContrataPlanDatos UsuarioPlanDatos = new UiPerfilUsuarioContrataPlanDatos();
-                    asignaComponentes(UsuarioPlanDatos);
-                    break;
-                case 7:
-                    UiPerfilUsuarioServicioRoamming UsuarioServicioRoamming = new UiPerfilUsuarioServicioRoamming();
-                    asignaComponentes(UsuarioServicioRoamming);
-                    break;
-                case 8:
-                    UiOperadoresMasFrecuentes operadoresMasFrecuentes = new UiOperadoresMasFrecuentes();
-                    asignaComponentesOperadores(operadoresMasFrecuentes);
-                    break;
-                case 9:
-                    UiPerfilUsuarioTendenciaPlanVoz tendenciaPLanVoz = new UiPerfilUsuarioTendenciaPlanVoz();
-                    asignaComponentesTendencia(tendenciaPLanVoz);
-                    break;
-                case 10:
                     UiVentasCiudades ventasPorCiudad = new UiVentasCiudades();
                     asignaComponentesVentasCiudad(ventasPorCiudad);
                     break;
@@ -118,75 +69,13 @@ public class Visualizador extends javax.swing.JFrame {
             panelOpciones.updateUI();
         }
     }
-
-    private void asignaComponentes(UiPerfil perfil) {
-
-        panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelSexo());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getCheckBoxSexoFemenino());
-        panelOpciones.add(perfil.getCheckBoxSexoMasculino());
-        panelOpciones.add(perfil.getLabelEstadoCivil());
-        panelOpciones.add(perfil.getEstadoCivil());
-        panelOpciones.add(perfil.getLabelInicioEstrato());
-        panelOpciones.add(perfil.getInicioEstrato());
-        panelOpciones.add(perfil.getLabelFinEstrato());
-        panelOpciones.add(perfil.getFinEstrato());
-        panelOpciones.add(perfil.getConsultar());
-        panelOpciones.updateUI();
-    }
-
-    private void asignaComponentesFranjas(UiPerfil perfil) {
-
-        panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelOperador());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getComboBoxOperador());
-        panelOpciones.add(perfil.getConsultar());
-        panelOpciones.updateUI();
-    }
-
-    private void asignaComponentesOperadores(UiPerfil perfil) {
-
-        panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelMeses());
-        panelOpciones.add(perfil.getComboBoxMeses());
-        panelOpciones.add(perfil.getConsultar());
-        panelOpciones.updateUI();
-    }
-
-    private void asignaComponentesPlanes(UiPerfil perfil) {
-
-        panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelPlanDeDatos());
-        panelOpciones.add(perfil.getCheckBoxDatos());
-        panelOpciones.add(perfil.getLabelPlanDeVoz());
-        panelOpciones.add(perfil.getCheckBoxPrepagoVoz());
-        panelOpciones.add(perfil.getCheckBoxPostpagoVoz());
-        panelOpciones.add(perfil.getCheckBoxCorporativo());
-        panelOpciones.add(perfil.getConsultar());
-        panelOpciones.updateUI();
-    }
-
-    private void asignaComponentesTendencia(UiPerfil perfil) {
-
-        panelOpciones.removeAll();
-        panelOpciones.add(perfil.getLabelAnioInicio());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getComboBoxInicioAnios());
-        panelOpciones.add(perfil.getLabelAnioFin());
-        panelOpciones.add(perfil.getLabelVacia());
-        panelOpciones.add(perfil.getComboBoxFinAnios());
-        panelOpciones.add(perfil.getConsultar());
-        panelOpciones.updateUI();
-    }
     
     private void asignaComponentesVentasCiudad(UiVentasCiudades ventasPorCiudad) {
 
         panelOpciones.removeAll();
         panelOpciones.add(ventasPorCiudad.getLabelDepartamento());
-        panelOpciones.add(ventasPorCiudad.getLabelSede());
         panelOpciones.add(ventasPorCiudad.getComboBoxDepartamentos());
+        panelOpciones.add(ventasPorCiudad.getLabelSede());
         panelOpciones.add(ventasPorCiudad.getComboBoxSedes());
         panelOpciones.add(ventasPorCiudad.getBotonConsultar());
         panelOpciones.updateUI();

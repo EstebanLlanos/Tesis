@@ -2,6 +2,7 @@ package Controlador;
 
 import Dao.DaoPerfilUsuarioAbandonaColmovil;
 import Logico.UsuarioAbandonaColmovil;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControladorPerfilUsuarioAbandonaColmovil {
@@ -13,7 +14,7 @@ public class ControladorPerfilUsuarioAbandonaColmovil {
         daoPerfilAbandonanColmovil = new DaoPerfilUsuarioAbandonaColmovil();
     }
 
-    public ArrayList getPerfiles(String sexoFemenino, String sexoMasculino, String estadoCivil, String inicioEstrato, String finEstrato) {
+    public ArrayList getPerfiles(String sexoFemenino, String sexoMasculino, String estadoCivil, String inicioEstrato, String finEstrato) throws SQLException {
         int enero = 0, febrero = 0, marzo = 0, abril = 0, mayo = 0, junio = 0,
                 julio = 0, agosto = 0, septiembre = 0, octubre = 0, noviembre = 0, diciembre = 0;
         

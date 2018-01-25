@@ -18,7 +18,7 @@ import javafx.scene.chart.XYChart;
 
 /**
  *
- * @author Juan Olaya O
+ * @author Esteban
  */
 public class FXLineChart {
     
@@ -34,20 +34,24 @@ public class FXLineChart {
         this.valuesName = valuesName;
         this.tagName = tagName;
         this.legend = legend;
-
-        final JFXPanel fxPanel = new JFXPanel();
-        Visualizador.panelPestanas.addTab("Line Chart", fxPanel);
+        final JFXPanel panelVisualizador = new JFXPanel();
+        
+        Visualizador.panelPestanas.addTab("Line Chart", panelVisualizador);
+        panelVisualizador.setVisible(true);
+               
+        System.out.println("Se prepara LineChart");
         
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                initFX(fxPanel, chartName, tags, tagName, values, valuesName, legend);
+                initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
             }
         });
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         // This method is invoked on the JavaFX thread
+        System.out.println("Se inicia LineChart");
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
@@ -55,6 +59,8 @@ public class FXLineChart {
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
 
+        System.out.println("Se dibuja LineChart");
+        
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final LineChart<String, Number> bc

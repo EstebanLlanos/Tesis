@@ -35,23 +35,29 @@ public class DaoVentasCiudades {
 
         String where = "";
 
+        int codigoDepartamento = obtenerCodigoDepartamento(ventasCiudades.getDepartamento());
+        int codigoSede = obtenerCodigoSede(ventasCiudades.getSede());
+        
         //TODOS
-        if (!ventasCiudades.getSede().equals("Escoger una opción") && ventasCiudades.getDepartamento().equals("Escoger una opción")) {
+        if (!ventasCiudades.getSede().equals("Escoger una Opción...") && ventasCiudades.getDepartamento().equals("Escoger una Opción...")) {
 
-            where = " WHERE dv.sede_venta = " + ventasCiudades.getSede();
+            where = " WHERE dv.sede_venta = '" + codigoSede + "'";
 
         } //TODOS
-        else if (!ventasCiudades.getDepartamento().equals("Escoger una opción") && ventasCiudades.getSede().equals("Escoger una opción")) {
+        else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && ventasCiudades.getSede().equals("Escoger una Opción...")) {
 
-            where = "WHERE cd.departamento_ciudad = '" + ventasCiudades.getDepartamento() + "'";
+            where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento + "'";
 
         }
-        else if (!ventasCiudades.getDepartamento().equals("Escoger una opción") && !ventasCiudades.getSede().equals("Escoger una opción")) {
+        else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && !ventasCiudades.getSede().equals("Escoger una Opción...")) {
             
-            where = "WHERE dv.sede_venta = " + ventasCiudades.getSede() + "AND cd.departamento_ciudad = '" + ventasCiudades.getDepartamento() + "'";
+            where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento + "'";
             
+        } else {
+            
+            return "Error";
         }
-                
+        
         return where;
     }
 
@@ -92,6 +98,100 @@ public class DaoVentasCiudades {
         }
 
         return null;
+    }
+    
+    public int obtenerCodigoDepartamento(String nombreDepartamento){
+        
+        int departamentoSeleccionado = 0;
+        
+        if (nombreDepartamento.equals("VALLE DEL CAUCA")) {
+            departamentoSeleccionado = 1;
+        } else if (nombreDepartamento.equals("CAUCA")) {
+            departamentoSeleccionado = 2;
+        } else if (nombreDepartamento.equals("RISARALDA")) {
+            departamentoSeleccionado = 3;
+        } else if (nombreDepartamento.equals("QUINDIO")) {
+            departamentoSeleccionado = 4;
+        } else if (nombreDepartamento.equals("NARIÑO")) {
+            departamentoSeleccionado = 5;
+        } else if (nombreDepartamento.equals("CALDAS")) {
+            departamentoSeleccionado = 6;
+        } else if (nombreDepartamento.equals("CHOCO")) {
+            departamentoSeleccionado = 7;
+        } else if (nombreDepartamento.equals("BOGOTA")) {
+            departamentoSeleccionado = 8;
+        } else if (nombreDepartamento.equals("ANTIOQUIA")) {
+            departamentoSeleccionado = 9;
+        } else if (nombreDepartamento.equals("TOLIMA")) {
+            departamentoSeleccionado = 10;
+        } else if (nombreDepartamento.equals("ATLANTICO")) {
+            departamentoSeleccionado = 11;
+        } else if (nombreDepartamento.equals("SANTANDER")) {
+            departamentoSeleccionado = 12;
+        } else if (nombreDepartamento.equals("HUILA")) {
+            departamentoSeleccionado = 13;
+        } else if (nombreDepartamento.equals("META")) {
+            departamentoSeleccionado = 14;
+        } else if (nombreDepartamento.equals("BOYACA")) {
+            departamentoSeleccionado = 15;
+        } else if (nombreDepartamento.equals("BOLIVAR")) {
+            departamentoSeleccionado = 16;
+        } else if (nombreDepartamento.equals("CAQUETA")) {
+            departamentoSeleccionado = 18;
+        } else if (nombreDepartamento.equals("CESAR")) {
+            departamentoSeleccionado = 20;
+        } else if (nombreDepartamento.equals("CORDOBA")) {
+            departamentoSeleccionado = 23;
+        } else if (nombreDepartamento.equals("CUNDINAMARCA")) {
+            departamentoSeleccionado = 25;
+        } else if (nombreDepartamento.equals("LA GUAJIRA")) {
+            departamentoSeleccionado = 44;
+        } else if (nombreDepartamento.equals("MAGDALENA")) {
+            departamentoSeleccionado = 47;
+        } else if (nombreDepartamento.equals("N. DE SANTANDER")) {
+            departamentoSeleccionado = 54;
+        } else if (nombreDepartamento.equals("SUCRE")) {
+            departamentoSeleccionado = 70;
+        } else if (nombreDepartamento.equals("ARAUCA")) {
+            departamentoSeleccionado = 81;
+        } else if (nombreDepartamento.equals("CASANARE")) {
+            departamentoSeleccionado = 85;
+        } else if (nombreDepartamento.equals("PUTUMAYO")) {
+            departamentoSeleccionado = 86;
+        } else if (nombreDepartamento.equals("SAN ANDRES")) {
+            departamentoSeleccionado = 88;
+        } else if (nombreDepartamento.equals("AMAZONAS")) {
+            departamentoSeleccionado = 91;
+        } else if (nombreDepartamento.equals("GUAINIA")) {
+            departamentoSeleccionado = 94;
+        } else if (nombreDepartamento.equals("GUAVIARE")) {
+            departamentoSeleccionado = 95;
+        } else if (nombreDepartamento.equals("VAUPES")) {
+            departamentoSeleccionado = 97;
+        } else if (nombreDepartamento.equals("VICHADA")) {
+            departamentoSeleccionado = 99;
+        }  
+        
+        return departamentoSeleccionado;
+    }
+    
+    public int obtenerCodigoSede(String nombreSede){
+        
+        int sedeSeleccionada = 0;
+        
+        if (nombreSede.equals("SEDE PALMIRA")) {
+            sedeSeleccionada = 1;
+        } else if (nombreSede.equals("SEDE CALI")) {
+            sedeSeleccionada = 2;
+        } else if (nombreSede.equals("SEDE TULUA")) {
+            sedeSeleccionada = 3;
+        } else if (nombreSede.equals("SEDE PEREIRA")) {
+            sedeSeleccionada = 4;
+        } else if (nombreSede.equals("SEDE ARMENIA")) {
+            sedeSeleccionada = 5;
+        }
+        
+        return sedeSeleccionada;
     }
 
     public void desconectar() {

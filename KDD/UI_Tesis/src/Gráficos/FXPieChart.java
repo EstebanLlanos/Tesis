@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * @author Juan Olaya O
+ * @author Esteban
  */
 public class FXPieChart {
 
@@ -34,19 +34,18 @@ public class FXPieChart {
         this.tags = tags;
         this.values = values;
         this.chartName = chartName;
-
-        final JFXPanel fxPanel = new JFXPanel();
-        JFXPanel PanelVisualizador = fxPanel;
-        PanelVisualizador.setVisible(true);
+        final JFXPanel panelVisualizador = new JFXPanel();
+        
         Visualizador.panelPestanas.removeAll();
-        Visualizador.panelPestanas.addTab("Pie Chart", PanelVisualizador);
-        Visualizador.panelPestanas.removeAll();
-        Visualizador.panelPestanas.addTab("Pie Chart", fxPanel);
+        Visualizador.panelPestanas.addTab("Pie Chart", panelVisualizador);
+        panelVisualizador.setVisible(true);
+        
         System.out.println("Se prepara PieChart");
+        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                initFX(fxPanel, chartName, tags, values);
+                initFX(panelVisualizador, chartName, tags, values);
             }
         });
     }

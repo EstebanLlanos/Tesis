@@ -51,6 +51,10 @@ public class UiVentasCiudades {
         inicializarJLabel(labelDepartamento, "Departamento:          ");
 
         comboBoxDepartamentos = new JComboBox();
+        
+        labelSede = new JLabel();
+        inicializarJLabel(labelSede, "Sede:          ");
+        
         comboBoxSedes = new JComboBox();
 
         botonConsultar = new JButton("Consultar");
@@ -67,6 +71,12 @@ public class UiVentasCiudades {
 
     void hacerConsulta(ActionEvent evt) {
 
+        // Clases para el despligue Gráfico de resultados
+    
+        FXPieChart PieChart;
+        FXBarChart BarChart;
+        FXLineChart LineChart;
+        
         //verificamos que el rango de estrato sea correcto
         
 
@@ -75,19 +85,24 @@ public class UiVentasCiudades {
 
         ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede);
 
-        ArrayList<String> ciudades = new ArrayList();
-        ArrayList<Integer> ventas = new ArrayList();
-        for (int i = 0; i <= ventasPorCiudad.size(); i++) {
-            ciudades.add(ventasPorCiudad.get(i)[0]);
-            ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
-        }
-                
-        if (!ventasPorCiudad.isEmpty()) {
-            FXPieChart PieChart = new FXPieChart("Ventas por Ciudad", ciudades, ventas);
-            FXBarChart BarChart = new FXBarChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas");
-            FXLineChart LineChart = new FXLineChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas");
+        if (ventasPorCiudad.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para ver los resultados. "
+                    + "No fue posible realizar la consulta");
         } else {
-            JOptionPane.showMessageDialog(null, "No se ha extraido la información");
+            ArrayList<String> ciudades = new ArrayList();
+            ArrayList<Integer> ventas = new ArrayList();
+            for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
+                ciudades.add(ventasPorCiudad.get(i)[0]);
+                ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
+            }
+
+            if (!ventasPorCiudad.isEmpty()) {
+                PieChart = new FXPieChart("Ventas por Ciudad", ciudades, ventas);
+                BarChart = new FXBarChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
+                LineChart = new FXLineChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se ha extraido la información");
+            }
         }
     }
     
@@ -118,8 +133,9 @@ public class UiVentasCiudades {
             
             System.out.println("Conexión establecida");
 
+            listaDepartamentos.add("Escoger una Opción...");
+            
             while (tabla.next()) {
-                System.out.println("Resultado Columna 1: " + tabla.getObject(1));
                 listaDepartamentos.add(tabla.getObject(1) + "");
             }
         } catch (Exception ex) {
@@ -148,6 +164,8 @@ public class UiVentasCiudades {
             
             System.out.println("Conexión establecida");
 
+            listaSedes.add("Escoger una Opción...");
+            
             while (tabla.next()) {
                 listaSedes.add(tabla.getObject(1) + "");
             }

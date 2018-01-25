@@ -18,7 +18,7 @@ import javafx.scene.chart.XYChart;
 
 /**
  *
- * @author Juan Olaya O
+ * @author Esteban
  */
 public class FXBarChart {
     final String chartName, valuesName, tagName, legend;
@@ -33,17 +33,26 @@ public class FXBarChart {
         this.valuesName = valuesName;
         this.tagName = tagName;
         this.legend = legend;
-
-        final JFXPanel fxPanel = new JFXPanel();
-        Visualizador.panelPestanas.addTab("Bar Chart", fxPanel);
+        final JFXPanel panelVisualizador = new JFXPanel();
         
-        Platform.runLater(() -> {
-            initFX(fxPanel, chartName, tags, tagName, values, valuesName, legend);
+        Visualizador.panelPestanas.addTab("Bar Chart", panelVisualizador);
+        panelVisualizador.setVisible(true);
+        
+        System.out.println("Se prepara BarChart");
+        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
+            }
         });
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         // This method is invoked on the JavaFX thread
+        
+        System.out.println("Se inicia BarChart");
+        
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
@@ -51,6 +60,8 @@ public class FXBarChart {
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
 
+        System.out.println("Se dibuja BarChart");
+        
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc
