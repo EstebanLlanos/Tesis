@@ -60,23 +60,23 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuSeleccionarHecho">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image img = new ImageIcon(getClass().getResource(&quot;/Recursos/seleccionar.png&quot;)).getImage();&#xa;ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 40, 40));">
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image img = new ImageIcon(getClass().getResource(&quot;/Recursos/seleccionar.png&quot;)).getImage();&#xa;ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 30, 30));">
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="selectIcon" type="code"/>
                 </Property>
-                <Property name="label" type="java.lang.String" value="Seleccionar Objeto de Consulta"/>
+                <Property name="text" type="java.lang.String" value="Seleccionar Objeto de Consulta..."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuSeleccionarHechoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuResumenes">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image resumeImg = new ImageIcon(getClass().getResource(&quot;/Recursos/resumenes.png&quot;)).getImage();&#xa;ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 40, 40));">
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image resumeImg = new ImageIcon(getClass().getResource(&quot;/Recursos/resumenes.png&quot;)).getImage();&#xa;ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));">
                   <KeyStroke key="Ctrl+R"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -85,12 +85,12 @@
                 <Property name="text" type="java.lang.String" value="Res&#xfa;menes"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuResumenesActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image exitImg = new ImageIcon(getClass().getResource(&quot;/Recursos/salir.png&quot;)).getImage();&#xa;ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 40, 40));">
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image exitImg = new ImageIcon(getClass().getResource(&quot;/Recursos/salir.png&quot;)).getImage();&#xa;ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">

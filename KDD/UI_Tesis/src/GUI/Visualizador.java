@@ -212,8 +212,8 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuSeleccionarHecho = new javax.swing.JMenuItem();
+        jMenuResumenes = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
@@ -245,33 +245,33 @@ public class Visualizador extends javax.swing.JFrame {
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuSeleccionarHecho.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         Image img = new ImageIcon(getClass().getResource("/Recursos/seleccionar.png")).getImage();
-        ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 40, 40));
-        jMenuItem2.setIcon(selectIcon);
-        jMenuItem2.setLabel("Seleccionar Objeto de Consulta");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 30, 30));
+        jMenuSeleccionarHecho.setIcon(selectIcon);
+        jMenuSeleccionarHecho.setText("Seleccionar Objeto de Consulta...");
+        jMenuSeleccionarHecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuSeleccionarHechoActionPerformed(evt);
             }
         });
-        salir.add(jMenuItem2);
+        salir.add(jMenuSeleccionarHecho);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuResumenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
-        ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 40, 40));
-        jMenuItem3.setIcon(resumeIcon);
-        jMenuItem3.setText("Resúmenes");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));
+        jMenuResumenes.setIcon(resumeIcon);
+        jMenuResumenes.setText("Resúmenes");
+        jMenuResumenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuResumenesActionPerformed(evt);
             }
         });
-        salir.add(jMenuItem3);
+        salir.add(jMenuResumenes);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
-        ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 40, 40));
+        ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));
         jMenuItem1.setIcon(exitIcon);
         jMenuItem1.setText("Salir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,13 +321,13 @@ public class Visualizador extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSeleccionarHechoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuSeleccionarHechoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuResumenesActionPerformed
 
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -396,8 +396,8 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuResumenes;
+    private javax.swing.JMenuItem jMenuSeleccionarHecho;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPanel panelOpciones;
