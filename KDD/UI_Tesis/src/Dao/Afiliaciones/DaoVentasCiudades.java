@@ -37,21 +37,74 @@ public class DaoVentasCiudades {
 
         int codigoDepartamento = obtenerCodigoDepartamento(ventasCiudades.getDepartamento());
         int codigoSede = obtenerCodigoSede(ventasCiudades.getSede());
+        int anioInicio = 0;
+        int anioFin = 0;
+        
+        if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
+            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio()+"0101");
+            anioFin = Integer.parseInt(ventasCiudades.getAnioFin()+"1201");
+        } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
+            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio()+"0101");
+        } else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
+            anioFin = Integer.parseInt(ventasCiudades.getAnioFin()+"1201");
+        }
         
         //TODOS
         if (!ventasCiudades.getSede().equals("Escoger una Opción...") && ventasCiudades.getDepartamento().equals("Escoger una Opción...")) {
 
-            where = " WHERE dv.sede_venta = '" + codigoSede + "'";
+            if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: SEDE + INICIO + FIN ----------------------------");
+                where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+            } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: SEDE + INICIO ----------------------------");
+                where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+            }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: SEDE + FIN ----------------------------");
+                return "Error Fecha";
+            } else {
+                System.out.println("---------------------- ENTRA A: SEDE ----------------------------");
+                where = " WHERE dv.sede_venta = '" + codigoSede + "'";
+            }
 
         } //TODOS
         else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && ventasCiudades.getSede().equals("Escoger una Opción...")) {
 
-            where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento + "'";
+            if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + INICIO + FIN ----------------------------");
+                where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+            } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + INICIO ----------------------------");
+                where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+            }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + FIN ----------------------------");
+                return "Error Fecha";
+            } else {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO ----------------------------");
+                where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento + "'";
+            }
 
         }
         else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && !ventasCiudades.getSede().equals("Escoger una Opción...")) {
             
-            where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento + "'";
+            if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + INICIO + FIN ----------------------------");
+                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+            } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + INICIO ----------------------------");
+                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento 
+                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+            }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + FIN ----------------------------");
+                return "Error Fecha";
+            } else {
+                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE ----------------------------");
+                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento + "'";
+            }
             
         } else {
             

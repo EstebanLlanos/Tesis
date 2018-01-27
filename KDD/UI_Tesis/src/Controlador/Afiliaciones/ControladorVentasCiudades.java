@@ -24,20 +24,44 @@ public class ControladorVentasCiudades {
         daoVentasCiudades = new DaoVentasCiudades();
     }
 
-    public ArrayList<String[]> getVentas(String departamento, String sede) {
+    public ArrayList<String[]> getVentas(String departamento, String sede, String anioInicio, String anioFin) {
 
         String departamentoVentas = departamento;
         String sedeVentas = sede;
+        
+        String anioInicioVentas = anioInicio;
+        String anioFinVentas = anioFin;
 
         VentasCiudades ventasCiudades = new VentasCiudades();
         ventasCiudades.setDepartamento(departamentoVentas);
         ventasCiudades.setSede(sedeVentas);
+        ventasCiudades.setAnioInicio(anioInicioVentas);
+        ventasCiudades.setAnioFin(anioFinVentas);
 
+        if (!anioInicioVentas.equals("Escoger una Opción...") && !anioFinVentas.equals("Escoger una Opción...") ) {
+            int anioInicial = Integer.parseInt(anioInicioVentas);
+            int anioFinal = Integer.parseInt(anioFinVentas);
+            
+            if (anioInicial > anioFinal) {
+                String[] error = new String[1];
+                error[0] = "Error Fecha";
+                conteoVentas.add(error);
+
+                return conteoVentas;   
+            }
+        }
+        
         String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades);
         
         if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];
             error[0] = "Error";
+            conteoVentas.add(error);
+            
+            return conteoVentas;
+        } else if (restriccionesClausulaWhere.equals("Error Fecha")) {
+            String[] error = new String[1];
+            error[0] = "Error Fecha";
             conteoVentas.add(error);
             
             return conteoVentas;

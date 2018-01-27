@@ -30,8 +30,8 @@ import javax.swing.JOptionPane;
 
 public class UiVentasCiudades {
     
-    JComboBox comboBoxDepartamentos, comboBoxSedes;
-    JLabel labelDepartamento, labelSede;
+    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin;
+    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin;
     JButton botonConsultar;
     
     ControladorVentasCiudades controladorVentasCiudad;
@@ -55,6 +55,16 @@ public class UiVentasCiudades {
         labelSede = new JLabel();
         inicializarJLabel(labelSede, "Sede:          ");
         
+        labelAnioInicio = new JLabel();
+        inicializarJLabel(labelAnioInicio, "Desde:          ");
+        
+        comboBoxAnioInicio = new JComboBox();        
+        
+        labelAnioFin = new JLabel();
+        inicializarJLabel(labelAnioFin, "Hasta:          ");
+        
+        comboBoxAnioFin = new JComboBox();
+        
         comboBoxSedes = new JComboBox();
 
         botonConsultar = new JButton("Consultar");
@@ -67,6 +77,8 @@ public class UiVentasCiudades {
         
         inicializarDepartamentos(comboBoxDepartamentos);
         inicializarSedes(comboBoxSedes);
+        inicializarAnios(comboBoxAnioInicio);
+        inicializarAnios(comboBoxAnioFin);
     }
 
     void hacerConsulta(ActionEvent evt) {
@@ -82,28 +94,38 @@ public class UiVentasCiudades {
 
         String departamento = "" + comboBoxDepartamentos.getSelectedItem();
         String sede = "" + comboBoxSedes.getSelectedItem();
+        String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
+        String anioFin = "" + comboBoxAnioFin.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede);
+        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, anioFin);
 
         if (ventasPorCiudad.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
+            
         } else if(ventasPorCiudad.get(0)[0].equals("Error")){
             JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
+        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha")){
+            JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
+                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
         }else {
-            ArrayList<String> ciudades = new ArrayList();
-            ArrayList<Integer> ventas = new ArrayList();
-            for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
-                ciudades.add(ventasPorCiudad.get(i)[0]);
-                ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
-            }
+            try{ ArrayList<String> ciudades = new ArrayList();
+                ArrayList<Integer> ventas = new ArrayList();
+                for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
+                    ciudades.add(ventasPorCiudad.get(i)[0]);
+                    ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
+                }
 
-            if (!ventasPorCiudad.isEmpty()) {
-                PieChart = new FXPieChart("Ventas por Ciudad", ciudades, ventas);
-                BarChart = new FXBarChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
-                LineChart = new FXLineChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se ha extraido la información");
+                if (!ventasPorCiudad.isEmpty()) {
+                    PieChart = new FXPieChart("Ventas por Ciudad", ciudades, ventas);
+                    BarChart = new FXBarChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
+                    LineChart = new FXLineChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ha extraido la información");
+                }
+            } catch(ArrayIndexOutOfBoundsException ex){
+                JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
+                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
             }
         }
     }
@@ -205,31 +227,35 @@ public class UiVentasCiudades {
         }
     }
 
-    protected void inicializarAnios(JComboBox anios) {
+    protected void inicializarAnios(JComboBox anioVentas) {
 
-        anios.setVisible(true);
-        anios.setMaximumSize(new Dimension(170, 30));
+        anioVentas.setVisible(true);
+        anioVentas.setMaximumSize(new Dimension(170, 30));
 
-        String anos[][] = new String[16][1];
-        anos[0][0] = "Escoger una Opción";
-        anos[1][0] = "2000";
-        anos[2][0] = "2001";
-        anos[3][0] = "2002";
-        anos[4][0] = "2003";
-        anos[5][0] = "2004";
-        anos[6][0] = "2005";
-        anos[7][0] = "2006";
-        anos[8][0] = "2007";
-        anos[9][0] = "2008";
-        anos[10][0] = "2009";
-        anos[11][0] = "2010";
-        anos[12][0] = "2011";
-        anos[13][0] = "2012";
-        anos[14][0] = "2013";
-        anos[15][0] = "2014";
+        String[][] anios = new String[20][1];
+        anios[0][0] = "Escoger una Opción...";
+        anios[1][0] = "2000";
+        anios[2][0] = "2001";
+        anios[3][0] = "2002";
+        anios[4][0] = "2003";
+        anios[5][0] = "2004";
+        anios[6][0] = "2005";
+        anios[7][0] = "2006";
+        anios[8][0] = "2007";
+        anios[9][0] = "2008";
+        anios[10][0] = "2009";
+        anios[11][0] = "2010";
+        anios[12][0] = "2011";
+        anios[13][0] = "2012";
+        anios[14][0] = "2013";
+        anios[15][0] = "2014";
+        anios[16][0] = "2015";
+        anios[17][0] = "2016";
+        anios[18][0] = "2017";
+        anios[19][0] = "2018";
 
-        for (int i = 0; i < anos.length; i++) {
-            anios.addItem(anos[i][0]);
+        for (int i = 0; i < anios.length; i++) {
+            anioVentas.addItem(anios[i][0]);
         }
     }
 
@@ -264,4 +290,38 @@ public class UiVentasCiudades {
     public void setBotonConsultar(JButton botonConsultar) {
         this.botonConsultar = botonConsultar;
     }
+
+    public JComboBox getComboBoxAnioInicio() {
+        return comboBoxAnioInicio;
+    }
+
+    public void setComboBoxAnioInicio(JComboBox comboBoxAnioInicio) {
+        this.comboBoxAnioInicio = comboBoxAnioInicio;
+    }
+
+    public JComboBox getComboBoxAnioFin() {
+        return comboBoxAnioFin;
+    }
+
+    public void setComboBoxAnioFin(JComboBox comboBoxAnioFin) {
+        this.comboBoxAnioFin = comboBoxAnioFin;
+    }
+
+    public JLabel getLabelAnioInicio() {
+        return labelAnioInicio;
+    }
+
+    public void setLabelAnioInicio(JLabel labelAnioInicio) {
+        this.labelAnioInicio = labelAnioInicio;
+    }
+
+    public JLabel getLabelAnioFin() {
+        return labelAnioFin;
+    }
+
+    public void setLabelAnioFin(JLabel labelAnioFin) {
+        this.labelAnioFin = labelAnioFin;
+    }
+    
+    
 }
