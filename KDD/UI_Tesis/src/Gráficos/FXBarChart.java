@@ -35,9 +35,7 @@ public class FXBarChart {
         this.tagName = tagName;
         this.legend = legend;
         final JFXPanel panelVisualizador = new JFXPanel();
-        
-        System.out.println("Se prepara BarChart");
-        
+                
         Task task = new Task<Void>() { 
             
             @Override
@@ -50,39 +48,28 @@ public class FXBarChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Bar Chart")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Bar Chart")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Bar Chart")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("GRÁFICO DE BARRAS", panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico De Barras", panelVisualizador);
         panelVisualizador.setVisible(true);
         
-        /*Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
-            }
-        });*/
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
-        // This method is invoked on the JavaFX thread
-        
-        System.out.println("Se inicia BarChart");
-        
+        // This method is invoked on the JavaFX thread      
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
 
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
-
-        System.out.println("Se dibuja BarChart");
         
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

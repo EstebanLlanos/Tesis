@@ -36,9 +36,7 @@ public class FXLineChart {
         this.tagName = tagName;
         this.legend = legend;
         final JFXPanel panelVisualizador = new JFXPanel();
-        
-        System.out.println("Se prepara LineChart");
-        
+                
         Task task = new Task<Void>() { 
             
             @Override
@@ -51,36 +49,28 @@ public class FXLineChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Line Chart")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Line Chart")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Line Chart")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("GRÁFICO DE LINEA", panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico Lineal", panelVisualizador);
         panelVisualizador.setVisible(true);
-        /*Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(panelVisualizador, chartName, tags, tagName, values, valuesName, legend);
-            }
-        });*/
+  
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         // This method is invoked on the JavaFX thread
-        System.out.println("Se inicia LineChart");
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
 
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
-
-        System.out.println("Se dibuja LineChart");
         
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

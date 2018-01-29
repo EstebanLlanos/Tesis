@@ -81,6 +81,8 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorCiudad.getComboBoxAnioInicio());
         panelOpciones.add(ventasPorCiudad.getLabelAnioFin());
         panelOpciones.add(ventasPorCiudad.getComboBoxAnioFin());
+        panelOpciones.add(ventasPorCiudad.getLabelCriterioConsulta());
+        panelOpciones.add(ventasPorCiudad.getComboBoxCriterioConsulta());
         panelOpciones.add(ventasPorCiudad.getBotonConsultar());
         panelOpciones.updateUI();
     }
@@ -246,7 +248,6 @@ public class Visualizador extends javax.swing.JFrame {
             }
         }
 
-        System.out.println(comboBoxPreguntas.getSelectedItem() + " - Código de la pregunta: " + codigoDePregunta);
         asignarComponentes(codigoDePregunta);
     }
 

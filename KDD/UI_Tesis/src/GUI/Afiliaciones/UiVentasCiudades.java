@@ -30,8 +30,8 @@ import javax.swing.JOptionPane;
 
 public class UiVentasCiudades {
     
-    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin;
+    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
+    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta;
     JButton botonConsultar;
     
     ControladorVentasCiudades controladorVentasCiudad;
@@ -63,9 +63,14 @@ public class UiVentasCiudades {
         labelAnioFin = new JLabel();
         inicializarJLabel(labelAnioFin, "Hasta:          ");
         
+        labelCriterioConsulta = new JLabel();
+        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:          ");
+        
         comboBoxAnioFin = new JComboBox();
         
         comboBoxSedes = new JComboBox();
+        
+        comboBoxCriterioConsulta = new JComboBox();
 
         botonConsultar = new JButton("Consultar");
 
@@ -79,6 +84,7 @@ public class UiVentasCiudades {
         inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
+        inicializarCriteriosDeConsulta(comboBoxCriterioConsulta);
     }
 
     void hacerConsulta(ActionEvent evt) {
@@ -90,14 +96,14 @@ public class UiVentasCiudades {
         FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
-        
 
         String departamento = "" + comboBoxDepartamentos.getSelectedItem();
         String sede = "" + comboBoxSedes.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
+        String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, anioFin);
+        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, anioFin, criterioConsulta);
 
         if (ventasPorCiudad.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
@@ -117,9 +123,9 @@ public class UiVentasCiudades {
                 }
 
                 if (!ventasPorCiudad.isEmpty()) {
-                    PieChart = new FXPieChart("Ventas por Ciudad", ciudades, ventas);
-                    BarChart = new FXBarChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
-                    LineChart = new FXLineChart("Ventas por Ciudad", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas por Ciudad");
+                    PieChart = new FXPieChart("Top 5 Ciudades - Ventas", ciudades, ventas);
+                    BarChart = new FXBarChart("Top 5 Ciudades - Ventas", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart("Top 5 Ciudades - Ventas", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
@@ -138,13 +144,28 @@ public class UiVentasCiudades {
         label.setMaximumSize(new Dimension(170, 30));
         label.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
     }
+    
+    protected void inicializarCriteriosDeConsulta(JComboBox criteriosDeConsulta){
+        
+        criteriosDeConsulta.setVisible(true);
+        criteriosDeConsulta.setMaximumSize(new Dimension(200, 30));
+
+        String meses[][] = new String[2][1];
+        meses[0][0] = "Mayor Número de Ventas";
+        meses[1][0] = "Menor Número de Ventas";
+
+        for (int i = 0; i < meses.length; i++) {
+            criteriosDeConsulta.addItem(meses[i][0]);
+        }
+    
+    }
 
     protected void inicializarDepartamentos(JComboBox departamentos) {
 
         BaseDeDatos = new ConexionBD();
         
         departamentos.setVisible(true);
-        departamentos.setMaximumSize(new Dimension(200, 30));
+        departamentos.setMaximumSize(new Dimension(250, 30));
         
         ArrayList<String> listaDepartamentos = new ArrayList();
         
@@ -154,8 +175,6 @@ public class UiVentasCiudades {
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_departamento "
                     + "FROM departamento;");
-            
-            System.out.println("Conexión establecida");
 
             listaDepartamentos.add("Escoger una Opción...");
             
@@ -176,7 +195,7 @@ public class UiVentasCiudades {
         BaseDeDatos = new ConexionBD();
         
         sedes.setVisible(true);
-        sedes.setMaximumSize(new Dimension(200, 30));
+        sedes.setMaximumSize(new Dimension(250, 30));
         
         ArrayList<String> listaSedes = new ArrayList();
         
@@ -185,8 +204,7 @@ public class UiVentasCiudades {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_sede FROM sede;");
-            
-            System.out.println("Conexión establecida");
+
 
             listaSedes.add("Escoger una Opción...");
             
@@ -205,7 +223,7 @@ public class UiVentasCiudades {
     protected void inicializarMeses(JComboBox entradaMeses) {
 
         entradaMeses.setVisible(true);
-        entradaMeses.setMaximumSize(new Dimension(200, 30));
+        entradaMeses.setMaximumSize(new Dimension(230, 30));
 
         String meses[][] = new String[13][1];
         meses[0][0] = "General";
@@ -230,29 +248,17 @@ public class UiVentasCiudades {
     protected void inicializarAnios(JComboBox anioVentas) {
 
         anioVentas.setVisible(true);
-        anioVentas.setMaximumSize(new Dimension(170, 30));
+        anioVentas.setMaximumSize(new Dimension(250, 30));
 
-        String[][] anios = new String[20][1];
+        String[][] anios = new String[8][1];
         anios[0][0] = "Escoger una Opción...";
-        anios[1][0] = "2000";
-        anios[2][0] = "2001";
-        anios[3][0] = "2002";
-        anios[4][0] = "2003";
-        anios[5][0] = "2004";
-        anios[6][0] = "2005";
-        anios[7][0] = "2006";
-        anios[8][0] = "2007";
-        anios[9][0] = "2008";
-        anios[10][0] = "2009";
-        anios[11][0] = "2010";
-        anios[12][0] = "2011";
-        anios[13][0] = "2012";
-        anios[14][0] = "2013";
-        anios[15][0] = "2014";
-        anios[16][0] = "2015";
-        anios[17][0] = "2016";
-        anios[18][0] = "2017";
-        anios[19][0] = "2018";
+        anios[1][0] = "2012";
+        anios[2][0] = "2013";
+        anios[3][0] = "2014";
+        anios[4][0] = "2015";
+        anios[5][0] = "2016";
+        anios[6][0] = "2017";
+        anios[7][0] = "2018";
 
         for (int i = 0; i < anios.length; i++) {
             anioVentas.addItem(anios[i][0]);
@@ -322,6 +328,21 @@ public class UiVentasCiudades {
     public void setLabelAnioFin(JLabel labelAnioFin) {
         this.labelAnioFin = labelAnioFin;
     }
-    
+
+    public JComboBox getComboBoxCriterioConsulta() {
+        return comboBoxCriterioConsulta;
+    }
+
+    public void setComboBoxCriterioConsulta(JComboBox comboBoxCriterioConsulta) {
+        this.comboBoxCriterioConsulta = comboBoxCriterioConsulta;
+    }
+
+    public JLabel getLabelCriterioConsulta() {
+        return labelCriterioConsulta;
+    }
+
+    public void setLabelCriterioConsulta(JLabel labelCriterioConsulta) {
+        this.labelCriterioConsulta = labelCriterioConsulta;
+    }
     
 }

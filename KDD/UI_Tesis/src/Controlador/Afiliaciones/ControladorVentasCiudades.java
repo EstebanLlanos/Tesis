@@ -24,13 +24,15 @@ public class ControladorVentasCiudades {
         daoVentasCiudades = new DaoVentasCiudades();
     }
 
-    public ArrayList<String[]> getVentas(String departamento, String sede, String anioInicio, String anioFin) {
+    public ArrayList<String[]> getVentas(String departamento, String sede, String anioInicio, String anioFin, String criterioConsulta) {
 
         String departamentoVentas = departamento;
         String sedeVentas = sede;
         
         String anioInicioVentas = anioInicio;
         String anioFinVentas = anioFin;
+        
+        String criterioConsultaVentas = criterioConsulta;
 
         VentasCiudades ventasCiudades = new VentasCiudades();
         ventasCiudades.setDepartamento(departamentoVentas);
@@ -51,7 +53,7 @@ public class ControladorVentasCiudades {
             }
         }
         
-        String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades);
+        String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades, criterioConsulta);
         
         if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];

@@ -26,13 +26,15 @@ public class DaoVentasCiudades {
     Connection conn;
     Statement stmt;
     public static ResultSet rsCandidato;
+    public String criterioConsultaVentas;
 
     public DaoVentasCiudades() {
         BaseDeDatos = new ConexionBD();
     }
 
-    public String prepararRestriccionesClausulaWhereVentas(VentasCiudades ventasCiudades) {
+    public String prepararRestriccionesClausulaWhereVentas(VentasCiudades ventasCiudades, String criterioConsulta) {
 
+        criterioConsultaVentas = criterioConsulta;
         String where = "";
 
         int codigoDepartamento = obtenerCodigoDepartamento(ventasCiudades.getDepartamento());
@@ -40,6 +42,10 @@ public class DaoVentasCiudades {
         int anioInicio = 0;
         int anioFin = 0;
         
+        /*
+        * En esta parte de determina el formato que debe tener el año de inicio y dde fin de la consulta
+        * de acueerdo a la selección que el usuario haya hecho
+        */
         if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
             anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio()+"0101");
             anioFin = Integer.parseInt(ventasCiudades.getAnioFin()+"1201");
@@ -53,18 +59,14 @@ public class DaoVentasCiudades {
         if (!ventasCiudades.getSede().equals("Escoger una Opción...") && ventasCiudades.getDepartamento().equals("Escoger una Opción...")) {
 
             if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: SEDE + INICIO + FIN ----------------------------");
                 where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
             } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: SEDE + INICIO ----------------------------");
                 where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
             }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: SEDE + FIN ----------------------------");
                 return "Error Fecha";
             } else {
-                System.out.println("---------------------- ENTRA A: SEDE ----------------------------");
                 where = " WHERE dv.sede_venta = '" + codigoSede + "'";
             }
 
@@ -72,18 +74,14 @@ public class DaoVentasCiudades {
         else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && ventasCiudades.getSede().equals("Escoger una Opción...")) {
 
             if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + INICIO + FIN ----------------------------");
                 where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
             } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + INICIO ----------------------------");
-                where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+                where = " WHERE cd.departamento_ciudad = '" + codigoDepartamento 
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
             }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + FIN ----------------------------");
                 return "Error Fecha";
             } else {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO ----------------------------");
                 where = "WHERE cd.departamento_ciudad = '" + codigoDepartamento + "'";
             }
 
@@ -91,18 +89,14 @@ public class DaoVentasCiudades {
         else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && !ventasCiudades.getSede().equals("Escoger una Opción...")) {
             
             if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + INICIO + FIN ----------------------------");
                 where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta <= " + anioFin;
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ")";
             } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + INICIO ----------------------------");
                 where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento 
-                        + "' AND dv.fecha_venta >= " + anioInicio + " AND dv.fecha_venta >= " + ((anioInicio+"").substring(0, 4)+"1201");
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
             }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE + FIN ----------------------------");
                 return "Error Fecha";
             } else {
-                System.out.println("---------------------- ENTRA A: DEPARTAMENTO + SEDE ----------------------------");
                 where = "WHERE dv.sede_venta = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento + "'";
             }
             
@@ -119,9 +113,15 @@ public class DaoVentasCiudades {
         ArrayList<String[]> conteoVentas = new ArrayList<String[]>();
         String sql_select;
         
-        sql_select = "SELECT cd.nombre_ciudad, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN ciudad cd "
+        if (criterioConsultaVentas.equals("Mayor Número de Ventas")) {
+            sql_select = "SELECT cd.nombre_ciudad, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN ciudad cd "
                 + " ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) "+ where +" GROUP BY cd.nombre_ciudad"
-                + " ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";
+                + " ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";   
+        } else {
+            sql_select = "SELECT cd.nombre_ciudad, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN ciudad cd "
+                + " ON (dv.ciudad_venta = CAST ( cd.cod_ciudad AS BIGINT )) "+ where +" GROUP BY cd.nombre_ciudad"
+                + " ORDER BY SUM(dv.total_ventas) ASC LIMIT 5;";
+        }
         
         System.out.println("Consulta: " + sql_select);
 
@@ -129,8 +129,6 @@ public class DaoVentasCiudades {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery(sql_select);
-
-            System.out.println("Conexión establecida");
             
             while (tabla.next()) {
                 
