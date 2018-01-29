@@ -63,7 +63,7 @@ public class FXPieChart {
             }
         }
         
-        Visualizador.panelPestanas.addTab("Pie Chart", panelVisualizador);
+        Visualizador.panelPestanas.addTab("GRÁFICO DE TORTA", panelVisualizador);
         panelVisualizador.setVisible(true);
         
         /*Platform.runLater(new Runnable() {

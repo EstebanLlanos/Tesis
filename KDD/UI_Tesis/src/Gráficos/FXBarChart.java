@@ -7,7 +7,6 @@ package Gráficos;
 
 import GUI.Visualizador;
 import java.util.ArrayList;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
@@ -16,6 +15,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -59,7 +59,7 @@ public class FXBarChart {
             }
         }
         
-        Visualizador.panelPestanas.addTab("Bar Chart", panelVisualizador);
+        Visualizador.panelPestanas.addTab("GRÁFICO DE BARRAS", panelVisualizador);
         panelVisualizador.setVisible(true);
         
         /*Platform.runLater(new Runnable() {

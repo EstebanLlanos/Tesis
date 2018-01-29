@@ -60,7 +60,7 @@ public class FXLineChart {
             }
         }
         
-        Visualizador.panelPestanas.addTab("Line Chart", panelVisualizador);
+        Visualizador.panelPestanas.addTab("GRÁFICO DE LINEA", panelVisualizador);
         panelVisualizador.setVisible(true);
         /*Platform.runLater(new Runnable() {
             @Override
