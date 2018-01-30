@@ -13,11 +13,14 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 
 /**
@@ -36,9 +39,11 @@ public class FXPieChart {
         this.values = values;
         this.chartName = chartName;
         final JFXPanel panelVisualizador = new JFXPanel();
+        final ScrollBar barra = new ScrollBar();
         
         //Visualizador.panelPestanas.removeAll();
         panelVisualizador.removeAll();
+        panelVisualizador.setAutoscrolls(true);
                 
         Task task = new Task<Void>() { 
             
@@ -82,10 +87,12 @@ public class FXPieChart {
         }
 
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle(chartName);
-
+        //chart.setTitle(chartName);
+        //chart.setTitleSide(Side.BOTTOM);
+        
         final Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
+        caption.setOpacity(0.9);
         caption.setStyle("-fx-font: 20 arial;-fx-text-fill: midnightblue;");
 
         chart.getData().forEach((data) -> {
@@ -99,7 +106,15 @@ public class FXPieChart {
                         }
                     });
         });
-
+        
+        chart.setLegendSide(Side.LEFT);
+        
+        chart.setPrefSize(1100, 1100);
+        chart.setMinSize(400, 400);
+        chart.setStartAngle(250);
+        
+        chart.setTranslateY(-200);
+        
         ((Group) scene.getRoot()).getChildren().add(chart);
         ((Group) scene.getRoot()).getChildren().add(caption);
 

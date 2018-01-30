@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.Afiliaciones.UiVentasCiudades;
+import GUI.Afiliaciones.UiVentasVendedores;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -18,6 +19,7 @@ public class Visualizador extends javax.swing.JFrame {
 
     String arregloPreguntas[][];
     JComboBox comboBoxPreguntas;
+    public int elementoConsultaSeleccionada = 0;
 
     public Visualizador() {
         super("Interfaz de Visualización - PREVISER");
@@ -25,8 +27,10 @@ public class Visualizador extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         panelOpciones.setLayout(layout);
-
+        
+        JOptionPane.showMessageDialog(null, "Para iniciar recuerde seleccionar el objeto de su consulta desde el menú ARCHIVO.");
         //Inicializamos y asignamos las Preguntas
+        comboBoxPreguntas = new JComboBox();
         comboBoxPreguntas = this.setPreguntas();
         comboBoxPreguntas.addActionListener(this::preguntasActionPerformed);
         panelPreguntas.add(comboBoxPreguntas);
@@ -34,14 +38,35 @@ public class Visualizador extends javax.swing.JFrame {
 
     private JComboBox setPreguntas() {
 
-        comboBoxPreguntas = new JComboBox();
-        //columna #0 = Pregunta
-        arregloPreguntas = new String[2][1];
-        arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
-        arregloPreguntas[1][0] = "Venta de Afiliaciones por Sede y Departamento";
+        if (elementoConsultaSeleccionada != 0) {
 
-        for (String[] arregloPregunta : arregloPreguntas) {
-            comboBoxPreguntas.addItem(arregloPregunta[0]);
+            switch (elementoConsultaSeleccionada) {
+                case 1:
+                    
+                    System.out.println("elemento consulta seleccionada: " + elementoConsultaSeleccionada);
+                    
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[3][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Venta de Afiliaciones por Ciudades";
+                    arregloPreguntas[2][0] = "Venta de Afiliaciones por Vendedor";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
+                    
+                case 2:
+                    
+                    break;
+                default:
+                    
+                    break;
+            }
+
+        } else {
+            //por ahora eliminamos los componentes de la interfaz
+            panelOpciones.removeAll();
+            panelOpciones.updateUI();
         }
         
         return comboBoxPreguntas;
@@ -50,12 +75,16 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignarComponentes(int codigoDePregunta) {
 
         //según la pregunta que se elija asignamos unos componentes a la interfaz
-        if (codigoDePregunta == 1) {
+        if (codigoDePregunta > 0) {
 
             switch (codigoDePregunta) {
                 case 1:
                     UiVentasCiudades ventasPorCiudad = new UiVentasCiudades();
                     asignaComponentesVentasCiudad(ventasPorCiudad);
+                    break;
+                case 2:
+                    UiVentasVendedores ventasPorVendedor = new UiVentasVendedores();
+                    asignaComponentesVentasVendedor(ventasPorVendedor);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -86,6 +115,23 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorCiudad.getBotonConsultar());
         panelOpciones.updateUI();
     }
+    
+    private void asignaComponentesVentasVendedor(UiVentasVendedores ventasPorVendedor) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(ventasPorVendedor.getLabelCiudad());
+        panelOpciones.add(ventasPorVendedor.getComboBoxCiudades());
+        panelOpciones.add(ventasPorVendedor.getLabelSede());
+        panelOpciones.add(ventasPorVendedor.getComboBoxSedes());
+        panelOpciones.add(ventasPorVendedor.getLabelAnioInicio());
+        panelOpciones.add(ventasPorVendedor.getComboBoxAnioInicio());
+        panelOpciones.add(ventasPorVendedor.getLabelAnioFin());
+        panelOpciones.add(ventasPorVendedor.getComboBoxAnioFin());
+        panelOpciones.add(ventasPorVendedor.getLabelCriterioConsulta());
+        panelOpciones.add(ventasPorVendedor.getComboBoxCriterioConsulta());
+        panelOpciones.add(ventasPorVendedor.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +153,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
-        jMenuSeleccionarHecho = new javax.swing.JMenuItem();
+        menuSeleccionarHecho = new javax.swing.JMenuItem();
         jMenuResumenes = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -125,36 +171,44 @@ public class Visualizador extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 255, 153));
         setMinimumSize(new java.awt.Dimension(600, 400));
+        setSize(new java.awt.Dimension(1500, 1000));
 
-        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16))); // NOI18N
+        panelOpciones.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         panelOpciones.setMinimumSize(new java.awt.Dimension(150, 0));
         panelOpciones.setLayout(new java.awt.GridLayout(1, 0));
 
-        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder("Consultas Disponibles"));
+        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas Disponibles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16)));
+        panelPreguntas.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         panelPreguntas.setMinimumSize(new java.awt.Dimension(150, 0));
         panelPreguntas.setLayout(new javax.swing.BoxLayout(panelPreguntas, javax.swing.BoxLayout.LINE_AXIS));
 
         panelPestanas.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(179, 179, 179), 1, true), null));
+        panelPestanas.setAutoscrolls(true);
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        salir.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
 
-        jMenuSeleccionarHecho.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        menuSeleccionarHecho.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         Image img = new ImageIcon(getClass().getResource("/Recursos/seleccionar.png")).getImage();
         ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 30, 30));
-        jMenuSeleccionarHecho.setIcon(selectIcon);
-        jMenuSeleccionarHecho.setText("Seleccionar Objeto de Consulta...");
-        jMenuSeleccionarHecho.addActionListener(new java.awt.event.ActionListener() {
+        menuSeleccionarHecho.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        menuSeleccionarHecho.setIcon(selectIcon);
+        menuSeleccionarHecho.setText("Seleccionar Objeto de Consulta...");
+        menuSeleccionarHecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSeleccionarHechoActionPerformed(evt);
+                menuSeleccionarHechoActionPerformed(evt);
             }
         });
-        salir.add(jMenuSeleccionarHecho);
+        salir.add(menuSeleccionarHecho);
 
         jMenuResumenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
         ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));
+        jMenuResumenes.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jMenuResumenes.setIcon(resumeIcon);
         jMenuResumenes.setText("Resúmenes");
         jMenuResumenes.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +221,7 @@ public class Visualizador extends javax.swing.JFrame {
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
         ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));
+        jMenuItem1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jMenuItem1.setIcon(exitIcon);
         jMenuItem1.setText("Salir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +246,7 @@ public class Visualizador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)))
+                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 1156, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,7 +257,7 @@ public class Visualizador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(panelPestanas)))
@@ -216,14 +271,31 @@ public class Visualizador extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSeleccionarHechoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuSeleccionarHechoActionPerformed
+    private void menuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeleccionarHechoActionPerformed
+        SelectorElementoConsulta elementoConsulta = new SelectorElementoConsulta();
+        elementoConsulta.setVisible(true);
+        
+        System.out.println("Elemento de Consulta: " + elementoConsulta.elementoDeConsulta);
+        
+        if (elementoConsulta.elementoDeConsulta.equals("Afiliaciones")) {
+            elementoConsultaSeleccionada = 1;
+        } else if (elementoConsulta.elementoDeConsulta.equals("Citas por Especialidad")) {
+            elementoConsultaSeleccionada = 2;
+        } else if (elementoConsulta.elementoDeConsulta.equals("Citas por Exámenes")) {
+            elementoConsultaSeleccionada = 3;
+        } else if (elementoConsulta.elementoDeConsulta.equals("Citas para Otros Servicios")) {
+            elementoConsultaSeleccionada = 4;
+        } else if (elementoConsulta.elementoDeConsulta.equals("Quejas y Comunicaciones Directas con Clientes")) {
+            elementoConsultaSeleccionada = 5;
+        }
+        
+        comboBoxPreguntas = this.setPreguntas();
+    }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
 
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuResumenesActionPerformed
-
+    
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();
@@ -291,9 +363,9 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuResumenes;
-    private javax.swing.JMenuItem jMenuSeleccionarHecho;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JMenuItem menuSeleccionarHecho;
     private javax.swing.JPanel panelOpciones;
     public static javax.swing.JTabbedPane panelPestanas;
     private javax.swing.JPanel panelPreguntas;

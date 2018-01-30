@@ -7,18 +7,17 @@ package Logico.Afiliaciones;
 
 /**
  *
- * @author Miguel Torrres
+ * @author Esteban
  */
 public class VentasVendedores {
     
-    String ciudad, sede, region;
+    String ciudad, sede, anioInicio, anioFin;
     
     public VentasVendedores(){
-    
         ciudad = "";
         sede = "";
-        region = "";
-        
+        anioInicio = "";
+        anioFin = "";
     }
 
     public String getCiudad() {
@@ -37,12 +36,20 @@ public class VentasVendedores {
         this.sede = sede;
     }
 
-    public String getRegion() {
-        return region;
+    public String getAnioInicio() {
+        return anioInicio;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }   
-    
+    public void setAnioInicio(String anioInicio) {
+        this.anioInicio = anioInicio;
+    }
+
+    public String getAnioFin() {
+        return anioFin;
+    }
+
+    public void setAnioFin(String anioFin) {
+        this.anioFin = anioFin;
+    }
+
 }

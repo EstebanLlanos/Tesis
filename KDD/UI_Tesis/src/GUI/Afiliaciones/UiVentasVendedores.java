@@ -7,9 +7,12 @@ package GUI.Afiliaciones;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasCiudades;
+import Controlador.Afiliaciones.ControladorVentasVendedores;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
+import com.sun.javafx.image.impl.IntArgb;
+import com.sun.prism.j2d.J2DPipeline;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -17,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,13 +30,13 @@ import javax.swing.JOptionPane;
  * @author Esteban
  */
 
-public class UiVentasCiudades {
+public class UiVentasVendedores {
     
-    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta;
+    JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
+    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta;
     JButton botonConsultar;
     
-    ControladorVentasCiudades controladorVentasCiudad;
+    ControladorVentasVendedores controladorVentasVendedor;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
     
@@ -41,14 +45,13 @@ public class UiVentasCiudades {
     Statement stmt;
     public static ResultSet rsCandidato;
 
-    public UiVentasCiudades() {
+    public UiVentasVendedores() {
 
-        controladorVentasCiudad = new ControladorVentasCiudades();
+        controladorVentasVendedor = new ControladorVentasVendedores();
         
-        labelDepartamento = new JLabel();
-        inicializarJLabel(labelDepartamento, "Departamento:          ");
-
-        comboBoxDepartamentos = new JComboBox();
+        labelCiudad = new JLabel();
+        inicializarJLabel(labelCiudad, "Ciudad:          ");
+        comboBoxCiudades = new JComboBox();
         
         labelSede = new JLabel();
         inicializarJLabel(labelSede, "Sede:          ");
@@ -78,7 +81,7 @@ public class UiVentasCiudades {
             }
         });
         
-        inicializarDepartamentos(comboBoxDepartamentos);
+        inicializarCiudades(comboBoxCiudades);
         inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
@@ -94,36 +97,36 @@ public class UiVentasCiudades {
         FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
-
-        String departamento = "" + comboBoxDepartamentos.getSelectedItem();
+        String ciudad = "" + comboBoxCiudades.getSelectedItem();
         String sede = "" + comboBoxSedes.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, anioFin, criterioConsulta);
+        ArrayList <String[]> ventasPorVendedor = controladorVentasVendedor.getVentas(ciudad, sede, anioInicio, anioFin, criterioConsulta);
 
-        if (ventasPorCiudad.isEmpty()) {
+        if (ventasPorVendedor.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
-        } else if(ventasPorCiudad.get(0)[0].equals("Error")){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha")){
+        } else if(ventasPorVendedor.get(0)[0].equals("Error")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento, ciudad o sede para realizar la consulta");
+        } else if(ventasPorVendedor.get(0)[0].equals("Error Fecha")){
             JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
                     + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
         }else {
-            try{ ArrayList<String> ciudades = new ArrayList();
+            try{
+                ArrayList<String> vendedores = new ArrayList();
                 ArrayList<Integer> ventas = new ArrayList();
-                for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
-                    ciudades.add(ventasPorCiudad.get(i)[0]);
-                    ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
+                for (int i = 0; i <= ventasPorVendedor.size() - 1; i++) {
+                    vendedores.add(ventasPorVendedor.get(i)[0]);
+                    ventas.add(Integer.parseInt(ventasPorVendedor.get(i)[1]));
                 }
 
-                if (!ventasPorCiudad.isEmpty()) {
-                    PieChart = new FXPieChart("Top 5 Ciudades - Ventas", ciudades, ventas);
-                    BarChart = new FXBarChart("Top 5 Ciudades - Ventas", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 5 Ciudades - Ventas", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                if (!ventasPorVendedor.isEmpty()) {
+                    PieChart = new FXPieChart("Top 10 Vendedores - Ventas", vendedores, ventas);
+                    BarChart = new FXBarChart("Top 10 Vendedores - Ventas", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart("Top 10 Vendedores - Ventas", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
@@ -158,36 +161,35 @@ public class UiVentasCiudades {
     
     }
 
-    protected void inicializarDepartamentos(JComboBox departamentos) {
-
+    protected void inicializarCiudades(JComboBox ciudades){
         BaseDeDatos = new ConexionBD();
         
-        departamentos.setVisible(true);
-        departamentos.setMaximumSize(new Dimension(250, 30));
+        ciudades.setVisible(true);
+        ciudades.setMaximumSize(new Dimension(250, 30));
         
-        ArrayList<String> listaDepartamentos = new ArrayList();
+        ArrayList<String> listaCiudades = new ArrayList();
         
         try {
          
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_departamento "
-                    + "FROM departamento;");
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
+                    + "FROM ciudad;");
 
-            listaDepartamentos.add("Escoger una Opción...");
+            listaCiudades.add("Escoger una Opción...");
             
             while (tabla.next()) {
-                listaDepartamentos.add(tabla.getObject(1) + "");
+                listaCiudades.add(tabla.getObject(1) + "");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
-            departamentos.addItem(listaDepartamentos.get(i));
+        for (int i = 0; i < listaCiudades.size(); i++) {
+            ciudades.addItem(listaCiudades.get(i));
         }
     }
-
+    
     protected void inicializarSedes(JComboBox sedes) {
 
         BaseDeDatos = new ConexionBD();
@@ -262,17 +264,20 @@ public class UiVentasCiudades {
             anioVentas.addItem(anios[i][0]);
         }
     }
-
-    public JComboBox getComboBoxDepartamentos() {
-        return comboBoxDepartamentos;
+    public JComboBox getComboBoxCiudades() {
+        return comboBoxCiudades;
     }
 
-    public void setComboBoxDepartamentos(JComboBox comboBoxDepartamentos) {
-        this.comboBoxDepartamentos = comboBoxDepartamentos;
+    public void setComboBoxCiudades(JComboBox comboBoxCiudades) {
+        this.comboBoxCiudades = comboBoxCiudades;
     }
 
-    public JLabel getLabelDepartamento() {
-        return labelDepartamento;
+    public JLabel getLabelCiudad() {
+        return labelCiudad;
+    }
+
+    public void setLabelCiudad(JLabel labelCiudad) {
+        this.labelCiudad = labelCiudad;
     }
 
     public JComboBox getComboBoxSedes() {
