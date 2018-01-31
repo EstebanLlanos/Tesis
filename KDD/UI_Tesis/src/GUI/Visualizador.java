@@ -6,31 +6,46 @@ import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 public class Visualizador extends javax.swing.JFrame {
 
     String arregloPreguntas[][];
-    JComboBox comboBoxPreguntas;
+    public JComboBox comboBoxPreguntas;
     public int elementoConsultaSeleccionada = 0;
+    public String elementoSeleccionado;
 
-    public Visualizador() {
+    public Visualizador(String elementoDeConsulta) {
         super("Interfaz de Visualización - PREVISER");
         initComponents();
         this.setLocationRelativeTo(null);
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         panelOpciones.setLayout(layout);
         
-        JOptionPane.showMessageDialog(null, "Para iniciar recuerde seleccionar el objeto de su consulta desde el menú ARCHIVO.");
         //Inicializamos y asignamos las Preguntas
-        comboBoxPreguntas = new JComboBox();
+        comboBoxPreguntas = new javax.swing.JComboBox<>();;
+        
+        comboBoxPreguntas.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        comboBoxPreguntas.setForeground(new java.awt.Color(0, 153, 153));
+        
+        elementoSeleccionado = elementoDeConsulta;
+        
+        System.out.println("Elemento de Consulta: " + elementoSeleccionado);
+        
+        if (elementoSeleccionado.equals("Afiliaciones")) {
+            elementoConsultaSeleccionada = 1;
+        } else if (elementoSeleccionado.equals("Citas por Especialidad")) {
+            elementoConsultaSeleccionada = 2;
+        } else if (elementoSeleccionado.equals("Citas por Exámenes")) {
+            elementoConsultaSeleccionada = 3;
+        } else if (elementoSeleccionado.equals("Citas para Otros Servicios")) {
+            elementoConsultaSeleccionada = 4;
+        } else if (elementoSeleccionado.equals("Quejas y Comunicaciones Directas con Clientes")) {
+            elementoConsultaSeleccionada = 5;
+        }
+        
         comboBoxPreguntas = this.setPreguntas();
         comboBoxPreguntas.addActionListener(this::preguntasActionPerformed);
         panelPreguntas.add(comboBoxPreguntas);
@@ -43,8 +58,6 @@ public class Visualizador extends javax.swing.JFrame {
             switch (elementoConsultaSeleccionada) {
                 case 1:
                     
-                    System.out.println("elemento consulta seleccionada: " + elementoConsultaSeleccionada);
-                    
                     comboBoxPreguntas = new JComboBox();
                     arregloPreguntas = new String[3][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
@@ -56,6 +69,43 @@ public class Visualizador extends javax.swing.JFrame {
                     }
                     
                 case 2:
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
+                    
+                    break;
+                case 3:
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
+                    
+                    break;
+                case 4:
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
+                    
+                    break;
+                case 5:
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
                     
                     break;
                 default:
@@ -253,14 +303,11 @@ public class Visualizador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(panelPestanas)))
+                    .addComponent(panelPestanas)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -271,30 +318,41 @@ public class Visualizador extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void menuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeleccionarHechoActionPerformed
-        SelectorElementoConsulta elementoConsulta = new SelectorElementoConsulta();
-        elementoConsulta.setVisible(true);
-        
-        System.out.println("Elemento de Consulta: " + elementoConsulta.elementoDeConsulta);
-        
-        if (elementoConsulta.elementoDeConsulta.equals("Afiliaciones")) {
-            elementoConsultaSeleccionada = 1;
-        } else if (elementoConsulta.elementoDeConsulta.equals("Citas por Especialidad")) {
-            elementoConsultaSeleccionada = 2;
-        } else if (elementoConsulta.elementoDeConsulta.equals("Citas por Exámenes")) {
-            elementoConsultaSeleccionada = 3;
-        } else if (elementoConsulta.elementoDeConsulta.equals("Citas para Otros Servicios")) {
-            elementoConsultaSeleccionada = 4;
-        } else if (elementoConsulta.elementoDeConsulta.equals("Quejas y Comunicaciones Directas con Clientes")) {
-            elementoConsultaSeleccionada = 5;
-        }
-        
-        comboBoxPreguntas = this.setPreguntas();
-    }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
-
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuResumenesActionPerformed
+
+    private void menuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeleccionarHechoActionPerformed
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new SelectorElementoConsulta().setVisible(true);
+        });
+        
+        this.dispose();
+    }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
     
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -326,35 +384,7 @@ public class Visualizador extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Visualizador().setVisible(true);
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;

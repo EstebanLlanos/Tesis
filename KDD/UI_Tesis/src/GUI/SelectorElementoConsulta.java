@@ -6,9 +6,10 @@
 package GUI;
 
 import GUI.Visualizador;
+import javax.swing.JOptionPane;
 /**
  *
- * @author Miguel Torrres
+ * @author Esteban
  */
 public class SelectorElementoConsulta extends javax.swing.JFrame {
 
@@ -40,7 +41,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         setLocation(new java.awt.Point(600, 400));
 
         comboBoxElementoConsulta.setBackground(new java.awt.Color(204, 204, 204));
-        comboBoxElementoConsulta.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        comboBoxElementoConsulta.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         comboBoxElementoConsulta.setForeground(new java.awt.Color(0, 153, 153));
         comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
         comboBoxElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
@@ -50,7 +51,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         });
 
         botonSeleccionarElementoConsulta.setBackground(new java.awt.Color(0, 255, 0));
-        botonSeleccionarElementoConsulta.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        botonSeleccionarElementoConsulta.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         botonSeleccionarElementoConsulta.setText("Seleccionar");
         botonSeleccionarElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +60,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         });
 
         botonCancelarElementoConsulta.setBackground(new java.awt.Color(207, 6, 59));
-        botonCancelarElementoConsulta.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        botonCancelarElementoConsulta.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         botonCancelarElementoConsulta.setForeground(new java.awt.Color(255, 255, 255));
         botonCancelarElementoConsulta.setText("Cancelar");
         botonCancelarElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
@@ -68,26 +69,27 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
-        jLabel1.setText("Seleccione del menú a continuación el que será el elemento de su consulta:");
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jLabel1.setText("Para iniciar seleccione del menú a continuación el que será el elemento de su consulta:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botonSeleccionarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(104, 104, 104)
                         .addComponent(botonCancelarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(161, 161, 161)))
                 .addGap(53, 53, 53))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,11 +98,14 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonSeleccionarElementoConsulta)
-                    .addComponent(botonCancelarElementoConsulta))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botonSeleccionarElementoConsulta))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(botonCancelarElementoConsulta)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,18 +117,78 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxElementoConsultaActionPerformed
 
     private void botonSeleccionarElementoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionarElementoConsultaActionPerformed
+        //elementoDeConsulta = comboBoxElementoConsulta.getSelectedItem()+"";
+        
         elementoDeConsulta = comboBoxElementoConsulta.getSelectedItem()+"";
-        System.out.println("Elemento seleccionado en el menú: " + comboBoxElementoConsulta.getSelectedItem()+"");
+        System.out.println("Elemento Seleccionado: " + elementoDeConsulta);
+        
         this.dispose();
+        
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new Visualizador(elementoDeConsulta).setVisible(true);
+        });
     }//GEN-LAST:event_botonSeleccionarElementoConsultaActionPerformed
 
     private void botonCancelarElementoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarElementoConsultaActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_botonCancelarElementoConsultaActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new SelectorElementoConsulta().setVisible(true);
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelarElementoConsulta;
