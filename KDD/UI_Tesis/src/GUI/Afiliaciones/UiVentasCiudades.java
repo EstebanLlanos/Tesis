@@ -7,9 +7,11 @@ package GUI.Afiliaciones;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasCiudades;
+import GUI.Visualizador;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -140,7 +142,8 @@ public class UiVentasCiudades {
         label.setSize(170, 30);
         label.setMinimumSize(new Dimension(170, 30));
         label.setMaximumSize(new Dimension(170, 30));
-        label.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
+        label.setFont(new java.awt.Font("Century Gothic", 1, 14));
+        label.setForeground(Color.WHITE);
     }
     
     protected void inicializarCriteriosDeConsulta(JComboBox criteriosDeConsulta){

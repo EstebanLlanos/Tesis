@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasVendedores;
+import GUI.Resumenes.Prueba;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -197,8 +198,9 @@ public class Visualizador extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        panelOpciones = new javax.swing.JPanel();
+        jDesktopPane2 = new javax.swing.JDesktopPane();
         panelPreguntas = new javax.swing.JPanel();
+        panelOpciones = new javax.swing.JPanel();
         panelPestanas = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
@@ -226,18 +228,53 @@ public class Visualizador extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 255, 153));
         setMinimumSize(new java.awt.Dimension(600, 400));
 
-        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16))); // NOI18N
-        panelOpciones.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        panelOpciones.setMinimumSize(new java.awt.Dimension(150, 0));
-        panelOpciones.setLayout(new java.awt.GridLayout(1, 0));
-
-        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas Disponibles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16)));
+        panelPreguntas.setBackground(new java.awt.Color(0, 102, 153));
+        panelPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas Disponibles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16), new java.awt.Color(255, 255, 255)));
+        panelPreguntas.setForeground(new java.awt.Color(255, 255, 255));
         panelPreguntas.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         panelPreguntas.setMinimumSize(new java.awt.Dimension(150, 0));
         panelPreguntas.setLayout(new javax.swing.BoxLayout(panelPreguntas, javax.swing.BoxLayout.LINE_AXIS));
 
-        panelPestanas.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(179, 179, 179), 1, true), null));
+        panelOpciones.setBackground(new java.awt.Color(0, 102, 153));
+        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16), new java.awt.Color(255, 255, 255))); // NOI18N
+        panelOpciones.setForeground(new java.awt.Color(255, 255, 255));
+        panelOpciones.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        panelOpciones.setMinimumSize(new java.awt.Dimension(150, 0));
+        panelOpciones.setLayout(new java.awt.GridLayout(1, 0));
+
+        panelPestanas.setBackground(new java.awt.Color(204, 255, 255));
+        panelPestanas.setBorder(new javax.swing.border.MatteBorder(null));
         panelPestanas.setAutoscrolls(true);
+
+        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE))
+                    .addComponent(panelPreguntas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelPestanas))
+                .addContainerGap())
+        );
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -309,26 +346,11 @@ public class Visualizador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jDesktopPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelPestanas)
-                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jDesktopPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -339,7 +361,9 @@ public class Visualizador extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
-        // TODO add your handling code here:
+        Prueba p = new Prueba();
+        p.setVisible(true);
+        p.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuResumenesActionPerformed
 
     private void menuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeleccionarHechoActionPerformed
@@ -365,10 +389,15 @@ public class Visualizador extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Visualizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new SelectorElementoConsulta().setVisible(true);
+            SelectorElementoConsulta sec = new SelectorElementoConsulta();
+            sec.setVisible(true);
+            sec.setLocationRelativeTo(null);
         });
         
         this.dispose();
@@ -401,7 +430,13 @@ public class Visualizador extends javax.swing.JFrame {
                 break;
             }
         }
-
+        
+//        if (panelPestanas.getTabCount() == 3) {
+//            panelPestanas.removeTabAt(2);
+//            panelPestanas.removeTabAt(1);
+//            panelPestanas.removeTabAt(0);
+//        }
+        
         asignarComponentes(codigoDePregunta);
     }
 
@@ -411,6 +446,7 @@ public class Visualizador extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;

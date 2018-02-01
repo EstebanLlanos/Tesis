@@ -5,10 +5,7 @@
  */
 package GUI;
 
-import GUI.Visualizador;
-import GUI.Resumenes.LineChartSample;
-import javafx.stage.Stage;
-import javax.swing.JOptionPane;
+import GUI.Resumenes.Prueba;
 /**
  *
  * @author Esteban
@@ -33,7 +30,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comboBoxElementoConsulta = new javax.swing.JComboBox<String>();
+        comboBoxElementoConsulta = new javax.swing.JComboBox<>();
         botonSeleccionarElementoConsulta = new javax.swing.JButton();
         botonCancelarElementoConsulta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -45,7 +42,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         comboBoxElementoConsulta.setBackground(new java.awt.Color(204, 204, 204));
         comboBoxElementoConsulta.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         comboBoxElementoConsulta.setForeground(new java.awt.Color(0, 153, 153));
-        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
+        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
         comboBoxElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxElementoConsultaActionPerformed(evt);
@@ -83,16 +80,19 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(botonSeleccionarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(botonCancelarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonCancelarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,13 +101,13 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelarElementoConsulta)
                     .addComponent(botonSeleccionarElementoConsulta))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,7 +160,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
     private void botonCancelarElementoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarElementoConsultaActionPerformed
         System.exit(0);
     }//GEN-LAST:event_botonCancelarElementoConsultaActionPerformed
-    
+        
     /**
      * @param args the command line arguments
      */

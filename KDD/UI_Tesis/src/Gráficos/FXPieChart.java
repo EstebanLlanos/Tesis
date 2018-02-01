@@ -55,11 +55,11 @@ public class FXPieChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - " + chartName)) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 5 Ciudades")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - " + chartName)){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 5 Ciudades")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - " + chartName)){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 5 Ciudades")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
