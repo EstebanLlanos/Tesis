@@ -49,16 +49,16 @@ public class FXLineChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - " + chartName)) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("Gráfico Lineal", panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico Lineal - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
   
     }

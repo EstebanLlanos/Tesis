@@ -48,16 +48,16 @@ public class FXBarChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - " + chartName)) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("Gráfico De Barras", panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico De Barras - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
         
     }

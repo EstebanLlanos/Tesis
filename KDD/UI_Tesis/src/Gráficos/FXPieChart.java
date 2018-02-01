@@ -7,7 +7,6 @@ package Gráficos;
 
 import GUI.Visualizador;
 import java.util.ArrayList;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -20,7 +19,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 
 /**
@@ -57,16 +55,16 @@ public class FXPieChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - " + chartName)) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - " + chartName)){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("Gráfico De Torta", panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico De Torta - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
         
     }
@@ -109,11 +107,10 @@ public class FXPieChart {
         
         chart.setLegendSide(Side.LEFT);
         
-        chart.setPrefSize(1100, 1100);
-        chart.setMinSize(400, 400);
+        chart.setPrefSize(Visualizador.panelPestanas.getWidth() - 50, Visualizador.panelPestanas.getHeight() - 50);
+        /*chart.setMinSize(400, 400);
         chart.setStartAngle(250);
-        
-        chart.setTranslateY(-200);
+        chart.setTranslateY(-200);*/
         
         ((Group) scene.getRoot()).getChildren().add(chart);
         ((Group) scene.getRoot()).getChildren().add(caption);

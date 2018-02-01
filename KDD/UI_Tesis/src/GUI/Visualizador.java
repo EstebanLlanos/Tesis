@@ -32,8 +32,6 @@ public class Visualizador extends javax.swing.JFrame {
         
         elementoSeleccionado = elementoDeConsulta;
         
-        System.out.println("Elemento de Consulta: " + elementoSeleccionado);
-        
         if (elementoSeleccionado.equals("Afiliaciones")) {
             elementoConsultaSeleccionada = 1;
         } else if (elementoSeleccionado.equals("Citas por Especialidad")) {
@@ -57,7 +55,7 @@ public class Visualizador extends javax.swing.JFrame {
 
             switch (elementoConsultaSeleccionada) {
                 case 1:
-                    
+                    System.out.println("ENTRA A AFILIACIONES");
                     comboBoxPreguntas = new JComboBox();
                     arregloPreguntas = new String[3][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
@@ -67,7 +65,8 @@ public class Visualizador extends javax.swing.JFrame {
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
                     }
-                    
+                    break;
+                
                 case 2:
                     comboBoxPreguntas = new JComboBox();
                     arregloPreguntas = new String[1][1];
@@ -204,8 +203,11 @@ public class Visualizador extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
         menuSeleccionarHecho = new javax.swing.JMenuItem();
-        jMenuResumenes = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuResumenes = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuConsultaPersonalizada = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -223,7 +225,6 @@ public class Visualizador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 153));
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setSize(new java.awt.Dimension(1500, 1000));
 
         panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16))); // NOI18N
         panelOpciones.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -255,19 +256,6 @@ public class Visualizador extends javax.swing.JFrame {
         });
         salir.add(menuSeleccionarHecho);
 
-        jMenuResumenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
-        ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));
-        jMenuResumenes.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jMenuResumenes.setIcon(resumeIcon);
-        jMenuResumenes.setText("Resúmenes");
-        jMenuResumenes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuResumenesActionPerformed(evt);
-            }
-        });
-        salir.add(jMenuResumenes);
-
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
         ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));
@@ -283,6 +271,38 @@ public class Visualizador extends javax.swing.JFrame {
 
         jMenuBar1.add(salir);
 
+        jMenu1.setText("Tipo de Consulta");
+        jMenu1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+
+        jMenuResumenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
+        ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));
+        jMenuResumenes.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jMenuResumenes.setIcon(resumeIcon);
+        jMenuResumenes.setText("Resúmenes");
+        jMenuResumenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuResumenesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuResumenes);
+        jMenu1.add(jSeparator1);
+
+        jMenuConsultaPersonalizada.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuConsultaPersonalizada.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        Image consultaImg = new ImageIcon(getClass().getResource("/Recursos/consulta_personalizada.png")).getImage();
+        ImageIcon consultaIcon = new ImageIcon(getScaledImage(consultaImg, 30, 30));
+        jMenuConsultaPersonalizada.setIcon(consultaIcon);
+        jMenuConsultaPersonalizada.setText("Consulta Personalizada");
+        jMenuConsultaPersonalizada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuConsultaPersonalizadaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuConsultaPersonalizada);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -296,7 +316,7 @@ public class Visualizador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 1156, Short.MAX_VALUE)))
+                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -307,7 +327,7 @@ public class Visualizador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelPestanas)
-                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -353,6 +373,10 @@ public class Visualizador extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
+
+    private void jMenuConsultaPersonalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultaPersonalizadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuConsultaPersonalizadaActionPerformed
     
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -389,12 +413,15 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuConsultaPersonalizada;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuResumenes;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem menuSeleccionarHecho;
     private javax.swing.JPanel panelOpciones;
     public static javax.swing.JTabbedPane panelPestanas;

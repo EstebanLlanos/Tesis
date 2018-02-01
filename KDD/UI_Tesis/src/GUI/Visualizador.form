@@ -80,23 +80,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSeleccionarHechoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuResumenes">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image resumeImg = new ImageIcon(getClass().getResource(&quot;/Recursos/resumenes.png&quot;)).getImage();&#xa;ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));">
-                  <KeyStroke key="Ctrl+R"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="16" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="resumeIcon" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Res&#xfa;menes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuResumenesActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image exitImg = new ImageIcon(getClass().getResource(&quot;/Recursos/salir.png&quot;)).getImage();&#xa;ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));">
@@ -116,6 +99,52 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tipo de Consulta"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="16" style="0"/>
+            </Property>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuResumenes">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor" postCode="Image resumeImg = new ImageIcon(getClass().getResource(&quot;/Recursos/resumenes.png&quot;)).getImage();&#xa;ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));">
+                  <KeyStroke key="Ctrl+R"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Century Gothic" size="16" style="0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="resumeIcon" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Res&#xfa;menes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuResumenesActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuConsultaPersonalizada">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+P"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="Image consultaImg = new ImageIcon(getClass().getResource(&quot;/Recursos/consulta_personalizada.png&quot;)).getImage();&#xa;ImageIcon consultaIcon = new ImageIcon(getScaledImage(consultaImg, 30, 30));">
+                  <Font name="Century Gothic" size="16" style="0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="consultaIcon" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Consulta Personalizada"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuConsultaPersonalizadaActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -126,9 +155,6 @@
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 400]"/>
-    </Property>
-    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1500, 1000]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -158,7 +184,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="panelOpciones" min="-2" pref="202" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="panelPestanas" pref="1156" max="32767" attributes="0"/>
+                      <Component id="panelPestanas" pref="960" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -173,7 +199,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelPestanas" max="32767" attributes="0"/>
-                  <Component id="panelOpciones" pref="631" max="32767" attributes="0"/>
+                  <Component id="panelOpciones" pref="540" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>

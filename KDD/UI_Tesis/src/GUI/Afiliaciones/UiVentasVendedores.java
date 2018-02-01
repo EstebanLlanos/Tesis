@@ -6,13 +6,10 @@
 package GUI.Afiliaciones;
 
 import ConectorBD.ConexionBD;
-import Controlador.Afiliaciones.ControladorVentasCiudades;
 import Controlador.Afiliaciones.ControladorVentasVendedores;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
-import com.sun.javafx.image.impl.IntArgb;
-import com.sun.prism.j2d.J2DPipeline;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -20,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -124,9 +120,9 @@ public class UiVentasVendedores {
                 }
 
                 if (!ventasPorVendedor.isEmpty()) {
-                    PieChart = new FXPieChart("Top 10 Vendedores - Ventas", vendedores, ventas);
-                    BarChart = new FXBarChart("Top 10 Vendedores - Ventas", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 10 Vendedores - Ventas", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart("Top 10 Vendedores", vendedores, ventas);
+                    BarChart = new FXBarChart("Top 10 Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart("Top 10 Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
