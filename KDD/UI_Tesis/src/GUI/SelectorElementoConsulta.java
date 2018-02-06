@@ -30,7 +30,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comboBoxElementoConsulta = new javax.swing.JComboBox<>();
+        comboBoxElementoConsulta = new javax.swing.JComboBox<String>();
         botonSeleccionarElementoConsulta = new javax.swing.JButton();
         botonCancelarElementoConsulta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -42,7 +42,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         comboBoxElementoConsulta.setBackground(new java.awt.Color(204, 204, 204));
         comboBoxElementoConsulta.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         comboBoxElementoConsulta.setForeground(new java.awt.Color(0, 153, 153));
-        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
+        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
         comboBoxElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxElementoConsultaActionPerformed(evt);
@@ -61,17 +61,17 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         botonCancelarElementoConsulta.setBackground(new java.awt.Color(207, 6, 59));
         botonCancelarElementoConsulta.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         botonCancelarElementoConsulta.setForeground(new java.awt.Color(255, 255, 255));
-        botonCancelarElementoConsulta.setText("Cancelar");
+        botonCancelarElementoConsulta.setText("Salir");
         botonCancelarElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCancelarElementoConsultaActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel1.setText("Para iniciar, seleccione del menú a continuación el");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel2.setText("que será el objeto de su consulta:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,18 +81,15 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(39, 39, 39)
                         .addComponent(botonSeleccionarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(botonCancelarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                        .addComponent(botonCancelarElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,13 +98,13 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addComponent(comboBoxElementoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelarElementoConsulta)
                     .addComponent(botonSeleccionarElementoConsulta))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();

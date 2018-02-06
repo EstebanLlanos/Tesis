@@ -72,6 +72,7 @@ public class UiVentasVendedores {
         comboBoxCriterioConsulta = new JComboBox();
 
         botonConsultar = new JButton("Consultar");
+        botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

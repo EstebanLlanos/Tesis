@@ -3,6 +3,7 @@ package GUI;
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Resumenes.Prueba;
+import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -19,7 +20,7 @@ public class Visualizador extends javax.swing.JFrame {
     public String elementoSeleccionado;
 
     public Visualizador(String elementoDeConsulta) {
-        super("Interfaz de Visualización - PREVISER");
+        super("Interfaz de Visualización de Consultas Personalizadas - PREVISER");
         initComponents();
         this.setLocationRelativeTo(null);
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
@@ -205,11 +206,10 @@ public class Visualizador extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         salir = new javax.swing.JMenu();
         menuSeleccionarHecho = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuResumenes = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuConsultaPersonalizada = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -233,6 +233,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelPreguntas.setForeground(new java.awt.Color(255, 255, 255));
         panelPreguntas.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         panelPreguntas.setMinimumSize(new java.awt.Dimension(150, 0));
+        panelPreguntas.setOpaque(false);
         panelPreguntas.setLayout(new javax.swing.BoxLayout(panelPreguntas, javax.swing.BoxLayout.LINE_AXIS));
 
         panelOpciones.setBackground(new java.awt.Color(0, 102, 153));
@@ -240,15 +241,12 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         panelOpciones.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         panelOpciones.setMinimumSize(new java.awt.Dimension(150, 0));
+        panelOpciones.setOpaque(false);
         panelOpciones.setLayout(new java.awt.GridLayout(1, 0));
 
         panelPestanas.setBackground(new java.awt.Color(204, 255, 255));
         panelPestanas.setBorder(new javax.swing.border.MatteBorder(null));
         panelPestanas.setAutoscrolls(true);
-
-        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -275,6 +273,9 @@ public class Visualizador extends javax.swing.JFrame {
                     .addComponent(panelPestanas))
                 .addContainerGap())
         );
+        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -292,6 +293,10 @@ public class Visualizador extends javax.swing.JFrame {
             }
         });
         salir.add(menuSeleccionarHecho);
+
+        jSeparator1.setMaximumSize(new java.awt.Dimension(32000, 32000));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(0, 5));
+        salir.add(jSeparator1);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
@@ -323,20 +328,6 @@ public class Visualizador extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuResumenes);
-        jMenu1.add(jSeparator1);
-
-        jMenuConsultaPersonalizada.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuConsultaPersonalizada.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        Image consultaImg = new ImageIcon(getClass().getResource("/Recursos/consulta_personalizada.png")).getImage();
-        ImageIcon consultaIcon = new ImageIcon(getScaledImage(consultaImg, 30, 30));
-        jMenuConsultaPersonalizada.setIcon(consultaIcon);
-        jMenuConsultaPersonalizada.setText("Consulta Personalizada");
-        jMenuConsultaPersonalizada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuConsultaPersonalizadaActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuConsultaPersonalizada);
 
         jMenuBar1.add(jMenu1);
 
@@ -359,12 +350,6 @@ public class Visualizador extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
-        Prueba p = new Prueba();
-        p.setVisible(true);
-        p.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuResumenesActionPerformed
 
     private void menuSeleccionarHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeleccionarHechoActionPerformed
         /* Set the Nimbus look and feel */
@@ -403,9 +388,16 @@ public class Visualizador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
 
-    private void jMenuConsultaPersonalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultaPersonalizadaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuConsultaPersonalizadaActionPerformed
+    private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
+        
+        VisualizadorResumenes vis = new VisualizadorResumenes(elementoSeleccionado);
+        vis.setVisible(true);
+        vis.setLocationRelativeTo(null);
+        
+//        Prueba p = new Prueba();
+//        p.setVisible(true);
+//        p.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuResumenesActionPerformed
     
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -452,7 +444,6 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuConsultaPersonalizada;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuResumenes;
     private javax.swing.JPopupMenu jPopupMenu1;
