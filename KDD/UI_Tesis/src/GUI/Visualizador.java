@@ -2,7 +2,7 @@ package GUI;
 
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasVendedores;
-import GUI.Resumenes.Prueba;
+import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
 import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
@@ -394,7 +394,7 @@ public class Visualizador extends javax.swing.JFrame {
         vis.setVisible(true);
         vis.setLocationRelativeTo(null);
         
-//        Prueba p = new Prueba();
+//        ResumenVentasAnuales_Ciudad p = new ResumenVentasAnuales_Ciudad();
 //        p.setVisible(true);
 //        p.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuResumenesActionPerformed

@@ -5,6 +5,8 @@
  */
 package GUI.Resumenes;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 /**
@@ -50,10 +52,9 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
 
             switch (elementoConsultaSeleccionada) {
                 case 1:
-                    arregloPreguntas = new String[3][1];
+                    arregloPreguntas = new String[2][1];
                     arregloPreguntas[0][0] = "Seleccione el resumen de consulta que desea visualizar...";
-                    arregloPreguntas[1][0] = "Venta de Afiliaciones por Ciudades";
-                    arregloPreguntas[2][0] = "Venta de Afiliaciones por Vendedor";
+                    arregloPreguntas[1][0] = "Total de Ventas Anuales por Sede";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxResumen.addItem(arregloPregunta[0]);
@@ -152,10 +153,11 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
         textDescripcion.setEditable(false);
         textDescripcion.setBackground(new java.awt.Color(0, 97, 133));
         textDescripcion.setColumns(20);
-        textDescripcion.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        textDescripcion.setFont(new java.awt.Font("Footlight MT Light", 1, 16)); // NOI18N
         textDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         textDescripcion.setRows(5);
-        textDescripcion.setText("Esteban Antonio Llanos Millan");
+        textDescripcion.setText("Proceda a seleccionar el resumen que desea consultar en torno a las\nAfilaciones.");
+        textDescripcion.setAutoscrolls(false);
         textDescripcion.setMaximumSize(new java.awt.Dimension(244, 79));
         textDescripcion.setMinimumSize(new java.awt.Dimension(244, 79));
         textDescripcion.setOpaque(false);
@@ -191,6 +193,11 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
             }
         });
 
+        jDesktopPane1.setLayer(panelOpcionesConsultaResumen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(panelDescripcionResumen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonConsultar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -221,10 +228,6 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
                     .addComponent(botonCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jDesktopPane1.setLayer(panelOpcionesConsultaResumen, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(panelDescripcionResumen, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(botonConsultar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(botonCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,9 +248,7 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxResumenActionPerformed
 
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
-        Prueba p = new Prueba();
-        p.setVisible(true);
-        p.setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_botonConsultarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -258,14 +259,20 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
 
         String resumenSeleccionado = "" + comboBoxResumen.getSelectedItem();
         
-        if (resumenSeleccionado.equals("Seleccione el resumen de consulta que desea visualizar...")) {
-            textDescripcion.setText("Seleccione el resumen de consulta que desea visualizar...");
-        } else if (resumenSeleccionado.equals("Venta de Afiliaciones por Ciudades")) {
-            textDescripcion.setText("Venta de Afiliaciones por Ciudades");
-        } else if (resumenSeleccionado.equals("Venta de Afiliaciones por Vendedor")) {
-            textDescripcion.setText("Venta de Afiliaciones por Vendedor");
+        if (resumenSeleccionado.equals("Total de Ventas Anuales por Sede")) {
+            textDescripcion.setText("En esta consulta encontrará el resumen consolidado"
+                    + " del total de \nventas realizadas por cada sede hasta la fecha actual.");
+                        
+            botonConsultar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    ResumenVentasAnuales_Ciudad resumenVentas_Ciudades = new ResumenVentasAnuales_Ciudad();
+                    resumenVentas_Ciudades.setVisible(true);
+                    resumenVentas_Ciudades.setLocationRelativeTo(null);
+                }
+            });
+            
         }
-        //escribirDescripcion(codigoDePregunta);
     }
     
     private void preguntasActionPerformedCitasEspecialidad(java.awt.event.ActionEvent evt) {
@@ -274,36 +281,8 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
         
         if (resumenSeleccionado.equals("Seleccione el resumen de consulta que desea visualizar...")) {
             elementoConsultaSeleccionada = 1;
-        } else if (resumenSeleccionado.equals("Venta de Afiliaciones por Ciudades")) {
-            elementoConsultaSeleccionada = 2;
-        } else if (resumenSeleccionado.equals("Venta de Afiliaciones por Vendedor")) {
-            elementoConsultaSeleccionada = 3;
         }
         //escribirDescripcion(codigoDePregunta);
-    }
-    
-    public void escribirDescripcion(int codigoResumen){
-        //según la pregunta que se elija asignamos unos componentes a la interfaz
-        if (codigoResumen > 0) {
-
-            switch (codigoResumen) {
-                case 1:
-                    
-                    break;
-                case 2:
-                    
-                    break;
-                default:
-                    panelDescripcionResumen.removeAll();
-                    panelDescripcionResumen.updateUI();
-                    break;
-            }
-
-        } else {
-            //por ahora eliminamos los componentes de la interfaz
-            panelDescripcionResumen.removeAll();
-            panelDescripcionResumen.updateUI();
-        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
