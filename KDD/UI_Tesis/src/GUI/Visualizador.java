@@ -59,14 +59,16 @@ public class Visualizador extends javax.swing.JFrame {
                 case 1:
                     System.out.println("ENTRA A AFILIACIONES");
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[3][1];
+                    arregloPreguntas = new String[4][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
                     arregloPreguntas[1][0] = "Venta de Afiliaciones por Ciudades";
                     arregloPreguntas[2][0] = "Venta de Afiliaciones por Vendedor";
+                    arregloPreguntas[3][0] = "Venta de Afiliaciones por Sede";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
                     }
+                    
                     break;
                 
                 case 2:
