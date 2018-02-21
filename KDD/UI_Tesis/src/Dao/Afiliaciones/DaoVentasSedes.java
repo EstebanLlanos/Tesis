@@ -139,7 +139,7 @@ public class DaoVentasSedes {
         ArrayList<String[]> conteoVentas = new ArrayList<String[]>();
         String sql_select;
         
-        sql_select = "SELECT sd.nombre_sede, SUM(dv.total_ventas) FROM dim_venta dv INNER JOIN sede sd "
+        sql_select = "SELECT sd.nombre_sede, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN sede sd "
                     + "ON (dv.sede_venta = sd.id_sede) " + where + " GROUP BY sd.nombre_sede;";
         
         System.out.println("Consulta: " + sql_select);

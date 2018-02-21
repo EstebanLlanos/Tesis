@@ -112,9 +112,10 @@ public class UiVentasSedes {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
-        } else if(ventasPorSede.get(0)[0].equals("Error Fecha")){
-            JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
-                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+        } else if(ventasPorSede.get(0)[0].equals("Error Fecha Año")){
+            JOptionPane.showMessageDialog(null, "Seleccione un año de inicio o un rango de años válido a consultar");
+        } else if(ventasPorSede.get(0)[0].equals("Error Fecha Mes")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un rango de meses válido.");
         }else {
             try{
                 ArrayList<String> sedes = new ArrayList();
@@ -132,8 +133,8 @@ public class UiVentasSedes {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
             } catch(ArrayIndexOutOfBoundsException ex){
-                JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
-                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+                JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada. "
+                    + "Seleccione en el menú de opciones un periodo de consulta válido.");
             }
         }
     }

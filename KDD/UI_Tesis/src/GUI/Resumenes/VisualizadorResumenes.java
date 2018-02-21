@@ -8,12 +8,14 @@ package GUI.Resumenes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Esteban - Casa
  */
-public class VisualizadorResumenes extends javax.swing.JFrame {
+public class VisualizadorResumenes extends JFrame {
 
     /**
      * Creates new form VisualizadorResumenes
@@ -21,11 +23,15 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
     String arregloPreguntas[][];
     public int elementoConsultaSeleccionada = 0;
     public String elementoSeleccionado;
+    JFrame ventana;
     
-    public VisualizadorResumenes(String elementoConsultar) {
-        super("Interfaz de Visualización de Resúmenes - PREVISER");
+    public VisualizadorResumenes(String elementoConsultar, JFrame parent) {
+        
+        this.setAlwaysOnTop (true);
         
         elementoSeleccionado = elementoConsultar;
+        
+        ventana = parent;
         
         initComponents();
         
@@ -248,21 +254,27 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxResumenActionPerformed
 
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
+        String resumenSeleccionado = "" + comboBoxResumen.getSelectedItem();
         
+        if (resumenSeleccionado.equals("Seleccione la opción de consulta que desea visualizar...")){
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. "
+                    + "Ningún resumen ha sido seleccionado. Seleccione uno de los resúmenes "
+                    + "disponibles en el menú");
+        }
     }//GEN-LAST:event_botonConsultarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        ventana.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void preguntasActionPerformedAfiliaciones(java.awt.event.ActionEvent evt) {
 
         String resumenSeleccionado = "" + comboBoxResumen.getSelectedItem();
-        
         if (resumenSeleccionado.equals("Total de Ventas Anuales por Sede")) {
             textDescripcion.setText("En esta consulta encontrará el resumen consolidado"
                     + " del total de \nventas realizadas por cada sede hasta la fecha actual.");
-                        
+
             botonConsultar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -271,8 +283,8 @@ public class VisualizadorResumenes extends javax.swing.JFrame {
                     resumenVentas_Ciudades.setLocationRelativeTo(null);
                 }
             });
-            
         }
+        
     }
     
     private void preguntasActionPerformedCitasEspecialidad(java.awt.event.ActionEvent evt) {

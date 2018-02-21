@@ -5,13 +5,17 @@ import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
 import GUI.Resumenes.VisualizadorResumenes;
+import com.sun.xml.internal.ws.dump.LoggingDumpTube;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import javafx.geometry.Pos;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.SwingUtilities;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -412,9 +416,10 @@ public class Visualizador extends javax.swing.JFrame {
 
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed
         
-        VisualizadorResumenes vis = new VisualizadorResumenes(elementoSeleccionado);
+        VisualizadorResumenes vis = new VisualizadorResumenes(elementoSeleccionado, this);
         vis.setVisible(true);
         vis.setLocationRelativeTo(null);
+        this.setEnabled(false);
         
 //        ResumenVentasAnuales_Ciudad p = new ResumenVentasAnuales_Ciudad();
 //        p.setVisible(true);

@@ -49,11 +49,17 @@ public class FXBarChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 5 Ciudades")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 10 Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 5 Ciudades") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Ventas por Sedes")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 5 Ciudades")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top 10 Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top 5 Ciudades") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Ventas por Sedes")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top 10 Vendedores") || Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top 5 Ciudades")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top 10 Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top 5 Ciudades") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Ventas por Sedes")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }

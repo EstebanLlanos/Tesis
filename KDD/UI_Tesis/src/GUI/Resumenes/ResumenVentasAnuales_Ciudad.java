@@ -35,12 +35,12 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
     
     public ResumenVentasAnuales_Ciudad() {
         
+        this.setAlwaysOnTop (true);
+        this.setLocationRelativeTo(null);
+        
         BaseDeDatos = new ConexionBD();
         conn = BaseDeDatos.conectar();
-        ResultSet resultados;
-        ArrayList<String> ventasAnuales = new ArrayList();
         
-        ArrayList<String[]> conteoVentas = new ArrayList<String[]>();
         String sql_select;
         
         initComponents();
