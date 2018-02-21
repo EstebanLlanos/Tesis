@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.Afiliaciones.UiVentasCiudades;
+import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
 import GUI.Resumenes.VisualizadorResumenes;
@@ -139,6 +140,10 @@ public class Visualizador extends javax.swing.JFrame {
                     UiVentasVendedores ventasPorVendedor = new UiVentasVendedores();
                     asignaComponentesVentasVendedor(ventasPorVendedor);
                     break;
+                case 3:
+                    UiVentasSedes ventasPorSede = new UiVentasSedes();
+                    asignaComponentesVentasSede(ventasPorSede);
+                    break;
                 default:
                     panelOpciones.removeAll();
                     panelOpciones.updateUI();
@@ -186,6 +191,21 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.updateUI();
     }
 
+    private void asignaComponentesVentasSede(UiVentasSedes ventasPorSede) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(ventasPorSede.getLabelAnioInicio());
+        panelOpciones.add(ventasPorSede.getComboBoxAnioInicio());
+        panelOpciones.add(ventasPorSede.getLabelMesInicio());
+        panelOpciones.add(ventasPorSede.getComboBoxMesInicio());
+        panelOpciones.add(ventasPorSede.getLabelMesFin());
+        panelOpciones.add(ventasPorSede.getComboBoxMesFin());
+        panelOpciones.add(ventasPorSede.getLabelAnioFin());
+        panelOpciones.add(ventasPorSede.getComboBoxAnioFin());
+        panelOpciones.add(ventasPorSede.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -424,12 +444,6 @@ public class Visualizador extends javax.swing.JFrame {
                 break;
             }
         }
-        
-//        if (panelPestanas.getTabCount() == 3) {
-//            panelPestanas.removeTabAt(2);
-//            panelPestanas.removeTabAt(1);
-//            panelPestanas.removeTabAt(0);
-//        }
         
         asignarComponentes(codigoDePregunta);
     }
