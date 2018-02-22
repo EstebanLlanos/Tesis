@@ -170,6 +170,10 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorCiudad.getComboBoxSedes());
         panelOpciones.add(ventasPorCiudad.getLabelAnioInicio());
         panelOpciones.add(ventasPorCiudad.getComboBoxAnioInicio());
+        panelOpciones.add(ventasPorCiudad.getLabelMesInicio());
+        panelOpciones.add(ventasPorCiudad.getComboBoxMesInicio());
+        panelOpciones.add(ventasPorCiudad.getLabelMesFin());
+        panelOpciones.add(ventasPorCiudad.getComboBoxMesFin());
         panelOpciones.add(ventasPorCiudad.getLabelAnioFin());
         panelOpciones.add(ventasPorCiudad.getComboBoxAnioFin());
         panelOpciones.add(ventasPorCiudad.getLabelCriterioConsulta());

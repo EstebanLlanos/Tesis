@@ -27,6 +27,11 @@ public class DaoVentasCiudades {
     Statement stmt;
     public static ResultSet rsCandidato;
     public String criterioConsultaVentas;
+    
+    int anioInicio;
+    int anioFin;
+    int mesInicio;
+    int mesFin;
 
     public DaoVentasCiudades() {
         BaseDeDatos = new ConexionBD();
@@ -39,38 +44,114 @@ public class DaoVentasCiudades {
 
         int codigoDepartamento = obtenerCodigoDepartamento(ventasCiudades.getDepartamento());
         int codigoSede = obtenerCodigoSede(ventasCiudades.getSede());
-        int anioInicio = 0;
-        int anioFin = 0;
+        
+        anioInicio = 0;
+        anioFin = 0;
+        mesInicio = 0;
+        mesFin = 0;
         
         /*
         * En esta parte de determina el formato que debe tener el año de inicio y dde fin de la consulta
         * de acueerdo a la selección que el usuario haya hecho
         */
         if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
-            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio()+"0101");
-            anioFin = Integer.parseInt(ventasCiudades.getAnioFin()+"1201");
+            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio());
+            anioFin = Integer.parseInt(ventasCiudades.getAnioFin());            
         } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
-            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio()+"0101");
+            anioInicio = Integer.parseInt(ventasCiudades.getAnioInicio());
         } else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")){
-            anioFin = Integer.parseInt(ventasCiudades.getAnioFin()+"1201");
+            anioFin = Integer.parseInt(ventasCiudades.getAnioFin());
         }
         
         //TODOS
         if (!ventasCiudades.getSede().equals("Escoger una Opción...") && ventasCiudades.getDepartamento().equals("Escoger una Opción...")) {
 
             if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
-                where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
-            } else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!ventasCiudades.getMesInicio().equals("Escoger una Opción...") && !ventasCiudades.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(ventasCiudades.getMesInicio());
+                    mesFin = obtenerCodigoMes(ventasCiudades.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(ventasCiudades.getMesInicio().equals("Escoger una Opción...") && ventasCiudades.getMesFin().equals("Escoger una Opción...")){
+                    where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } // FIN IF + AÑO INICIO + AÑO FIN 
+            else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
+               
+                if (!ventasCiudades.getMesInicio().equals("Escoger una Opción...") && !ventasCiudades.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(ventasCiudades.getMesInicio());
+                    mesFin = obtenerCodigoMes(ventasCiudades.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(ventasCiudades.getMesInicio().equals("Escoger una Opción...") && ventasCiudades.getMesFin().equals("Escoger una Opción...")){
+                    where = " WHERE dv.sede_venta = '" + codigoSede 
+                        + "' AND (dv.fecha_venta BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioInicio+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
                 where = " WHERE dv.sede_venta = '" + codigoSede 
                         + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
+                 
             }  else if (ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
                 return "Error Fecha";
             } else {
                 where = " WHERE dv.sede_venta = '" + codigoSede + "'";
             }
 
-        } //TODOS
+        } //FIN IF + CODIGO SEDE - CODIGO DEPARTAMENTO
         else if (!ventasCiudades.getDepartamento().equals("Escoger una Opción...") && ventasCiudades.getSede().equals("Escoger una Opción...")) {
 
             if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && !ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
@@ -149,6 +230,39 @@ public class DaoVentasCiudades {
         }
 
         return null;
+    }
+    
+    public int obtenerCodigoMes(String nombreMes){
+        
+        int mesSeleccionado = 0;
+        
+        if (nombreMes.equals("Enero")) {
+            mesSeleccionado = 1;
+        } else if (nombreMes.equals("Febrero")) {
+            mesSeleccionado = 2;
+        } else if (nombreMes.equals("Marzo")) {
+            mesSeleccionado = 3;
+        } else if (nombreMes.equals("Abril")) {
+            mesSeleccionado = 4;
+        } else if (nombreMes.equals("Mayo")) {
+            mesSeleccionado = 5;
+        } else if (nombreMes.equals("Junio")) {
+            mesSeleccionado = 6;
+        } else if (nombreMes.equals("Julio")) {
+            mesSeleccionado = 7;
+        } else if (nombreMes.equals("Agosto")) {
+            mesSeleccionado = 8;
+        } else if (nombreMes.equals("Septiembre")) {
+            mesSeleccionado = 9;
+        } else if (nombreMes.equals("Octubre")) {
+            mesSeleccionado = 10;
+        } else if (nombreMes.equals("Noviembre")) {
+            mesSeleccionado = 11;
+        } else if (nombreMes.equals("Diciembre")) {
+            mesSeleccionado = 12;
+        }
+        
+        return mesSeleccionado;
     }
     
     public int obtenerCodigoDepartamento(String nombreDepartamento){

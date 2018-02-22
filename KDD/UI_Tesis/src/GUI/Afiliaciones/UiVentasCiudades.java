@@ -29,8 +29,8 @@ import javax.swing.JOptionPane;
 
 public class UiVentasCiudades {
     
-    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta;
+    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
+    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
     JButton botonConsultar;
     
     ControladorVentasCiudades controladorVentasCiudad;
@@ -55,12 +55,24 @@ public class UiVentasCiudades {
         inicializarJLabel(labelSede, "Sede:          ");
         
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde:          ");
+        inicializarJLabel(labelAnioInicio, "Desde el Año:          ");
         
         comboBoxAnioInicio = new JComboBox();        
         
+        comboBoxAnioInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (!comboBoxAnioInicio.getSelectedItem().equals("Escoger una Opción...")) {
+                    comboBoxMesInicio.setEnabled(true);
+                    comboBoxMesFin.setEnabled(true);
+                } else {
+                    comboBoxMesInicio.setEnabled(false);
+                    comboBoxMesFin.setEnabled(false);
+                }
+            }
+        });
+        
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta:          ");
+        inicializarJLabel(labelAnioFin, "Hasta el Año:          ");
         
         labelCriterioConsulta = new JLabel();
         inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:          ");
@@ -80,10 +92,22 @@ public class UiVentasCiudades {
             }
         });
         
+        labelMesInicio = new JLabel();
+        inicializarJLabel(labelMesInicio, "Desde el Mes:          ");
+        
+        comboBoxMesInicio = new JComboBox();  
+        
+        labelMesFin = new JLabel();
+        inicializarJLabel(labelMesFin, "Hasta el Mes:          ");
+        
+        comboBoxMesFin = new JComboBox();  
+        
         inicializarDepartamentos(comboBoxDepartamentos);
         inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
+        inicializarMeses(comboBoxMesInicio);
+        inicializarMeses(comboBoxMesFin);
         inicializarCriteriosDeConsulta(comboBoxCriterioConsulta);
     }
 
@@ -100,10 +124,12 @@ public class UiVentasCiudades {
         String departamento = "" + comboBoxDepartamentos.getSelectedItem();
         String sede = "" + comboBoxSedes.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
+        String mesInicio = "" + comboBoxMesInicio.getSelectedItem();
+        String mesFin = "" + comboBoxMesFin.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, anioFin, criterioConsulta);
+        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (ventasPorCiudad.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
@@ -111,9 +137,10 @@ public class UiVentasCiudades {
             
         } else if(ventasPorCiudad.get(0)[0].equals("Error")){
             JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha")){
-            JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
-                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Año")){
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
         }else {
             try{ ArrayList<String> ciudades = new ArrayList();
                 ArrayList<Integer> ventas = new ArrayList();
@@ -159,6 +186,31 @@ public class UiVentasCiudades {
             criteriosDeConsulta.addItem(meses[i][0]);
         }
     
+    }
+    
+    protected void inicializarMeses(JComboBox entradaMeses) {
+
+        entradaMeses.setVisible(true);
+        entradaMeses.setMaximumSize(new Dimension(230, 30));
+
+        String meses[][] = new String[13][1];
+        meses[0][0] = "Escoger una Opción...";
+        meses[1][0] = "Enero";
+        meses[2][0] = "Febrero";
+        meses[3][0] = "Marzo";
+        meses[4][0] = "Abril";
+        meses[5][0] = "Mayo";
+        meses[6][0] = "Junio";
+        meses[7][0] = "Julio";
+        meses[8][0] = "Agosto";
+        meses[9][0] = "Septiembre";
+        meses[10][0] = "Octubre";
+        meses[11][0] = "Noviembre";
+        meses[12][0] = "Diciembre";
+
+        for (int i = 0; i < meses.length; i++) {
+            entradaMeses.addItem(meses[i][0]);
+        }
     }
 
     protected void inicializarDepartamentos(JComboBox departamentos) {
@@ -218,31 +270,6 @@ public class UiVentasCiudades {
         
         for (int i = 0; i < listaSedes.size(); i++) {
             sedes.addItem(listaSedes.get(i));
-        }
-    }
-    
-    protected void inicializarMeses(JComboBox entradaMeses) {
-
-        entradaMeses.setVisible(true);
-        entradaMeses.setMaximumSize(new Dimension(230, 30));
-
-        String meses[][] = new String[13][1];
-        meses[0][0] = "General";
-        meses[1][0] = "Enero";
-        meses[2][0] = "Febrero";
-        meses[3][0] = "Marzo";
-        meses[4][0] = "Abril";
-        meses[5][0] = "Mayo";
-        meses[6][0] = "Junio";
-        meses[7][0] = "Julio";
-        meses[8][0] = "Agosto";
-        meses[9][0] = "Septiembre";
-        meses[10][0] = "Octubre";
-        meses[11][0] = "Noviembre";
-        meses[12][0] = "Diciembre";
-
-        for (int i = 0; i < meses.length; i++) {
-            entradaMeses.addItem(meses[i][0]);
         }
     }
 
@@ -345,5 +372,36 @@ public class UiVentasCiudades {
     public void setLabelCriterioConsulta(JLabel labelCriterioConsulta) {
         this.labelCriterioConsulta = labelCriterioConsulta;
     }
-    
+
+    public JComboBox getComboBoxMesInicio() {
+        return comboBoxMesInicio;
+    }
+
+    public void setComboBoxMesInicio(JComboBox comboBoxMesInicio) {
+        this.comboBoxMesInicio = comboBoxMesInicio;
+    }
+
+    public JComboBox getComboBoxMesFin() {
+        return comboBoxMesFin;
+    }
+
+    public void setComboBoxMesFin(JComboBox comboBoxMesFin) {
+        this.comboBoxMesFin = comboBoxMesFin;
+    }
+
+    public JLabel getLabelMesFin() {
+        return labelMesFin;
+    }
+
+    public void setLabelMesFin(JLabel labelMesFin) {
+        this.labelMesFin = labelMesFin;
+    }
+
+    public JLabel getLabelMesInicio() {
+        return labelMesInicio;
+    }
+
+    public void setLabelMesInicio(JLabel labelMesInicio) {
+        this.labelMesInicio = labelMesInicio;
+    }
 }

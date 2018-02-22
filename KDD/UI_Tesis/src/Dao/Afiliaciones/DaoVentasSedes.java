@@ -68,9 +68,7 @@ public class DaoVentasSedes {
             } else if(ventasSedes.getMesInicio().equals("Escoger una Opción...") && ventasSedes.getMesFin().equals("Escoger una Opción...")){
                 where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0101' AND '" + anioFin + "1201'";
             } else {
-                
                 return "Error Fecha Mes";
-                
             }
             
         } else if (!ventasSedes.getAnioInicio().equals("Escoger una Opción...") && ventasSedes.getAnioFin().equals("Escoger una Opción...")){
