@@ -1,1 +1,1 @@
-﻿SELECT dv.fecha_venta, sd.nombre_sede, SUM(dv.total_ventas) FROM dim_venta dv INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede) GROUP BY sd.nombre_sede, dv.fecha_venta;
+﻿SELECT sd.nombre_sede, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede) WHERE dv.fecha_venta BETWEEN '20140101' AND '20140201' GROUP BY sd.nombre_sede;
