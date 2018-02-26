@@ -141,7 +141,7 @@ public class Visualizador extends javax.swing.JFrame {
                     asignaComponentesVentasCiudad(ventasPorCiudad);
                     break;
                 case 2:
-                    UiVentasVendedores ventasPorVendedor = new UiVentasVendedores();
+                    UiVentasVendedores ventasPorVendedor = new UiVentasVendedores(this);
                     asignaComponentesVentasVendedor(ventasPorVendedor);
                     break;
                 case 3:
@@ -185,6 +185,9 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignaComponentesVentasVendedor(UiVentasVendedores ventasPorVendedor) {
 
         panelOpciones.removeAll();
+        panelOpciones.add(ventasPorVendedor.getLabelVendedor());
+        panelOpciones.add(ventasPorVendedor.getTextFieldVendedor());
+        panelOpciones.add(ventasPorVendedor.getSeparadorVendedor());
         panelOpciones.add(ventasPorVendedor.getLabelCiudad());
         panelOpciones.add(ventasPorVendedor.getComboBoxCiudades());
         panelOpciones.add(ventasPorVendedor.getLabelSede());

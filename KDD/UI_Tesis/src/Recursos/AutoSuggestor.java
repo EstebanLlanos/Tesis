@@ -18,6 +18,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
 import javax.swing.KeyStroke;
@@ -29,11 +31,12 @@ import javax.swing.event.DocumentListener;
  *
  * @author Esteban - Casa
  */
-class AutoSuggestor {
+public class AutoSuggestor {
 
     private final JTextField textField;
     private final Window container;
     private JPanel suggestionsPanel;
+    private JScrollPane scrollPane;
     private JWindow autoSuggestionPopUpWindow;
     private String typedWord;
     private final ArrayList<String> dictionary = new ArrayList<>();
@@ -70,14 +73,16 @@ class AutoSuggestor {
         currentIndexOfSpace = 0;
         tW = 0;
         tH = 0;
-
+        
         autoSuggestionPopUpWindow = new JWindow(mainWindow);
         autoSuggestionPopUpWindow.setOpacity(opacity);
-
+        
         suggestionsPanel = new JPanel();
         suggestionsPanel.setLayout(new GridLayout(0, 1));
         suggestionsPanel.setBackground(popUpBackground);
-
+        
+        scrollPane = new JScrollPane(suggestionsPanel);
+        
         addKeyBindingToRequestFocusInPopUpWindow();
     }
 
@@ -210,23 +215,27 @@ class AutoSuggestor {
         if (tW < label.getPreferredSize().width) {
             tW = label.getPreferredSize().width;
         }
-        tH += label.getPreferredSize().height;
+        
+        if (tH <= 500) {
+         tH += label.getPreferredSize().height;   
+        }
     }
 
     private void showPopUpWindow() {
-        autoSuggestionPopUpWindow.getContentPane().add(suggestionsPanel);
+        autoSuggestionPopUpWindow.getContentPane().add(scrollPane);
         autoSuggestionPopUpWindow.setMinimumSize(new Dimension(textField.getWidth(), 30));
+        autoSuggestionPopUpWindow.setMaximumSize(new Dimension(tW, 500));
         autoSuggestionPopUpWindow.setSize(tW, tH);
         autoSuggestionPopUpWindow.setVisible(true);
 
         int windowX = 0;
         int windowY = 0;
-
-        windowX = container.getX() + textField.getX() + 5;
+ 
+        windowX = container.getX() + textField.getX() + 15;
         if (suggestionsPanel.getHeight() > autoSuggestionPopUpWindow.getMinimumSize().height) {
-            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height;
+            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height + 130;
         } else {
-            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight();
+            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight() + 130;
         }
 
         autoSuggestionPopUpWindow.setLocation(windowX, windowY);

@@ -7,7 +7,6 @@ package GUI.Afiliaciones;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasVendedores;
-import GUI.Visualizador;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -22,6 +21,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu.Separator;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import Recursos.AutoSuggestor;
+import javax.swing.JFrame;
 
 /**
  *
@@ -31,8 +35,12 @@ import javax.swing.JOptionPane;
 public class UiVentasVendedores {
     
     JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
-    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta;
+    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor;
+    JTextField textFieldVendedor;
+    JSeparator separadorVendedor;
     JButton botonConsultar;
+    
+    AutoSuggestor autoCompletar;
     
     ControladorVentasVendedores controladorVentasVendedor;
     
@@ -43,9 +51,17 @@ public class UiVentasVendedores {
     Statement stmt;
     public static ResultSet rsCandidato;
 
-    public UiVentasVendedores() {
+    public UiVentasVendedores(JFrame ventanaPrincipal) {
 
         controladorVentasVendedor = new ControladorVentasVendedores();
+        
+        labelVendedor = new JLabel();
+        inicializarJLabel(labelVendedor, "Vendedor:                              ");
+        
+        textFieldVendedor = new JTextField();
+        textFieldVendedor.setPreferredSize(new Dimension(170, 30));
+        
+        separadorVendedor = new Separator();
         
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:          ");
@@ -80,6 +96,7 @@ public class UiVentasVendedores {
             }
         });
         
+        autoCompletar = new AutoSuggestor(textFieldVendedor, ventanaPrincipal, obtenerVendedores(), Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.85f);
         inicializarCiudades(comboBoxCiudades);
         inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
@@ -134,6 +151,29 @@ public class UiVentasVendedores {
                     + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
             }
         }
+    }
+    
+    public ArrayList<String> obtenerVendedores(){
+    
+        BaseDeDatos = new ConexionBD();
+        
+        ArrayList<String> vendedores = new ArrayList<>();
+        
+        try {
+         
+            conn = BaseDeDatos.conectar();
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_personal, apellido_personal, id_personal "
+                    + "FROM personal;");
+            
+            while (tabla.next()) {
+                vendedores.add(tabla.getObject(2) + " " + tabla.getObject(1) + ", " + tabla.getObject(3));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
+        return vendedores;
     }
     
     protected void inicializarJLabel(JLabel label, String texto) {
@@ -346,6 +386,30 @@ public class UiVentasVendedores {
 
     public void setLabelCriterioConsulta(JLabel labelCriterioConsulta) {
         this.labelCriterioConsulta = labelCriterioConsulta;
+    }
+
+    public JLabel getLabelVendedor() {
+        return labelVendedor;
+    }
+
+    public void setLabelVendedor(JLabel labelVendedor) {
+        this.labelVendedor = labelVendedor;
+    }
+
+    public JTextField getTextFieldVendedor() {
+        return textFieldVendedor;
+    }
+
+    public void setTextFieldVendedor(JTextField textFieldVendedor) {
+        this.textFieldVendedor = textFieldVendedor;
+    }
+
+    public JSeparator getSeparadorVendedor() {
+        return separadorVendedor;
+    }
+
+    public void setSeparadorVendedor(JSeparator separadorVendedor) {
+        this.separadorVendedor = separadorVendedor;
     }
     
 }
