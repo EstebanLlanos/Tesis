@@ -58,57 +58,63 @@ public class DaoVentasVendedores {
             anioFin = Integer.parseInt(ventasVendedores.getAnioFin()+"1201");
         }
         
-        if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {
-
-            if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
-            } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = " WHERE dv.sede_venta = '" + codigoSede 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
-            }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                return "Error Fecha";
-            } else {
-                where = " WHERE dv.sede_venta = '" + codigoSede + "'";
-            }
-
-        } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && ventasVendedores.getSede().equals("Escoger una Opción...")) {
-
-            if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = "WHERE dv.ciudad_venta = '" + codigoCiudad 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
-            } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = " WHERE dv.ciudad_venta = '" + codigoCiudad 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
-            }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                return "Error Fecha";
-            } else {
-                where = "WHERE dv.ciudad_venta = '" + codigoCiudad + "'";
-            }
-
-        } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && !ventasVendedores.getSede().equals("Escoger una Opción...")) {
-            
-            if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ")";
-            } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
-                        + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
-            }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                return "Error Fecha";
-            } else {
-                where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad + "'";
-            }
-            
+        if (criterioConsultaVentas.equals("Escoger una Opción...")) {
+            String[] datosVendedor = ventasVendedores.getVendedor().split(",");
+            int codVendedor = Integer.parseInt(datosVendedor[1].replaceAll("\\s+",""));
+            where = " WHERE id_personal = '" + codVendedor + "'";
         } else {
-            
-            return "Error";
+            if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {
+
+                if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = " WHERE dv.sede_venta = '" + codigoSede 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
+                } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = " WHERE dv.sede_venta = '" + codigoSede 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
+                }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    return "Error Fecha";
+                } else {
+                    where = " WHERE dv.sede_venta = '" + codigoSede + "'";
+                }
+
+            } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && ventasVendedores.getSede().equals("Escoger una Opción...")) {
+
+                if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = "WHERE dv.ciudad_venta = '" + codigoCiudad 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
+                } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = " WHERE dv.ciudad_venta = '" + codigoCiudad 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
+                }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    return "Error Fecha";
+                } else {
+                    where = "WHERE dv.ciudad_venta = '" + codigoCiudad + "'";
+                }
+
+            } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && !ventasVendedores.getSede().equals("Escoger una Opción...")) {
+
+                if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ")";
+                } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
+                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
+                }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
+                    return "Error Fecha";
+                } else {
+                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad + "'";
+                }
+
+            } else {
+
+                return "Error";
+            }
         }
         
         return where;
     }
 
-    public ArrayList<String[]> conteoVentasSede(String where) {
+    public ArrayList<String[]> conteoVentasVendedor(String where) {
 
         ArrayList<String[]> conteoVentas = new ArrayList<String[]>();
         String sql_select;
@@ -120,38 +126,75 @@ public class DaoVentasVendedores {
                        + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
                        + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) DESC LIMIT 10;";
 
-        } else {
+        } else if (criterioConsultaVentas.equals("Menor Número de Ventas")) {
             sql_select = "SELECT per.nombre_personal, per.apellido_personal, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
                        + "INNER JOIN personal per ON (dv.vendedor = CAST ( per.id_personal AS BIGINT )) "
                        + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
                        + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) ASC LIMIT 10;";
+        } else {
+            
+            sql_select = "SELECT per.id_personal, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
+                    + "INNER JOIN personal per ON (dv.vendedor = per.id_personal) "
+                    + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha) "
+                    + where
+                    + " GROUP BY per.id_personal, fch.anio_actual "
+                    + "ORDER BY fch.anio_actual;";            
         }
         
         System.out.println("Consulta: " + sql_select);
 
-        try {
-            conn = BaseDeDatos.conectar();
-            Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery(sql_select);
-            
-            while (tabla.next()) {
-                
-                String[] apellidos = tabla.getString("apellido_personal").split(" ");
-                
-                String[] registro = new String[2];
-                registro[0] = tabla.getString("nombre_personal") + " " + apellidos[0];
-                registro[1] = tabla.getString("total_ventas");
-                
-                conteoVentas.add(registro);
-                
+        if (criterioConsultaVentas.equals("Escoger una Opción...")) {
+        
+            try {
+                conn = BaseDeDatos.conectar();
+                Statement sentencia = conn.createStatement();
+                ResultSet tabla = sentencia.executeQuery(sql_select);
+
+                while (tabla.next()) {
+
+                    String[] registro = new String[2];
+                    registro[0] = tabla.getString("anio_actual");
+                    registro[1] = tabla.getString("total_ventas");
+
+                    conteoVentas.add(registro);
+
+                }
+
+                return conteoVentas;
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-            
-            return conteoVentas;
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+        
+        } else {
+        
+            try {
+                conn = BaseDeDatos.conectar();
+                Statement sentencia = conn.createStatement();
+                ResultSet tabla = sentencia.executeQuery(sql_select);
+
+                while (tabla.next()) {
+
+                    String[] apellidos = tabla.getString("apellido_personal").split(" ");
+
+                    String[] registro = new String[2];
+                    registro[0] = tabla.getString("nombre_personal") + " " + apellidos[0];
+                    registro[1] = tabla.getString("total_ventas");
+
+                    conteoVentas.add(registro);
+
+                }
+
+                return conteoVentas;
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        
         }
 
         return null;

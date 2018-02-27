@@ -3,19 +3,14 @@ package GUI;
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
-import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
 import GUI.Resumenes.VisualizadorResumenes;
-import com.sun.xml.internal.ws.dump.LoggingDumpTube;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import javafx.geometry.Pos;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.SwingUtilities;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -185,6 +180,9 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignaComponentesVentasVendedor(UiVentasVendedores ventasPorVendedor) {
 
         panelOpciones.removeAll();
+        panelOpciones.add(ventasPorVendedor.getLabelTipoConsulta());
+        panelOpciones.add(ventasPorVendedor.getBusquedaNombre());
+        panelOpciones.add(ventasPorVendedor.getBusquedaOtrosCriterios());
         panelOpciones.add(ventasPorVendedor.getLabelVendedor());
         panelOpciones.add(ventasPorVendedor.getTextFieldVendedor());
         panelOpciones.add(ventasPorVendedor.getSeparadorVendedor());
@@ -281,6 +279,10 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas.setBorder(new javax.swing.border.MatteBorder(null));
         panelPestanas.setAutoscrolls(true);
 
+        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
         jDesktopPane2Layout.setHorizontalGroup(
@@ -289,10 +291,10 @@ public class Visualizador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE))
-                    .addComponent(panelPreguntas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jDesktopPane2Layout.setVerticalGroup(
@@ -306,9 +308,6 @@ public class Visualizador extends javax.swing.JFrame {
                     .addComponent(panelPestanas))
                 .addContainerGap())
         );
-        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

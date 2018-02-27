@@ -11,9 +11,10 @@ package Logico.Afiliaciones;
  */
 public class VentasVendedores {
     
-    String ciudad, sede, anioInicio, anioFin;
+    String ciudad, sede, anioInicio, anioFin, vendedor;
     
     public VentasVendedores(){
+        vendedor = "";
         ciudad = "";
         sede = "";
         anioInicio = "";
@@ -50,6 +51,14 @@ public class VentasVendedores {
 
     public void setAnioFin(String anioFin) {
         this.anioFin = anioFin;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
     }
 
 }

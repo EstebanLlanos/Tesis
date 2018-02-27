@@ -186,12 +186,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="panelOpciones" min="-2" pref="202" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="panelOpciones" pref="272" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="panelPestanas" pref="1092" max="32767" attributes="0"/>
+                          <Component id="panelPestanas" min="-2" pref="1022" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="panelPreguntas" alignment="1" max="32767" attributes="0"/>
+                      <Component id="panelPreguntas" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

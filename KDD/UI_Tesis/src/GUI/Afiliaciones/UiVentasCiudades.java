@@ -47,15 +47,15 @@ public class UiVentasCiudades {
         controladorVentasCiudad = new ControladorVentasCiudades();
         
         labelDepartamento = new JLabel();
-        inicializarJLabel(labelDepartamento, "Departamento:          ");
+        inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
         comboBoxDepartamentos = new JComboBox();
         
         labelSede = new JLabel();
-        inicializarJLabel(labelSede, "Sede:          ");
+        inicializarJLabel(labelSede, "Sede:                          ");
         
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde el Año:          ");
+        inicializarJLabel(labelAnioInicio, "Desde el Año:                      ");
         
         comboBoxAnioInicio = new JComboBox();        
         
@@ -72,10 +72,10 @@ public class UiVentasCiudades {
         });
         
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta el Año:          ");
+        inicializarJLabel(labelAnioFin, "Hasta el Año:                           ");
         
         labelCriterioConsulta = new JLabel();
-        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:          ");
+        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                      ");
         
         comboBoxAnioFin = new JComboBox();
         
@@ -93,12 +93,12 @@ public class UiVentasCiudades {
         });
         
         labelMesInicio = new JLabel();
-        inicializarJLabel(labelMesInicio, "Desde el Mes:          ");
+        inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
         
         comboBoxMesInicio = new JComboBox();  
         
         labelMesFin = new JLabel();
-        inicializarJLabel(labelMesFin, "Hasta el Mes:          ");
+        inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
         
         comboBoxMesFin = new JComboBox();  
         

@@ -47,7 +47,7 @@ public class UiVentasSedes {
         controladorVentasSedes = new ControladorVentasSedes();
         
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde el Año:          ");
+        inicializarJLabel(labelAnioInicio, "Desde el Año:                     ");
         comboBoxAnioInicio = new JComboBox();
         
         comboBoxAnioInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -63,16 +63,16 @@ public class UiVentasSedes {
         });
         
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta el Año:          ");
+        inicializarJLabel(labelAnioFin, "Hasta el Año:                        ");
         comboBoxAnioFin = new JComboBox();
         
         labelMesInicio = new JLabel();
-        inicializarJLabel(labelMesInicio, "Desde el Mes:          ");
+        inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
         comboBoxMesInicio = new JComboBox();        
         comboBoxMesInicio.setEnabled(false);
         
         labelMesFin = new JLabel();
-        inicializarJLabel(labelMesFin, "Hasta el Mes:          ");
+        inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
         comboBoxMesFin = new JComboBox();
         comboBoxMesFin.setEnabled(false);
         

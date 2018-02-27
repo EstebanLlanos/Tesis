@@ -25,8 +25,10 @@ public class ControladorVentasVendedores {
         daoVentasVendedores = new DaoVentasVendedores();
     }
 
-    public ArrayList<String[]> getVentas(String ciudad, String sede, String anioInicio, String anioFin, String criterioConsulta) {
+    public ArrayList<String[]> getVentas(String vendedor, String ciudad, String sede, String anioInicio, String anioFin, String criterioConsulta) {
 
+        String vendedorVentas = vendedor;
+        
         String ciudadVentas = ciudad;
         String sedeVentas = sede;
         
@@ -36,6 +38,7 @@ public class ControladorVentasVendedores {
         String criterioConsultaVentas = criterioConsulta;
 
         VentasVendedores ventasVendedores = new VentasVendedores();
+        ventasVendedores.setVendedor(vendedorVentas);
         ventasVendedores.setCiudad(ciudadVentas);
         ventasVendedores.setSede(sedeVentas);
         ventasVendedores.setAnioInicio(anioInicioVentas);
@@ -52,9 +55,15 @@ public class ControladorVentasVendedores {
 
                 return conteoVentas;   
             }
+        } else if (vendedorVentas.equals("")) {
+            String[] error = new String[1];
+            error[0] = "Error Vendedor";
+            conteoVentas.add(error);
+
+            return conteoVentas;   
         }
         
-        String restriccionesClausulaWhere = daoVentasVendedores.prepararRestriccionesClausulaWhereVentas(ventasVendedores, criterioConsulta);
+        String restriccionesClausulaWhere = daoVentasVendedores.prepararRestriccionesClausulaWhereVentas(ventasVendedores, criterioConsultaVentas);
         
         if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];
@@ -68,9 +77,15 @@ public class ControladorVentasVendedores {
             conteoVentas.add(error);
             
             return conteoVentas;
+        } else if (restriccionesClausulaWhere.equals("Error Vendedor")) {
+            String[] error = new String[1];
+            error[0] = "Error Vendedor";
+            conteoVentas.add(error);
+            
+            return conteoVentas;
         }
         
-        conteoVentas = daoVentasVendedores.conteoVentasSede(restriccionesClausulaWhere);
+        conteoVentas = daoVentasVendedores.conteoVentasVendedor(restriccionesClausulaWhere);
         
         return conteoVentas;
     }

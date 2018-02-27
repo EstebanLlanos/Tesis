@@ -25,6 +25,7 @@ import javax.swing.JPopupMenu.Separator;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import Recursos.AutoSuggestor;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 
 /**
@@ -35,9 +36,10 @@ import javax.swing.JFrame;
 public class UiVentasVendedores {
     
     JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
-    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor;
+    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor, labelTipoConsulta;
     JTextField textFieldVendedor;
     JSeparator separadorVendedor;
+    JCheckBox busquedaNombre, busquedaOtrosCriterios;
     JButton botonConsultar;
     
     AutoSuggestor autoCompletar;
@@ -55,31 +57,115 @@ public class UiVentasVendedores {
 
         controladorVentasVendedor = new ControladorVentasVendedores();
         
+        labelTipoConsulta = new JLabel();
+        inicializarJLabel(labelTipoConsulta , "Tipo de Consulta a Realizar:                              ");
+        
+        busquedaNombre = new JCheckBox("Buscar por nombre del vendedor");
+        busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
+        busquedaNombre.setSelected(false);
+        
+        busquedaNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (busquedaNombre.isSelected()) {
+                    busquedaOtrosCriterios.setSelected(false);
+                    textFieldVendedor.setEnabled(true);
+                    
+                    comboBoxCiudades.setEnabled(false);
+                    comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioInicio.setEnabled(false);
+                    comboBoxAnioInicio.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioFin.setEnabled(false);
+                    comboBoxAnioFin.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxSedes.setEnabled(false);
+                    comboBoxSedes.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxCriterioConsulta.setEnabled(false);
+                    comboBoxCriterioConsulta.setSelectedItem("Escoger una Opción...");
+                } else {
+                    busquedaOtrosCriterios.setSelected(true);
+                    
+                    textFieldVendedor.setEnabled(false);
+                    textFieldVendedor.setText("");
+                    
+                    comboBoxCiudades.setEnabled(true);
+                    comboBoxAnioInicio.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
+                    comboBoxSedes.setEnabled(true);
+                    comboBoxCriterioConsulta.setEnabled(true);
+                }
+            }
+        });
+        
+        busquedaOtrosCriterios = new JCheckBox("Buscar por otros criterios");
+        busquedaOtrosCriterios.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        busquedaOtrosCriterios.setForeground(new java.awt.Color(230, 230, 255));
+        busquedaOtrosCriterios.setSelected(true);
+        
+        busquedaOtrosCriterios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (busquedaOtrosCriterios.isSelected()) {
+                    busquedaNombre.setSelected(false);
+                    
+                    textFieldVendedor.setEnabled(false);
+                    textFieldVendedor.setText("");
+                    
+                    comboBoxCiudades.setEnabled(true);
+                    comboBoxAnioInicio.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
+                    comboBoxSedes.setEnabled(true);
+                    comboBoxCriterioConsulta.setEnabled(true);
+                } else {
+                    busquedaNombre.setSelected(true);
+                    textFieldVendedor.setEnabled(true);
+                    
+                    comboBoxCiudades.setEnabled(false);
+                    comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioInicio.setEnabled(false);
+                    comboBoxAnioInicio.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioFin.setEnabled(false);
+                    comboBoxAnioFin.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxSedes.setEnabled(false);
+                    comboBoxSedes.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxCriterioConsulta.setEnabled(false);
+                    comboBoxCriterioConsulta.setSelectedItem("Escoger una Opción...");
+                }
+            }
+        });
+        
         labelVendedor = new JLabel();
-        inicializarJLabel(labelVendedor, "Vendedor:                              ");
+        inicializarJLabel(labelVendedor, "Vendedor:                                   ");
         
         textFieldVendedor = new JTextField();
         textFieldVendedor.setPreferredSize(new Dimension(170, 30));
+        textFieldVendedor.setEnabled(false);
         
         separadorVendedor = new Separator();
         
         labelCiudad = new JLabel();
-        inicializarJLabel(labelCiudad, "Ciudad:          ");
+        inicializarJLabel(labelCiudad, "Ciudad:                        ");
         comboBoxCiudades = new JComboBox();
         
         labelSede = new JLabel();
-        inicializarJLabel(labelSede, "Sede:          ");
+        inicializarJLabel(labelSede, "Sede:                          ");
         
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde:          ");
+        inicializarJLabel(labelAnioInicio, "Desde:                    ");
         
         comboBoxAnioInicio = new JComboBox();        
         
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta:          ");
+        inicializarJLabel(labelAnioFin, "Hasta:                         ");
         
         labelCriterioConsulta = new JLabel();
-        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:          ");
+        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                  ");
         
         comboBoxAnioFin = new JComboBox();
         
@@ -113,18 +199,21 @@ public class UiVentasVendedores {
         FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
+        String vendedor = textFieldVendedor.getText();
         String ciudad = "" + comboBoxCiudades.getSelectedItem();
         String sede = "" + comboBoxSedes.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorVendedor = controladorVentasVendedor.getVentas(ciudad, sede, anioInicio, anioFin, criterioConsulta);
+        ArrayList <String[]> ventasPorVendedor = controladorVentasVendedor.getVentas(vendedor, ciudad, sede, anioInicio, anioFin, criterioConsulta);
 
         if (ventasPorVendedor.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
+        } else if(ventasPorVendedor.get(0)[0].equals("Error Vendedor")){
+            JOptionPane.showMessageDialog(null, "El vendedor consultado no existe. Inténtelo nuevamente.");
         } else if(ventasPorVendedor.get(0)[0].equals("Error")){
             JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento, ciudad o sede para realizar la consulta");
         } else if(ventasPorVendedor.get(0)[0].equals("Error Fecha")){
@@ -191,9 +280,10 @@ public class UiVentasVendedores {
         criteriosDeConsulta.setVisible(true);
         criteriosDeConsulta.setMaximumSize(new Dimension(200, 30));
 
-        String meses[][] = new String[2][1];
-        meses[0][0] = "Mayor Número de Ventas";
-        meses[1][0] = "Menor Número de Ventas";
+        String meses[][] = new String[3][1];
+        meses[0][0] = "Escoger una Opción...";
+        meses[1][0] = "Mayor Número de Ventas";
+        meses[2][0] = "Menor Número de Ventas";
 
         for (int i = 0; i < meses.length; i++) {
             criteriosDeConsulta.addItem(meses[i][0]);
@@ -410,6 +500,30 @@ public class UiVentasVendedores {
 
     public void setSeparadorVendedor(JSeparator separadorVendedor) {
         this.separadorVendedor = separadorVendedor;
+    }
+
+    public JLabel getLabelTipoConsulta() {
+        return labelTipoConsulta;
+    }
+
+    public void setLabelTipoConsulta(JLabel labelTipoConsulta) {
+        this.labelTipoConsulta = labelTipoConsulta;
+    }
+
+    public JCheckBox getBusquedaNombre() {
+        return busquedaNombre;
+    }
+
+    public void setBusquedaNombre(JCheckBox busquedaNombre) {
+        this.busquedaNombre = busquedaNombre;
+    }
+
+    public JCheckBox getBusquedaOtrosCriterios() {
+        return busquedaOtrosCriterios;
+    }
+
+    public void setBusquedaOtrosCriterios(JCheckBox busquedaOtrosCriterios) {
+        this.busquedaOtrosCriterios = busquedaOtrosCriterios;
     }
     
 }
