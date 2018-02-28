@@ -96,6 +96,7 @@ public class UiVentasVendedores {
                     comboBoxAnioFin.setEnabled(true);
                     comboBoxSedes.setEnabled(true);
                     comboBoxCriterioConsulta.setEnabled(true);
+                    comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Ventas");
                 }
             }
         });
@@ -118,6 +119,7 @@ public class UiVentasVendedores {
                     comboBoxAnioFin.setEnabled(true);
                     comboBoxSedes.setEnabled(true);
                     comboBoxCriterioConsulta.setEnabled(true);
+                    comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Ventas");
                 } else {
                     busquedaNombre.setSelected(true);
                     textFieldVendedor.setEnabled(true);
@@ -188,6 +190,7 @@ public class UiVentasVendedores {
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
         inicializarCriteriosDeConsulta(comboBoxCriterioConsulta);
+        comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Ventas");
     }
 
     void hacerConsulta(ActionEvent evt) {

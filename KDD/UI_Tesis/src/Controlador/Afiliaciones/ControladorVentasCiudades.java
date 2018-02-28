@@ -50,6 +50,7 @@ public class ControladorVentasCiudades {
             int anioFinal = Integer.parseInt(anioFinVentas);
             
             if (anioInicial > anioFinal) {
+                conteoVentas.clear();
                 String[] error = new String[1];
                 error[0] = "Error Fecha Año";
                 conteoVentas.add(error);
@@ -63,6 +64,7 @@ public class ControladorVentasCiudades {
         
         if (!mesInicioVentas.equals("Escoger una Opción...") && !mesFinVentas.equals("Escoger una Opción...") ) {
             if (mesInicial >= mesFinal) {
+                conteoVentas.clear();
                 String[] error = new String[1];
                 error[0] = "Error Fecha Mes";
                 conteoVentas.add(error);
@@ -71,21 +73,24 @@ public class ControladorVentasCiudades {
             }
         }
         
-        String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades, criterioConsulta);
+        String restriccionesClausulaWhere = daoVentasCiudades.prepararRestriccionesClausulaWhereVentas(ventasCiudades, criterioConsultaVentas);
         
         if (restriccionesClausulaWhere.equals("Error Fecha Año")) {
+            conteoVentas.clear();
             String[] error = new String[1];
             error[0] = "Error Fecha Año";
             conteoVentas.add(error);
             
             return conteoVentas;
         } else if (restriccionesClausulaWhere.equals("Error Fecha Mes")) {
+            conteoVentas.clear();
             String[] error = new String[1];
             error[0] = "Error Fecha Mes";
             conteoVentas.add(error);
             
             return conteoVentas;
         } else if (restriccionesClausulaWhere.equals("Error")) {
+            conteoVentas.clear();
             String[] error = new String[1];
             error[0] = "Error";
             conteoVentas.add(error);

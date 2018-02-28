@@ -89,6 +89,6 @@ create table dim_venta
   PRIMARY KEY (id_venta),
   FOREIGN KEY (plan_venta) REFERENCES plan (id_plan),
   FOREIGN KEY (sede_venta) REFERENCES sede (id_sede),
-  FOREIGN KEY (ciudad_venta) REFERENCES ciudad (id_ciudad),
+  FOREIGN KEY (ciudad_venta) REFERENCES ciudad (cod_ciudad),
   FOREIGN KEY (vendedor) REFERENCES personal (id_personal)
 );

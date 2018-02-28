@@ -157,8 +157,8 @@ public class UiVentasCiudades {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
             } catch(ArrayIndexOutOfBoundsException ex){
-                JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
-                    + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+                JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada. "
+                    + "Seleccione un rango válido a consultar");
             }
         }
     }
