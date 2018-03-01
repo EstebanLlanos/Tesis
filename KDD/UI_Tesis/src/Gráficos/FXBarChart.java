@@ -17,6 +17,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -63,7 +65,8 @@ public class FXBarChart {
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
-       
+        
+        Visualizador.panelPestanas.addTab("Welcome",new JLabel(new ImageIcon(getClass().getResource("/Recursos/seleccionar.png"))));
         Visualizador.panelPestanas.addTab("Gráfico De Barras - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
         
