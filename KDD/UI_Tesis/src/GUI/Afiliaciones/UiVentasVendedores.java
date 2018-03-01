@@ -218,7 +218,7 @@ public class UiVentasVendedores {
         } else if(ventasPorVendedor.get(0)[0].equals("Error Vendedor")){
             JOptionPane.showMessageDialog(null, "El vendedor consultado no existe. Inténtelo nuevamente.");
         } else if(ventasPorVendedor.get(0)[0].equals("Error")){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento, ciudad o sede para realizar la consulta");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una ciudad o una sede para realizar la consulta");
         } else if(ventasPorVendedor.get(0)[0].equals("Error Fecha")){
             JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada solo con Fecha Final. "
                     + "Seleccione fecha de Inicio unicamente o un rango válido a consultar");
@@ -256,7 +256,7 @@ public class UiVentasVendedores {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_personal, apellido_personal, id_personal "
-                    + "FROM personal;");
+                    + "FROM personal WHERE tipo_personal = 'V';");
             
             while (tabla.next()) {
                 vendedores.add(tabla.getObject(2) + " " + tabla.getObject(1) + ", " + tabla.getObject(3));

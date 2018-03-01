@@ -231,18 +231,17 @@ public class AutoSuggestor {
         int windowX = 0;
         int windowY = 0;
  
-        windowX = container.getX() + textField.getX() + 15;
+        windowX = container.getX() + textField.getX() + 12;
         if (suggestionsPanel.getHeight() > autoSuggestionPopUpWindow.getMinimumSize().height) {
-            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height + 130;
+            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height + 135;
         } else {
-            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight() + 130;
+            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight() + 135;
         }
 
         autoSuggestionPopUpWindow.setLocation(windowX, windowY);
         autoSuggestionPopUpWindow.setMinimumSize(new Dimension(textField.getWidth(), 30));
         autoSuggestionPopUpWindow.revalidate();
         autoSuggestionPopUpWindow.repaint();
-
     }
 
     public void setDictionary(ArrayList<String> words) {

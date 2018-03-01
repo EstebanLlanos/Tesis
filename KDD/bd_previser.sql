@@ -72,6 +72,49 @@ create table sede
 );
 
 /*==============================================================*/
+/* Dimensión: Demografía                                              */
+/*==============================================================*/
+
+
+create table demografia (
+
+  id_demografia INTEGER NOT NULL,
+  estrato_demografia INTEGER NOT NULL,
+  genero_demografia VARCHAR(10) NOT NULL,
+  PRIMARY KEY (id_demografia)
+
+);
+
+/*==============================================================*/
+/* Dimensión: Especialidad                                              */
+/*==============================================================*/
+
+CREATE TABLE especialidad (
+
+  id_especialidad INTEGER NOT NULL,
+  descripcion_especialidad VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_especialidad)
+
+);
+
+/*==============================================================*/
+/* Dimensión: Especialista                                              */
+/*==============================================================*/
+
+CREATE TABLE especialista (
+
+  id_especialista INTEGER NOT NULL,
+  nombre_especialista VARCHAR(100) NOT NULL,
+  sede_especialista INTEGER REFERENCES sede (id_sede),
+  zona_especialista VARCHAR(10) NOT NULL,
+  especialidad_especialista INTEGER REFERENCES especialidad (id_especialidad),
+  costo_a_particular BIGINT NOT NULL,
+  costo_a_cliente BIGINT NOT NULL,
+  PRIMARY KEY (id_especialista)
+
+);
+
+/*==============================================================*/
 /* Dimensión: Ventas                                            */
 /*==============================================================*/
 
@@ -91,4 +134,22 @@ create table dim_venta
   FOREIGN KEY (sede_venta) REFERENCES sede (id_sede),
   FOREIGN KEY (ciudad_venta) REFERENCES ciudad (cod_ciudad),
   FOREIGN KEY (vendedor) REFERENCES personal (id_personal)
+);
+
+/*==============================================================*/
+/* Dimensión: Citas Especialidad                                            */
+/*==============================================================*/
+
+
+CREATE SEQUENCE seq_cita_especialidad INCREMENT BY 1 START WITH 1;
+
+create table cita_especialidad
+(
+  id_cita_especialidad BIGINT NOT NULL DEFAULT nextval('seq_cita_especialidad'::regclass),
+  ciudad_cita BIGINT REFERENCES ciudad (id_ciudad),
+  fecha_actividad BIGINT references dim_fecha (id_dim_fecha),
+  demografia_cita BIGINT references demografia (id_demografia),
+    especialista_cita BIGINT references especialista (id_especialista),
+  cantidad INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (id_cita_especialidad)
 );

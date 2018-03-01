@@ -58,11 +58,11 @@ public class DaoVentasVendedores {
             anioFin = Integer.parseInt(ventasVendedores.getAnioFin()+"1201");
         }
         
-        if (criterioConsultaVentas.equals("Escoger una Opción...")) {
+        if (criterioConsultaVentas.equals("Escoger una Opción...") && !ventasVendedores.getVendedor().equals("")) {
             String[] datosVendedor = ventasVendedores.getVendedor().split(",");
             int codVendedor = Integer.parseInt(datosVendedor[1].replaceAll("\\s+",""));
             where = " WHERE id_personal = '" + codVendedor + "'";
-        } else {
+        } else if(!criterioConsultaVentas.equals("Escoger una Opción...")){
             if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {
 
                 if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {

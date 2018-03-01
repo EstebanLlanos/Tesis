@@ -55,7 +55,7 @@ public class ControladorVentasVendedores {
 
                 return conteoVentas;   
             }
-        } else if (vendedorVentas.equals("")) {
+        } else if (vendedorVentas.equals("") && criterioConsultaVentas.equals("")) {
             String[] error = new String[1];
             error[0] = "Error Vendedor";
             conteoVentas.add(error);
