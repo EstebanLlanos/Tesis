@@ -36,7 +36,7 @@ import javax.swing.JFrame;
 public class UiVentasVendedores {
     
     JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
-    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor, labelTipoConsulta;
+    JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor, labelTipoConsulta, separadorBoton;
     JTextField textFieldVendedor;
     JSeparator separadorVendedor;
     JCheckBox busquedaNombre, busquedaOtrosCriterios;
@@ -175,8 +175,14 @@ public class UiVentasVendedores {
         
         comboBoxCriterioConsulta = new JComboBox();
 
+        separadorBoton = new JLabel();
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
+        
         botonConsultar = new JButton("Consultar");
         botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -527,6 +533,14 @@ public class UiVentasVendedores {
 
     public void setBusquedaOtrosCriterios(JCheckBox busquedaOtrosCriterios) {
         this.busquedaOtrosCriterios = busquedaOtrosCriterios;
+    }
+
+    public JLabel getSeparadorBoton() {
+        return separadorBoton;
+    }
+
+    public void setSeparadorBoton(JLabel separadorBoton) {
+        this.separadorBoton = separadorBoton;
     }
     
 }

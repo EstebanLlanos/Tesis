@@ -72,7 +72,7 @@ create table sede
 );
 
 /*==============================================================*/
-/* Dimensión: Demografía                                              */
+/* Dimensión: Demografía                                        */
 /*==============================================================*/
 
 
@@ -86,7 +86,7 @@ create table demografia (
 );
 
 /*==============================================================*/
-/* Dimensión: Especialidad                                              */
+/* Dimensión: Especialidad                                      */
 /*==============================================================*/
 
 CREATE TABLE especialidad (
@@ -98,7 +98,7 @@ CREATE TABLE especialidad (
 );
 
 /*==============================================================*/
-/* Dimensión: Especialista                                              */
+/* Dimensión: Especialista                                      */
 /*==============================================================*/
 
 CREATE TABLE especialista (
@@ -137,11 +137,32 @@ create table dim_venta
 );
 
 /*==============================================================*/
-/* Dimensión: Citas Especialidad                                            */
+/* Dimensión: Ventas_2                                          */
 /*==============================================================*/
 
+CREATE SEQUENCE seq_dim_venta_2 INCREMENT BY 1 START WITH 1;
 
-CREATE SEQUENCE seq_cita_especialidad INCREMENT BY 1 START WITH 1;
+create table dim_venta_2
+(
+  id_venta BIGINT NOT NULL DEFAULT nextval('seq_dim_venta'::regclass),
+  fecha_venta BIGINT NOT NULL,
+  plan_venta BIGINT NOT NULL,
+  sede_venta BIGINT NOT NULL,
+  ciudad_venta BIGINT NOT NULL,
+  vendedor BIGINT NOT NULL,
+  total_ventas INTEGER NOT NULL,
+  PRIMARY KEY (id_venta),
+  FOREIGN KEY (plan_venta) REFERENCES plan (id_plan),
+  FOREIGN KEY (sede_venta) REFERENCES sede (id_sede),
+  FOREIGN KEY (ciudad_venta) REFERENCES ciudad (cod_ciudad),
+  FOREIGN KEY (vendedor) REFERENCES personal (id_personal)
+);
+
+/*==============================================================*/
+/* Dimensión: Citas Especialidad                                */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_dim_cita_especialidad INCREMENT BY 1 START WITH 1;
 
 create table dim_cita_especialidad
 (

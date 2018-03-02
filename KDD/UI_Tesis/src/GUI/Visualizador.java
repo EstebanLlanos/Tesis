@@ -9,8 +9,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Separator;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -173,6 +178,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorCiudad.getComboBoxAnioFin());
         panelOpciones.add(ventasPorCiudad.getLabelCriterioConsulta());
         panelOpciones.add(ventasPorCiudad.getComboBoxCriterioConsulta());
+        panelOpciones.add(ventasPorCiudad.getSeparadorBoton());
         panelOpciones.add(ventasPorCiudad.getBotonConsultar());
         panelOpciones.updateUI();
     }
@@ -196,6 +202,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorVendedor.getComboBoxAnioFin());
         panelOpciones.add(ventasPorVendedor.getLabelCriterioConsulta());
         panelOpciones.add(ventasPorVendedor.getComboBoxCriterioConsulta());
+        panelOpciones.add(ventasPorVendedor.getSeparadorBoton());
         panelOpciones.add(ventasPorVendedor.getBotonConsultar());
         panelOpciones.updateUI();
     }
@@ -211,6 +218,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorSede.getComboBoxMesFin());
         panelOpciones.add(ventasPorSede.getLabelAnioFin());
         panelOpciones.add(ventasPorSede.getComboBoxAnioFin());
+        panelOpciones.add(ventasPorSede.getSeparadorBoton());
         panelOpciones.add(ventasPorSede.getBotonConsultar());
         panelOpciones.updateUI();
     }

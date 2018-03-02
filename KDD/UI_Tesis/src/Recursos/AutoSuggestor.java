@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -249,9 +250,9 @@ public class AutoSuggestor {
         if (words == null) {
             return;//so we can call constructor with null value for dictionary without exception thrown
         }
-        for (String word : words) {
+        words.forEach((word) -> {
             dictionary.add(word);
-        }
+        });
     }
 
     public JWindow getAutoSuggestionPopUpWindow() {
@@ -279,15 +280,24 @@ public class AutoSuggestor {
 
         boolean suggestionAdded = false;
 
-        for (String word : dictionary) {//get words in the dictionary which we added
+        for (Iterator<String> it = dictionary.iterator(); it.hasNext();) {
+            String word = it.next();
+            //get words in the dictionary which we added
             boolean fullymatches = true;
+            
+//            System.out.println("Palabra de Diccionario: " + word.toLowerCase());
+//            System.out.println("Palabra del TextField: " + typedWord.toLowerCase());
+//            System.out.println("Resultado de la condición: " + word.toLowerCase().indexOf(typedWord.toLowerCase()));
+            
             for (int i = 0; i < typedWord.length(); i++) {//each string in the word
-                if (!typedWord.toLowerCase().startsWith(String.valueOf(word.toLowerCase().charAt(i)), i)) {//check for match
+
+                if (!typedWord.toLowerCase().contains(String.valueOf(word.toLowerCase().charAt(i)))) {//check for match
                     fullymatches = false;
                     break;
                 }
             }
             if (fullymatches) {
+//                System.out.println("Agregó la palabra a las sugerencias");
                 addWordToSuggestions(word);
                 suggestionAdded = true;
             }

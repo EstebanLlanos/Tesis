@@ -18,11 +18,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 
 /**
  *
@@ -32,7 +35,8 @@ import javax.swing.JOptionPane;
 public class UiVentasCiudades {
     
     JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin, labelCarga;
+    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
+    JLabel separadorBoton;
     JButton botonConsultar;
     
     ControladorVentasCiudades controladorVentasCiudad;
@@ -47,8 +51,6 @@ public class UiVentasCiudades {
     public UiVentasCiudades() {
 
         controladorVentasCiudad = new ControladorVentasCiudades();
-        
-        labelCarga = new JLabel(new ImageIcon(getClass().getResource("/Recursos/loading.gif")));
         
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
@@ -89,10 +91,15 @@ public class UiVentasCiudades {
 
         botonConsultar = new JButton("Consultar");
         botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        botonConsultar.setPreferredSize(new Dimension(120, 30));
 
+        separadorBoton = new JLabel();
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
+        
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Visualizador.panelPestanas.addTab("Cargando...", labelCarga);
                 hacerConsulta(evt);
             }
         });
@@ -136,35 +143,15 @@ public class UiVentasCiudades {
 
         ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
-        if (ventasPorCiudad.isEmpty()) {
-            
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Cargando...")) {
-                Visualizador.panelPestanas.removeTabAt(0);
-            }
-            
+        if (ventasPorCiudad.isEmpty()) {            
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
-        } else if(ventasPorCiudad.get(0)[0].equals("Error")){
-            
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Cargando...")) {
-                Visualizador.panelPestanas.removeTabAt(0);
-            }
-            
+        } else if(ventasPorCiudad.get(0)[0].equals("Error")){            
             JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Año")){
-            
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Cargando...")) {
-                Visualizador.panelPestanas.removeTabAt(0);
-            }
-            
+        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Año")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){
-            
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Cargando...")) {
-                Visualizador.panelPestanas.removeTabAt(0);
-            }
-            
+        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
         }else {
             try{ ArrayList<String> ciudades = new ArrayList();
@@ -174,7 +161,7 @@ public class UiVentasCiudades {
                     ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
                 }
 
-                if (!ventasPorCiudad.isEmpty()) {
+                if (!ventasPorCiudad.isEmpty()) {                    
                     PieChart = new FXPieChart("Top 5 Ciudades", ciudades, ventas);
                     BarChart = new FXBarChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
                     LineChart = new FXLineChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
@@ -429,4 +416,13 @@ public class UiVentasCiudades {
     public void setLabelMesInicio(JLabel labelMesInicio) {
         this.labelMesInicio = labelMesInicio;
     }
+
+    public JLabel getSeparadorBoton() {
+        return separadorBoton;
+    }
+
+    public void setSeparadorBoton(JLabel separadorBoton) {
+        this.separadorBoton = separadorBoton;
+    }
+    
 }

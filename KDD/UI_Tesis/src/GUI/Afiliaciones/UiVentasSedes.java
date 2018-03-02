@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 public class UiVentasSedes {
     
     JComboBox comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin;
-    JLabel labelAnioInicio, labelAnioFin, labelMesInicio, labelMesFin;
+    JLabel labelAnioInicio, labelAnioFin, labelMesInicio, labelMesFin, separadorBoton;
     JButton botonConsultar;
     
     ControladorVentasSedes controladorVentasSedes;
@@ -47,7 +47,7 @@ public class UiVentasSedes {
         controladorVentasSedes = new ControladorVentasSedes();
         
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde el Año:                     ");
+        inicializarJLabel(labelAnioInicio, "Desde el Año:                         ");
         comboBoxAnioInicio = new JComboBox();
         
         comboBoxAnioInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -63,21 +63,27 @@ public class UiVentasSedes {
         });
         
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta el Año:                        ");
+        inicializarJLabel(labelAnioFin, "Hasta el Año:                            ");
         comboBoxAnioFin = new JComboBox();
         
         labelMesInicio = new JLabel();
-        inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
+        inicializarJLabel(labelMesInicio, "Desde el Mes:                          ");
         comboBoxMesInicio = new JComboBox();        
         comboBoxMesInicio.setEnabled(false);
         
         labelMesFin = new JLabel();
-        inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
+        inicializarJLabel(labelMesFin, "Hasta el Mes:                             ");
         comboBoxMesFin = new JComboBox();
         comboBoxMesFin.setEnabled(false);
         
+        separadorBoton = new JLabel();
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
+        
         botonConsultar = new JButton("Consultar");
         botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,4 +302,12 @@ public class UiVentasSedes {
         this.labelMesFin = labelMesFin;
     }
 
+    public JLabel getSeparadorBoton() {
+        return separadorBoton;
+    }
+
+    public void setSeparadorBoton(JLabel separadorBoton) {
+        this.separadorBoton = separadorBoton;
+    }
+    
 }
