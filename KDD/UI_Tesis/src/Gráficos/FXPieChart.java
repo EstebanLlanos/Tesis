@@ -53,7 +53,7 @@ public class FXPieChart {
         };
         
         new Thread(task).start();
-        
+                
         if (Visualizador.panelPestanas.getTabCount() == 3) {
             if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 10 Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 5 Ciudades") ||

@@ -280,10 +280,6 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas.setBorder(new javax.swing.border.MatteBorder(null));
         panelPestanas.setAutoscrolls(true);
 
-        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
         jDesktopPane2Layout.setHorizontalGroup(
@@ -309,6 +305,9 @@ public class Visualizador extends javax.swing.JFrame {
                     .addComponent(panelPestanas))
                 .addContainerGap())
         );
+        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

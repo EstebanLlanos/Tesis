@@ -143,7 +143,7 @@ create table dim_venta
 
 CREATE SEQUENCE seq_cita_especialidad INCREMENT BY 1 START WITH 1;
 
-create table cita_especialidad
+create table dim_cita_especialidad
 (
   id_cita_especialidad BIGINT NOT NULL DEFAULT nextval('seq_cita_especialidad'::regclass),
   ciudad_cita BIGINT REFERENCES ciudad (id_ciudad),

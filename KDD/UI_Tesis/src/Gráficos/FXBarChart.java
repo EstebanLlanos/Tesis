@@ -66,7 +66,6 @@ public class FXBarChart {
             }
         }
         
-        Visualizador.panelPestanas.addTab("Welcome",new JLabel(new ImageIcon(getClass().getResource("/Recursos/seleccionar.png"))));
         Visualizador.panelPestanas.addTab("Gráfico De Barras - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
         
