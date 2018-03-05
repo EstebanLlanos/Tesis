@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Afiliaciones;
+package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
-import Controlador.Afiliaciones.ControladorVentasCiudades;
+import Controlador.Citas_Especialidad.ControladorCitasEspecialidad;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -27,14 +27,14 @@ import javax.swing.JOptionPane;
  * @author Esteban
  */
 
-public class UiVentasCiudades {
+public class UiCitasEspecialidad {
     
-    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
+    JComboBox comboBoxDepartamentos, comboBoxCiudades, comboBoxGenero, comboBoxEstrato, comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin, comboBoxCriterioConsulta;
+    JLabel labelDepartamento, labelCiudad, labelGenero, labelEstrato, labelEstrcomboBoxGeneroato, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
     JLabel separadorBoton;
     JButton botonConsultar;
     
-    ControladorVentasCiudades controladorVentasCiudad;
+    ControladorCitasEspecialidad controladorCitasEspecialidad;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
     
@@ -43,17 +43,29 @@ public class UiVentasCiudades {
     Statement stmt;
     public static ResultSet rsCandidato;
 
-    public UiVentasCiudades() {
+    public UiCitasEspecialidad() {
 
-        controladorVentasCiudad = new ControladorVentasCiudades();
+        controladorCitasEspecialidad = new ControladorCitasEspecialidad();
         
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
         comboBoxDepartamentos = new JComboBox();
         
-        labelSede = new JLabel();
-        inicializarJLabel(labelSede, "Sede:                          ");
+        labelCiudad = new JLabel();
+        inicializarJLabel(labelCiudad, "Ciudad:                          ");
+
+        comboBoxCiudades = new JComboBox();
+        
+        labelGenero = new JLabel();
+        inicializarJLabel(labelGenero, "Género:                          ");
+        
+        comboBoxGenero = new JComboBox();
+        
+        labelEstrato = new JLabel();
+        inicializarJLabel(labelEstrato, "Estrato:                          ");
+        
+        comboBoxEstrato = new JComboBox();
         
         labelAnioInicio = new JLabel();
         inicializarJLabel(labelAnioInicio, "Desde el Año:                      ");
@@ -79,8 +91,6 @@ public class UiVentasCiudades {
         inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                      ");
         
         comboBoxAnioFin = new JComboBox();
-        
-        comboBoxSedes = new JComboBox();
         
         comboBoxCriterioConsulta = new JComboBox();
 
@@ -110,7 +120,9 @@ public class UiVentasCiudades {
         comboBoxMesFin = new JComboBox();  
         
         inicializarDepartamentos(comboBoxDepartamentos);
-        inicializarSedes(comboBoxSedes);
+        inicializarCiudades(comboBoxCiudades);
+        inicializarGeneros(comboBoxGenero);
+        inicializarEstratos(comboBoxEstrato);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
         inicializarMeses(comboBoxMesInicio);
@@ -129,37 +141,40 @@ public class UiVentasCiudades {
         //verificamos que el rango de estrato sea correcto
 
         String departamento = "" + comboBoxDepartamentos.getSelectedItem();
-        String sede = "" + comboBoxSedes.getSelectedItem();
+        String ciudad = "" + comboBoxCiudades.getSelectedItem();
+        String genero = "" + comboBoxGenero.getSelectedItem();
+        String estrato = "" + comboBoxEstrato.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String mesInicio = "" + comboBoxMesInicio.getSelectedItem();
         String mesFin = "" + comboBoxMesFin.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
+        ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(departamento, ciudad, genero, estrato, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
-        if (ventasPorCiudad.isEmpty()) {            
+        if (citasPorEspecialidad.isEmpty()) {            
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
-        } else if(ventasPorCiudad.get(0)[0].equals("Error")){            
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Año")){            
+        } else if(citasPorEspecialidad.get(0)[0].equals("Error")){            
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una ciudad o una sede (o ambos) para realizar la consulta");
+        } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Año")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){            
+        } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Mes")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
         }else {
-            try{ ArrayList<String> ciudades = new ArrayList();
-                ArrayList<Integer> ventas = new ArrayList();
-                for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
-                    ciudades.add(ventasPorCiudad.get(i)[0]);
-                    ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
+            try{ 
+                ArrayList<String> especialidades = new ArrayList();
+                ArrayList<Integer> citas = new ArrayList();
+                for (int i = 0; i <= citasPorEspecialidad.size() - 1; i++) {
+                    especialidades.add(citasPorEspecialidad.get(i)[0]);
+                    citas.add(Integer.parseInt(citasPorEspecialidad.get(i)[1]));
                 }
 
-                if (!ventasPorCiudad.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top 5 Ciudades", ciudades, ventas);
-                    BarChart = new FXBarChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                if (!citasPorEspecialidad.isEmpty()) {                    
+                    PieChart = new FXPieChart("Top Especialidades", especialidades, citas);
+                    BarChart = new FXBarChart("Top Especialidades", "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
+                    LineChart = new FXLineChart("Top Especialidades", "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
@@ -183,14 +198,15 @@ public class UiVentasCiudades {
     protected void inicializarCriteriosDeConsulta(JComboBox criteriosDeConsulta){
         
         criteriosDeConsulta.setVisible(true);
-        criteriosDeConsulta.setMaximumSize(new Dimension(200, 30));
+        criteriosDeConsulta.setSize(new Dimension(250, 30));
+        criteriosDeConsulta.setMaximumSize(new Dimension(250, 30));
 
-        String meses[][] = new String[2][1];
-        meses[0][0] = "Mayor Número de Ventas";
-        meses[1][0] = "Menor Número de Ventas";
+        String criterios[][] = new String[2][1];
+        criterios[0][0] = "Especialidades más Solicitadas";
+        criterios[1][0] = "Especialidades menos Solicitadas";
 
-        for (int i = 0; i < meses.length; i++) {
-            criteriosDeConsulta.addItem(meses[i][0]);
+        for (int i = 0; i < criterios.length; i++) {
+            criteriosDeConsulta.addItem(criterios[i][0]);
         }
     
     }
@@ -198,7 +214,8 @@ public class UiVentasCiudades {
     protected void inicializarMeses(JComboBox entradaMeses) {
 
         entradaMeses.setVisible(true);
-        entradaMeses.setMaximumSize(new Dimension(230, 30));
+        entradaMeses.setSize(new Dimension(300, 30));
+        entradaMeses.setMaximumSize(new Dimension(300, 30));
 
         String meses[][] = new String[13][1];
         meses[0][0] = "Escoger una Opción...";
@@ -225,7 +242,8 @@ public class UiVentasCiudades {
         BaseDeDatos = new ConexionBD();
         
         departamentos.setVisible(true);
-        departamentos.setMaximumSize(new Dimension(250, 30));
+        departamentos.setSize(new Dimension(300, 30));
+        departamentos.setMaximumSize(new Dimension(300, 30));
         
         ArrayList<String> listaDepartamentos = new ArrayList();
         
@@ -249,41 +267,42 @@ public class UiVentasCiudades {
             departamentos.addItem(listaDepartamentos.get(i));
         }
     }
-
-    protected void inicializarSedes(JComboBox sedes) {
-
+    
+    protected void inicializarCiudades(JComboBox ciudades){
         BaseDeDatos = new ConexionBD();
         
-        sedes.setVisible(true);
-        sedes.setMaximumSize(new Dimension(250, 30));
+        ciudades.setVisible(true);
+        ciudades.setSize(new Dimension(300, 30));
+        ciudades.setMaximumSize(new Dimension(300, 30));
         
-        ArrayList<String> listaSedes = new ArrayList();
+        ArrayList<String> listaCiudades = new ArrayList();
         
         try {
          
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_sede FROM sede;");
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
+                    + "FROM ciudad;");
 
-
-            listaSedes.add("Escoger una Opción...");
+            listaCiudades.add("Escoger una Opción...");
             
             while (tabla.next()) {
-                listaSedes.add(tabla.getObject(1) + "");
+                listaCiudades.add(tabla.getObject(1) + "");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
-        for (int i = 0; i < listaSedes.size(); i++) {
-            sedes.addItem(listaSedes.get(i));
+        for (int i = 0; i < listaCiudades.size(); i++) {
+            ciudades.addItem(listaCiudades.get(i));
         }
     }
 
     protected void inicializarAnios(JComboBox anioVentas) {
 
         anioVentas.setVisible(true);
-        anioVentas.setMaximumSize(new Dimension(250, 30));
+        anioVentas.setSize(new Dimension(300, 30));
+        anioVentas.setMaximumSize(new Dimension(300, 30));
 
         String[][] anios = new String[8][1];
         anios[0][0] = "Escoger una Opción...";
@@ -297,6 +316,42 @@ public class UiVentasCiudades {
 
         for (int i = 0; i < anios.length; i++) {
             anioVentas.addItem(anios[i][0]);
+        }
+    }
+    
+    protected void inicializarGeneros(JComboBox generoCitas) {
+
+        generoCitas.setVisible(true);
+        generoCitas.setSize(new Dimension(300, 30));
+        generoCitas.setMaximumSize(new Dimension(300, 30));
+
+        String[][] generos = new String[3][1];
+        generos[0][0] = "Escoger una Opción...";
+        generos[1][0] = "M";
+        generos[2][0] = "F";
+
+        for (int i = 0; i < generos.length; i++) {
+            generoCitas.addItem(generos[i][0]);
+        }
+    }
+    
+    protected void inicializarEstratos(JComboBox estratoCitas) {
+
+        estratoCitas.setVisible(true);
+        estratoCitas.setSize(new Dimension(300, 30));
+        estratoCitas.setMaximumSize(new Dimension(300, 30));
+
+        String[][] estratos = new String[7][1];
+        estratos[0][0] = "Escoger una Opción...";
+        estratos[1][0] = "1";
+        estratos[2][0] = "2";
+        estratos[3][0] = "3";
+        estratos[4][0] = "4";
+        estratos[5][0] = "5";
+        estratos[6][0] = "6";
+
+        for (int i = 0; i < estratos.length; i++) {
+            estratoCitas.addItem(estratos[i][0]);
         }
     }
 
@@ -313,15 +368,15 @@ public class UiVentasCiudades {
     }
 
     public JComboBox getComboBoxSedes() {
-        return comboBoxSedes;
+        return comboBoxGenero;
     }
 
     public void setComboBoxSedes(JComboBox comboBoxSedes) {
-        this.comboBoxSedes = comboBoxSedes;
+        this.comboBoxGenero = comboBoxSedes;
     }
     
     public JLabel getLabelSede() {
-        return labelSede;
+        return labelGenero;
     }
 
     public JButton getBotonConsultar() {
@@ -418,6 +473,22 @@ public class UiVentasCiudades {
 
     public void setSeparadorBoton(JLabel separadorBoton) {
         this.separadorBoton = separadorBoton;
+    }
+
+    public JComboBox getComboBoxCiudades() {
+        return comboBoxCiudades;
+    }
+
+    public void setComboBoxCiudades(JComboBox comboBoxCiudades) {
+        this.comboBoxCiudades = comboBoxCiudades;
+    }
+
+    public JLabel getLabelCiudad() {
+        return labelCiudad;
+    }
+
+    public void setLabelCiudad(JLabel labelCiudad) {
+        this.labelCiudad = labelCiudad;
     }
     
 }

@@ -7,20 +7,21 @@ package Logico.Citas_Especialidad;
 
 /**
  *
- * @author Miguel Torrres
+ * @author Esteban
  */
-public class CitasEspecialista {
+public class CitasEspecialidad {
     
-    String ciudad, sede, anioInicio, anioFin, mesInicio, mesFin, especialista;
+    String departamento, ciudad, genero, estrato, anioInicio, anioFin, mesInicio, mesFin;
     
-    public CitasEspecialista(){
+    public CitasEspecialidad(){
+        departamento = "";
         ciudad = "";
-        sede = "";
+        genero = "";
+        estrato = "";
         anioInicio = "";
         anioFin = "";
         mesInicio = "";
         mesFin = "";
-        especialista = "";
     }
 
     public String getCiudad() {
@@ -31,12 +32,12 @@ public class CitasEspecialista {
         this.ciudad = ciudad;
     }
 
-    public String getSede() {
-        return sede;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setSede(String sede) {
-        this.sede = sede;
+    public void setGenero(String sede) {
+        this.genero = sede;
     }
 
     public String getAnioInicio() {
@@ -71,12 +72,20 @@ public class CitasEspecialista {
         this.mesFin = mesFin;
     }
 
-    public String getEspecialista() {
-        return especialista;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setEspecialista(String especialista) {
-        this.especialista = especialista;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(String estrato) {
+        this.estrato = estrato;
     }
 
 }

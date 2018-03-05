@@ -21,8 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu.Separator;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import Recursos.AutoSuggestor;
 import javax.swing.JCheckBox;
@@ -38,7 +36,6 @@ public class UiVentasVendedores {
     JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
     JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor, labelTipoConsulta, separadorBoton;
     JTextField textFieldVendedor;
-    JSeparator separadorVendedor;
     JCheckBox busquedaNombre, busquedaOtrosCriterios;
     JButton botonConsultar;
     
@@ -148,8 +145,6 @@ public class UiVentasVendedores {
         textFieldVendedor = new JTextField();
         textFieldVendedor.setPreferredSize(new Dimension(170, 30));
         textFieldVendedor.setEnabled(false);
-        
-        separadorVendedor = new Separator();
         
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:                        ");
@@ -501,14 +496,6 @@ public class UiVentasVendedores {
 
     public void setTextFieldVendedor(JTextField textFieldVendedor) {
         this.textFieldVendedor = textFieldVendedor;
-    }
-
-    public JSeparator getSeparadorVendedor() {
-        return separadorVendedor;
-    }
-
-    public void setSeparadorVendedor(JSeparator separadorVendedor) {
-        this.separadorVendedor = separadorVendedor;
     }
 
     public JLabel getLabelTipoConsulta() {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Afiliaciones;
+package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasCiudades;
@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * @author Esteban
  */
 
-public class UiVentasCiudades {
+public class UiCitasEspecialista {
     
     JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
     JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
@@ -43,7 +43,7 @@ public class UiVentasCiudades {
     Statement stmt;
     public static ResultSet rsCandidato;
 
-    public UiVentasCiudades() {
+    public UiCitasEspecialista() {
 
         controladorVentasCiudad = new ControladorVentasCiudades();
         

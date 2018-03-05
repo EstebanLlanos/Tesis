@@ -3,19 +3,15 @@ package GUI;
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
+import GUI.Citas_Especialidad.UiCitasEspecialidad;
 import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Separator;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -62,7 +58,6 @@ public class Visualizador extends javax.swing.JFrame {
 
             switch (elementoConsultaSeleccionada) {
                 case 1:
-                    System.out.println("ENTRA A AFILIACIONES");
                     comboBoxPreguntas = new JComboBox();
                     arregloPreguntas = new String[4][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
@@ -78,8 +73,10 @@ public class Visualizador extends javax.swing.JFrame {
                 
                 case 2:
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas = new String[3][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Citas por Especialidad";
+                    arregloPreguntas[2][0] = "Citas por Especialista";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -133,7 +130,7 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignarComponentes(int codigoDePregunta) {
 
         //según la pregunta que se elija asignamos unos componentes a la interfaz
-        if (codigoDePregunta > 0) {
+        if (elementoConsultaSeleccionada == 1) {
 
             switch (codigoDePregunta) {
                 case 1:
@@ -154,11 +151,52 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
             }
 
+        } else if (elementoConsultaSeleccionada == 2) {
+
+            switch (codigoDePregunta) {
+                case 1:
+                    UiCitasEspecialidad citasPorEspecialidad = new UiCitasEspecialidad();
+                    asignaComponentesCitasEspecialidad(citasPorEspecialidad);
+                    break;
+                case 2:
+                    UiCitasEspecialista citasPorEspecialista = new UiCitasEspecialista(this);
+                    asignaComponentesCitasEsecialista(citasPorEspecialista);
+                    break;
+                default:
+                    panelOpciones.removeAll();
+                    panelOpciones.updateUI();
+                    break;
+            }
+
         } else {
             //por ahora eliminamos los componentes de la interfaz
             panelOpciones.removeAll();
             panelOpciones.updateUI();
         }
+    }
+    
+    private void asignaComponentesCitasEspecialidad(UiCitasEspecialidad citasPorEspecialidad) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(citasPorEspecialidad.getLabelDepartamento());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxDepartamentos());
+        panelOpciones.add(citasPorEspecialidad.getLabelCiudad());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxCiudades());
+        panelOpciones.add(citasPorEspecialidad.getLabelSede());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxSedes());
+        panelOpciones.add(citasPorEspecialidad.getLabelAnioInicio());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxAnioInicio());
+        panelOpciones.add(citasPorEspecialidad.getLabelMesInicio());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxMesInicio());
+        panelOpciones.add(citasPorEspecialidad.getLabelMesFin());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxMesFin());
+        panelOpciones.add(citasPorEspecialidad.getLabelAnioFin());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxAnioFin());
+        panelOpciones.add(citasPorEspecialidad.getLabelCriterioConsulta());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxCriterioConsulta());
+        panelOpciones.add(citasPorEspecialidad.getSeparadorBoton());
+        panelOpciones.add(citasPorEspecialidad.getBotonConsultar());
+        panelOpciones.updateUI();
     }
     
     private void asignaComponentesVentasCiudad(UiVentasCiudades ventasPorCiudad) {
@@ -191,7 +229,6 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorVendedor.getBusquedaOtrosCriterios());
         panelOpciones.add(ventasPorVendedor.getLabelVendedor());
         panelOpciones.add(ventasPorVendedor.getTextFieldVendedor());
-        panelOpciones.add(ventasPorVendedor.getSeparadorVendedor());
         panelOpciones.add(ventasPorVendedor.getLabelCiudad());
         panelOpciones.add(ventasPorVendedor.getComboBoxCiudades());
         panelOpciones.add(ventasPorVendedor.getLabelSede());
