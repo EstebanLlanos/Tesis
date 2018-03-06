@@ -57,7 +57,7 @@ public class UiVentasVendedores {
         labelTipoConsulta = new JLabel();
         inicializarJLabel(labelTipoConsulta , "Tipo de Consulta a Realizar:                              ");
         
-        busquedaNombre = new JCheckBox("Buscar por nombre del vendedor");
+        busquedaNombre = new JCheckBox("Buscar por nombre del Vendedor");
         busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
         busquedaNombre.setSelected(false);

@@ -52,17 +52,20 @@ public class FXLineChart {
             if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top 10 Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top 5 Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialidades")) {
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialistas")) {
                 Visualizador.panelPestanas.removeTabAt(0);
             } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top 10 Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top 5 Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialidades")){
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialistas")){
                 Visualizador.panelPestanas.removeTabAt(1);
             } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top 10 Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top 5 Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialidades")){
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialistas")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }

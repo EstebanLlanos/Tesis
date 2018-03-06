@@ -5,12 +5,9 @@
  */
 package Controlador.Afiliaciones;
 
-import Dao.Afiliaciones.DaoVentasCiudades;
-import Logico.Afiliaciones.VentasCiudades;
 import Dao.Afiliaciones.DaoVentasVendedores;
 import Logico.Afiliaciones.VentasVendedores;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *

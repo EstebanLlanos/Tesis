@@ -1,13 +1,13 @@
-﻿SELECT nombre_especialista, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de
-INNER JOIN especialista especialista ON (de.especialista_cita = especialista.id_especialista)
-INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia) WHERE estrato_demografia = '6' AND genero_demografia = 'M' 
+﻿/*SELECT nombre_especialista, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp
+INNER JOIN especialista esp ON (desp.especialista_cita = esp.id_especialista)
+INNER JOIN ciudad cd ON (desp.ciudad_cita = cd.id_ciudad)
+INNER JOIN demografia dm ON (desp.demografia_cita = dm.id_demografia) WHERE estrato_demografia = '6' AND genero_demografia = 'M' 
 GROUP BY nombre_especialista 
 ORDER BY total_citas DESC;
-
-/*
-SELECT esp.nombre_especialidad, SUM(de.total_ventas) AS total_ventas FROM dim_cita_especialidad de 
-INNER JOIN especialidad esp ON (de.vendedor = per.id_personal) 
-INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha) WHERE id_personal = '550'
-GROUP BY per.id_personal, fch.anio_actual
-ORDER BY fch.anio_actual
 */
+
+SELECT fch.anio_actual, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp
+INNER JOIN especialista esp ON (desp.especialista_cita = esp.id_especialista)
+INNER JOIN dim_fecha fch ON (desp.fecha_actividad = fch.id_dim_fecha) WHERE especialista_cita = '2000' 
+GROUP BY anio_actual
+ORDER BY anio_actual ASC;

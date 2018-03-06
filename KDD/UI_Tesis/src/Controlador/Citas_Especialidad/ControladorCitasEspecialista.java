@@ -5,6 +5,7 @@
  */
 package Controlador.Citas_Especialidad;
 
+import Dao.Citas_Especialidad.DaoCitasEspecialista;
 import Logico.Citas_Especialidad.CitasEspecialista;
 import java.util.ArrayList;
 
@@ -14,11 +15,11 @@ import java.util.ArrayList;
  */
 public class ControladorCitasEspecialista {
     
-    //DaoCitasEspecialista daoCitasEspecialista;
+    DaoCitasEspecialista daoCitasEspecialista;
     ArrayList<String[]> conteoCitas = new ArrayList();
 
     public ControladorCitasEspecialista() {
-        //daoCitasEspecialista = new DaoCitasEspecialista();
+        daoCitasEspecialista = new DaoCitasEspecialista();
     }
 
     public ArrayList<String[]> getCitas(String especialista, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
@@ -78,8 +79,7 @@ public class ControladorCitasEspecialista {
             }
         }
         
-        String restriccionesClausulaWhere = "";
-        //String restriccionesClausulaWhere = daoCitasEspecialista.prepararRestriccionesClausulaWhereVentas(citasEspecialista, criterioConsultaVentas);
+        String restriccionesClausulaWhere = daoCitasEspecialista.prepararRestriccionesClausulaWhereCitas(citasEspecialista, criterioConsultaVentas);
         
         if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];
@@ -93,7 +93,7 @@ public class ControladorCitasEspecialista {
             conteoCitas.add(error);
             
             return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Vendedor")) {
+        } else if (restriccionesClausulaWhere.equals("Error Especialista")) {
             String[] error = new String[1];
             error[0] = "Error Vendedor";
             conteoCitas.add(error);
@@ -101,7 +101,7 @@ public class ControladorCitasEspecialista {
             return conteoCitas;
         }
         
-        //conteoCitas = daoCitasEspecialista.conteoCitasEspecialista(restriccionesClausulaWhere);
+        conteoCitas = daoCitasEspecialista.conteoCitasEspecialista(restriccionesClausulaWhere);
         
         return conteoCitas;
     }

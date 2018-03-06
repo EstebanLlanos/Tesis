@@ -52,7 +52,7 @@ public class UiCitasEspecialista {
 
     public UiCitasEspecialista(JFrame ventanaPrincipal) {
 
-        busquedaNombre = new JCheckBox("Buscar por nombre del vendedor");
+        busquedaNombre = new JCheckBox("Buscar por nombre del Especialista");
         busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
         busquedaNombre.setSelected(false);
@@ -215,6 +215,7 @@ public class UiCitasEspecialista {
         inicializarMeses(comboBoxMesInicio);
         inicializarMeses(comboBoxMesFin);
         inicializarCriteriosDeConsulta(comboBoxCriterioConsulta);
+        comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Citas");
     }
 
     void hacerConsulta(ActionEvent evt) {
@@ -336,9 +337,10 @@ public class UiCitasEspecialista {
         criteriosDeConsulta.setVisible(true);
         criteriosDeConsulta.setMaximumSize(new Dimension(200, 30));
 
-        String meses[][] = new String[2][1];
-        meses[0][0] = "Mayor Número de Citas";
-        meses[1][0] = "Menor Número de Citas";
+        String meses[][] = new String[3][1];
+        meses[0][0] = "Escoger una Opción...";
+        meses[1][0] = "Mayor Número de Citas";
+        meses[2][0] = "Menor Número de Citas";
 
         for (int i = 0; i < meses.length; i++) {
             criteriosDeConsulta.addItem(meses[i][0]);

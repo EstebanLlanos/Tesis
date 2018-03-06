@@ -60,7 +60,7 @@ public class DaoVentasVendedores {
         
         if (criterioConsultaVentas.equals("Escoger una Opción...") && !ventasVendedores.getVendedor().equals("")) {
             String[] datosVendedor = ventasVendedores.getVendedor().split(",");
-            int codVendedor = Integer.parseInt(datosVendedor[1].replaceAll("\\s+",""));
+            int codVendedor = Integer.parseInt(datosVendedor[0].replaceAll("\\s+",""));
             where = " WHERE id_personal = '" + codVendedor + "'";
         } else if(!criterioConsultaVentas.equals("Escoger una Opción...")){
             if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {

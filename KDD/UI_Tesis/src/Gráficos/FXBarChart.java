@@ -54,17 +54,20 @@ public class FXBarChart {
             if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Especialidades")) {
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Especialistas")) {
                 Visualizador.panelPestanas.removeTabAt(0);
             } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Especialidades")){
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Especialistas")){
                 Visualizador.panelPestanas.removeTabAt(1);
             } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Especialidades")){
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Especialidades") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Especialistas")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
