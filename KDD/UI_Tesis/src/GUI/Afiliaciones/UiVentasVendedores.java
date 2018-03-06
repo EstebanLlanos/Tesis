@@ -233,9 +233,9 @@ public class UiVentasVendedores {
                 }
 
                 if (!ventasPorVendedor.isEmpty()) {
-                    PieChart = new FXPieChart("Top 10 Vendedores", vendedores, ventas);
-                    BarChart = new FXBarChart("Top 10 Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 10 Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart("Top Vendedores", vendedores, ventas);
+                    BarChart = new FXBarChart("Top Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart("Top Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
@@ -260,7 +260,7 @@ public class UiVentasVendedores {
                     + "FROM personal WHERE tipo_personal = 'V';");
             
             while (tabla.next()) {
-                vendedores.add(tabla.getObject(2) + " " + tabla.getObject(1) + ", " + tabla.getObject(3));
+                vendedores.add(tabla.getObject(3) +  ", " + tabla.getObject(2) + " " + tabla.getObject(1));
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

@@ -157,9 +157,9 @@ public class UiVentasCiudades {
                 }
 
                 if (!ventasPorCiudad.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top 5 Ciudades", ciudades, ventas);
-                    BarChart = new FXBarChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart("Top Ciudades", ciudades, ventas);
+                    BarChart = new FXBarChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }

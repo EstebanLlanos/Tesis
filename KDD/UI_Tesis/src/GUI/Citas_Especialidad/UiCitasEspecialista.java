@@ -7,9 +7,11 @@ package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasCiudades;
+import Controlador.Citas_Especialidad.ControladorCitasEspecialista;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
+import Recursos.AutoSuggestor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -18,70 +20,166 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Esteban
  */
-
 public class UiCitasEspecialista {
-    
-    JComboBox comboBoxDepartamentos, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
-    JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
+
+    JComboBox comboBoxCiudades, comboBoxDepartamentos, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta, comboBoxMesInicio, comboBoxMesFin;
+    JLabel labelDepartamento, labelCiudad, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin, labelEspecialista;
+    JTextField textFieldEspecialista;
+    JCheckBox busquedaNombre, busquedaOtrosCriterios;
     JLabel separadorBoton;
     JButton botonConsultar;
-    
-    ControladorVentasCiudades controladorVentasCiudad;
-    
+
+    AutoSuggestor autoCompletar;
+
+    ControladorCitasEspecialista controladorCitasEspecialista;
+
     // Elementos de conexion de la BD para el llenado de los comboBox
-    
     ConexionBD BaseDeDatos;
     Connection conn;
     Statement stmt;
     public static ResultSet rsCandidato;
 
-    public UiCitasEspecialista() {
+    public UiCitasEspecialista(JFrame ventanaPrincipal) {
 
-        controladorVentasCiudad = new ControladorVentasCiudades();
+        busquedaNombre = new JCheckBox("Buscar por nombre del vendedor");
+        busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
+        busquedaNombre.setSelected(false);
+
+        labelEspecialista = new JLabel();
+        inicializarJLabel(labelEspecialista, "Especialista:                       \n");
         
+        textFieldEspecialista = new JTextField();
+        textFieldEspecialista.setPreferredSize(new Dimension(170, 25));
+        textFieldEspecialista.setEnabled(false);
+        
+        busquedaNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (busquedaNombre.isSelected()) {
+                    busquedaOtrosCriterios.setSelected(false);
+                    textFieldEspecialista.setEnabled(true);
+
+                    comboBoxCiudades.setEnabled(false);
+                    comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxAnioInicio.setEnabled(false);
+                    comboBoxAnioInicio.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxAnioFin.setEnabled(false);
+                    comboBoxAnioFin.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxDepartamentos.setEnabled(false);
+                    comboBoxDepartamentos.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxCriterioConsulta.setEnabled(false);
+                    comboBoxCriterioConsulta.setSelectedItem("Escoger una Opción...");
+                } else {
+                    busquedaOtrosCriterios.setSelected(true);
+
+                    textFieldEspecialista.setEnabled(false);
+                    textFieldEspecialista.setText("");
+
+                    comboBoxCiudades.setEnabled(true);
+                    comboBoxAnioInicio.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
+                    comboBoxDepartamentos.setEnabled(true);
+                    comboBoxCriterioConsulta.setEnabled(true);
+                    comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Citas");
+                }
+            }
+        });
+
+        busquedaOtrosCriterios = new JCheckBox("Buscar por otros criterios");
+        busquedaOtrosCriterios.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        busquedaOtrosCriterios.setForeground(new java.awt.Color(230, 230, 255));
+        busquedaOtrosCriterios.setSelected(true);
+
+        busquedaOtrosCriterios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (busquedaOtrosCriterios.isSelected()) {
+                    busquedaNombre.setSelected(false);
+
+                    textFieldEspecialista.setEnabled(false);
+                    textFieldEspecialista.setText("");
+
+                    comboBoxCiudades.setEnabled(true);
+                    comboBoxAnioInicio.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
+                    comboBoxDepartamentos.setEnabled(true);
+                    comboBoxCriterioConsulta.setEnabled(true);
+                    comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Citas");
+                } else {
+                    busquedaNombre.setSelected(true);
+                    textFieldEspecialista.setEnabled(true);
+
+                    comboBoxCiudades.setEnabled(false);
+                    comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxAnioInicio.setEnabled(false);
+                    comboBoxAnioInicio.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxAnioFin.setEnabled(false);
+                    comboBoxAnioFin.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxDepartamentos.setEnabled(false);
+                    comboBoxDepartamentos.setSelectedItem("Escoger una Opción...");
+
+                    comboBoxCriterioConsulta.setEnabled(false);
+                    comboBoxCriterioConsulta.setSelectedItem("Escoger una Opción...");
+                }
+            }
+        });
+
+        controladorCitasEspecialista = new ControladorCitasEspecialista();
+
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
         comboBoxDepartamentos = new JComboBox();
-        
-        labelSede = new JLabel();
-        inicializarJLabel(labelSede, "Sede:                          ");
-        
+
+        labelCiudad = new JLabel();
+        inicializarJLabel(labelCiudad, "Ciudad:                          ");
+
+        comboBoxCiudades = new JComboBox();
+
         labelAnioInicio = new JLabel();
         inicializarJLabel(labelAnioInicio, "Desde el Año:                      ");
-        
-        comboBoxAnioInicio = new JComboBox();        
-        
+
+        comboBoxAnioInicio = new JComboBox();
+
         comboBoxAnioInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (!comboBoxAnioInicio.getSelectedItem().equals("Escoger una Opción...")) {
                     comboBoxMesInicio.setEnabled(true);
                     comboBoxMesFin.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
                 } else {
                     comboBoxMesInicio.setEnabled(false);
                     comboBoxMesFin.setEnabled(false);
+                    comboBoxAnioFin.setEnabled(false);
                 }
             }
         });
-        
+
         labelAnioFin = new JLabel();
         inicializarJLabel(labelAnioFin, "Hasta el Año:                           ");
-        
+
         labelCriterioConsulta = new JLabel();
         inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                      ");
-        
+
         comboBoxAnioFin = new JComboBox();
-        
-        comboBoxSedes = new JComboBox();
-        
+
         comboBoxCriterioConsulta = new JComboBox();
 
         botonConsultar = new JButton("Consultar");
@@ -90,27 +188,28 @@ public class UiCitasEspecialista {
 
         separadorBoton = new JLabel();
         inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
-                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+                + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
         separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
-        
+
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hacerConsulta(evt);
             }
         });
-        
+
         labelMesInicio = new JLabel();
         inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
-        
-        comboBoxMesInicio = new JComboBox();  
-        
+
+        comboBoxMesInicio = new JComboBox();
+
         labelMesFin = new JLabel();
         inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
-        
-        comboBoxMesFin = new JComboBox();  
-        
+
+        comboBoxMesFin = new JComboBox();
+
+        autoCompletar = new AutoSuggestor(textFieldEspecialista, ventanaPrincipal, obtenerEspecialistas(), Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.85f);
+        inicializarCiudades(comboBoxCiudades);
         inicializarDepartamentos(comboBoxDepartamentos);
-        inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
         inicializarMeses(comboBoxMesInicio);
@@ -121,55 +220,107 @@ public class UiCitasEspecialista {
     void hacerConsulta(ActionEvent evt) {
 
         // Clases para el despligue Gráfico de resultados
-    
         FXPieChart PieChart;
         FXBarChart BarChart;
         FXLineChart LineChart;
-        
-        //verificamos que el rango de estrato sea correcto
 
+        //verificamos que el rango de estrato sea correcto
+        String especialista = "" + textFieldEspecialista.getText();
         String departamento = "" + comboBoxDepartamentos.getSelectedItem();
-        String sede = "" + comboBoxSedes.getSelectedItem();
+        String ciudad = "" + comboBoxCiudades.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String mesInicio = "" + comboBoxMesInicio.getSelectedItem();
         String mesFin = "" + comboBoxMesFin.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
+        ArrayList<String[]> citasPorEspecialista = controladorCitasEspecialista.getCitas(especialista, departamento, ciudad, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
-        if (ventasPorCiudad.isEmpty()) {            
+        if (citasPorEspecialista.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
-            
-        } else if(ventasPorCiudad.get(0)[0].equals("Error")){            
+
+        } else if (citasPorEspecialista.get(0)[0].equals("Error")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Año")){            
+        } else if (citasPorEspecialista.get(0)[0].equals("Error Fecha Año")) {
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
-        } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){            
+        } else if (citasPorEspecialista.get(0)[0].equals("Error Fecha Mes")) {
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
-        }else {
-            try{ ArrayList<String> ciudades = new ArrayList();
-                ArrayList<Integer> ventas = new ArrayList();
-                for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
-                    ciudades.add(ventasPorCiudad.get(i)[0]);
-                    ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));
+        } else {
+            try {
+                ArrayList<String> especialistas = new ArrayList();
+                ArrayList<Integer> citas = new ArrayList();
+                for (int i = 0; i <= citasPorEspecialista.size() - 1; i++) {
+                    especialistas.add(citasPorEspecialista.get(i)[0]);
+                    citas.add(Integer.parseInt(citasPorEspecialista.get(i)[1]));
                 }
 
-                if (!ventasPorCiudad.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top 5 Ciudades", ciudades, ventas);
-                    BarChart = new FXBarChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top 5 Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                if (!citasPorEspecialista.isEmpty()) {
+                    PieChart = new FXPieChart("Top Especialistas", especialistas, citas);
+                    BarChart = new FXBarChart("Top Especialistas", "Especialistas", especialistas, "Citas", citas, "Citas Realizadas");
+                    LineChart = new FXLineChart("Top Especialistas", "Especialistas", especialistas, "Citas", citas, "Citas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
-            } catch(ArrayIndexOutOfBoundsException ex){
+            } catch (ArrayIndexOutOfBoundsException ex) {
                 JOptionPane.showMessageDialog(null, "La consulta no puede ser realizada. "
-                    + "Seleccione un rango válido a consultar");
+                        + "Seleccione un rango válido a consultar");
             }
         }
     }
+
+    public ArrayList<String> obtenerEspecialistas(){
     
+        BaseDeDatos = new ConexionBD();
+        
+        ArrayList<String> especialistas = new ArrayList<>();
+        
+        try {
+         
+            conn = BaseDeDatos.conectar();
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery("SELECT id_especialista, nombre_especialista "
+                    + "FROM especialista;");
+            
+            while (tabla.next()) {
+                especialistas.add(tabla.getObject(1) + ", " + tabla.getObject(2));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
+        return especialistas;
+    }
+    
+    protected void inicializarCiudades(JComboBox ciudades) {
+        BaseDeDatos = new ConexionBD();
+
+        ciudades.setVisible(true);
+        ciudades.setMaximumSize(new Dimension(250, 30));
+
+        ArrayList<String> listaCiudades = new ArrayList();
+
+        try {
+
+            conn = BaseDeDatos.conectar();
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
+                    + "FROM ciudad;");
+
+            listaCiudades.add("Escoger una Opción...");
+
+            while (tabla.next()) {
+                listaCiudades.add(tabla.getObject(1) + "");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        for (int i = 0; i < listaCiudades.size(); i++) {
+            ciudades.addItem(listaCiudades.get(i));
+        }
+    }
+
     protected void inicializarJLabel(JLabel label, String texto) {
 
         label.setText(texto);
@@ -179,22 +330,22 @@ public class UiCitasEspecialista {
         label.setFont(new java.awt.Font("Century Gothic", 1, 14));
         label.setForeground(Color.WHITE);
     }
-    
-    protected void inicializarCriteriosDeConsulta(JComboBox criteriosDeConsulta){
-        
+
+    protected void inicializarCriteriosDeConsulta(JComboBox criteriosDeConsulta) {
+
         criteriosDeConsulta.setVisible(true);
         criteriosDeConsulta.setMaximumSize(new Dimension(200, 30));
 
         String meses[][] = new String[2][1];
-        meses[0][0] = "Mayor Número de Ventas";
-        meses[1][0] = "Menor Número de Ventas";
+        meses[0][0] = "Mayor Número de Citas";
+        meses[1][0] = "Menor Número de Citas";
 
         for (int i = 0; i < meses.length; i++) {
             criteriosDeConsulta.addItem(meses[i][0]);
         }
-    
+
     }
-    
+
     protected void inicializarMeses(JComboBox entradaMeses) {
 
         entradaMeses.setVisible(true);
@@ -223,60 +374,30 @@ public class UiCitasEspecialista {
     protected void inicializarDepartamentos(JComboBox departamentos) {
 
         BaseDeDatos = new ConexionBD();
-        
+
         departamentos.setVisible(true);
         departamentos.setMaximumSize(new Dimension(250, 30));
-        
+
         ArrayList<String> listaDepartamentos = new ArrayList();
-        
+
         try {
-         
+
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_departamento "
                     + "FROM departamento;");
 
             listaDepartamentos.add("Escoger una Opción...");
-            
+
             while (tabla.next()) {
                 listaDepartamentos.add(tabla.getObject(1) + "");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        
+
         for (int i = 0; i < listaDepartamentos.size(); i++) {
             departamentos.addItem(listaDepartamentos.get(i));
-        }
-    }
-
-    protected void inicializarSedes(JComboBox sedes) {
-
-        BaseDeDatos = new ConexionBD();
-        
-        sedes.setVisible(true);
-        sedes.setMaximumSize(new Dimension(250, 30));
-        
-        ArrayList<String> listaSedes = new ArrayList();
-        
-        try {
-         
-            conn = BaseDeDatos.conectar();
-            Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_sede FROM sede;");
-
-
-            listaSedes.add("Escoger una Opción...");
-            
-            while (tabla.next()) {
-                listaSedes.add(tabla.getObject(1) + "");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        for (int i = 0; i < listaSedes.size(); i++) {
-            sedes.addItem(listaSedes.get(i));
         }
     }
 
@@ -312,16 +433,52 @@ public class UiCitasEspecialista {
         return labelDepartamento;
     }
 
-    public JComboBox getComboBoxSedes() {
-        return comboBoxSedes;
+    public JComboBox getComboBoxCiudades() {
+        return comboBoxCiudades;
     }
 
-    public void setComboBoxSedes(JComboBox comboBoxSedes) {
-        this.comboBoxSedes = comboBoxSedes;
+    public void setComboBoxCiudades(JComboBox comboBoxCiudades) {
+        this.comboBoxCiudades = comboBoxCiudades;
     }
-    
-    public JLabel getLabelSede() {
-        return labelSede;
+
+    public JLabel getLabelCiudad() {
+        return labelCiudad;
+    }
+
+    public void setLabelCiudad(JLabel labelCiudad) {
+        this.labelCiudad = labelCiudad;
+    }
+
+    public JLabel getLabelEspecialista() {
+        return labelEspecialista;
+    }
+
+    public void setLabelEspecialista(JLabel labelEspecialista) {
+        this.labelEspecialista = labelEspecialista;
+    }
+
+    public JTextField getTextFieldEspecialista() {
+        return textFieldEspecialista;
+    }
+
+    public void setTextFieldEspecialista(JTextField textFieldEspecialista) {
+        this.textFieldEspecialista = textFieldEspecialista;
+    }
+
+    public JCheckBox getBusquedaNombre() {
+        return busquedaNombre;
+    }
+
+    public void setBusquedaNombre(JCheckBox busquedaNombre) {
+        this.busquedaNombre = busquedaNombre;
+    }
+
+    public JCheckBox getBusquedaOtrosCriterios() {
+        return busquedaOtrosCriterios;
+    }
+
+    public void setBusquedaOtrosCriterios(JCheckBox busquedaOtrosCriterios) {
+        this.busquedaOtrosCriterios = busquedaOtrosCriterios;
     }
 
     public JButton getBotonConsultar() {
@@ -419,5 +576,5 @@ public class UiCitasEspecialista {
     public void setSeparadorBoton(JLabel separadorBoton) {
         this.separadorBoton = separadorBoton;
     }
-    
+
 }

@@ -1,9 +1,7 @@
-﻿SELECT nombre_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de
-INNER JOIN (SELECT especialidad.nombre_especialidad, especialista.id_especialista FROM especialidad especialidad
-INNER JOIN especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta 
-ON (de.especialista_cita = consulta.id_especialista)
+﻿SELECT nombre_especialista, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de
+INNER JOIN especialista especialista ON (de.especialista_cita = especialista.id_especialista)
 INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia) WHERE estrato_demografia = '6' AND genero_demografia = 'M' 
-GROUP BY nombre_especialidad 
+GROUP BY nombre_especialista 
 ORDER BY total_citas DESC;
 
 /*

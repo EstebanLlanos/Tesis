@@ -11,11 +11,11 @@ package Logico.Citas_Especialidad;
  */
 public class CitasEspecialista {
     
-    String ciudad, sede, anioInicio, anioFin, mesInicio, mesFin, especialista;
+    String ciudad, departamento, anioInicio, anioFin, mesInicio, mesFin, especialista;
     
     public CitasEspecialista(){
         ciudad = "";
-        sede = "";
+        departamento = "";
         anioInicio = "";
         anioFin = "";
         mesInicio = "";
@@ -31,12 +31,12 @@ public class CitasEspecialista {
         this.ciudad = ciudad;
     }
 
-    public String getSede() {
-        return sede;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setSede(String sede) {
-        this.sede = sede;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 
     public String getAnioInicio() {
@@ -78,5 +78,4 @@ public class CitasEspecialista {
     public void setEspecialista(String especialista) {
         this.especialista = especialista;
     }
-
 }

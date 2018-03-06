@@ -5,29 +5,28 @@
  */
 package Controlador.Citas_Especialidad;
 
-import Dao.Citas_Especialidad.DaoCitasEspecialidad;
-import Logico.Citas_Especialidad.CitasEspecialidad;
+import Logico.Citas_Especialidad.CitasEspecialista;
 import java.util.ArrayList;
 
 /**
  *
  * @author Esteban
  */
-public class ControladorCitasEspecialidad {
+public class ControladorCitasEspecialista {
     
-    DaoCitasEspecialidad daoCitasEspecialidad;
+    //DaoCitasEspecialista daoCitasEspecialista;
     ArrayList<String[]> conteoCitas = new ArrayList();
 
-    public ControladorCitasEspecialidad() {
-
-        daoCitasEspecialidad = new DaoCitasEspecialidad();
+    public ControladorCitasEspecialista() {
+        //daoCitasEspecialista = new DaoCitasEspecialista();
     }
 
-    public ArrayList<String[]> getCitas(String ciudad, String genero, String estrato, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
+    public ArrayList<String[]> getCitas(String especialista, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
 
+        String especialistaCitas = especialista;
+        
         String ciudadCitas = ciudad;
-        String generoCitas = genero;
-        String estratoCitas = estrato;
+        String departamentoCitas = departamento;
         
         String anioInicioCitas = anioInicio;
         String anioFinCitas = anioFin;
@@ -37,27 +36,32 @@ public class ControladorCitasEspecialidad {
         
         String criterioConsultaVentas = criterioConsulta;
 
-        CitasEspecialidad citasEspecialidad = new CitasEspecialidad();
-        citasEspecialidad.setCiudad(ciudadCitas);
-        citasEspecialidad.setGenero(generoCitas);
-        citasEspecialidad.setEstrato(estratoCitas);
-        citasEspecialidad.setAnioInicio(anioInicioCitas);
-        citasEspecialidad.setAnioFin(anioFinCitas);
-        citasEspecialidad.setMesInicio(mesInicioCitas);
-        citasEspecialidad.setMesFin(mesFinCitas);
+        CitasEspecialista citasEspecialista = new CitasEspecialista();
+        citasEspecialista.setEspecialista(especialistaCitas);
+        citasEspecialista.setCiudad(ciudadCitas);
+        citasEspecialista.setDepartamento(departamentoCitas);
+        citasEspecialista.setAnioInicio(anioInicioCitas);
+        citasEspecialista.setAnioFin(anioFinCitas);
+        citasEspecialista.setMesInicio(mesInicioCitas);
+        citasEspecialista.setAnioFin(mesFinCitas);
 
         if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
             int anioInicial = Integer.parseInt(anioInicioCitas);
             int anioFinal = Integer.parseInt(anioFinCitas);
             
             if (anioInicial > anioFinal) {
-                conteoCitas.clear();
                 String[] error = new String[1];
-                error[0] = "Error Fecha Año";
+                error[0] = "Error Fecha";
                 conteoCitas.add(error);
 
                 return conteoCitas;   
             }
+        } else if (especialistaCitas.equals("") && criterioConsultaVentas.equals("")) {
+            String[] error = new String[1];
+            error[0] = "Error Especialista";
+            conteoCitas.add(error);
+
+            return conteoCitas;   
         }
         
         int mesInicial = obtenerCodigoMes(mesInicioCitas);
@@ -74,32 +78,30 @@ public class ControladorCitasEspecialidad {
             }
         }
         
-        String restriccionesClausulaWhere = daoCitasEspecialidad.prepararRestriccionesClausulaWhereVentas(citasEspecialidad, criterioConsultaVentas);
+        String restriccionesClausulaWhere = "";
+        //String restriccionesClausulaWhere = daoCitasEspecialista.prepararRestriccionesClausulaWhereVentas(citasEspecialista, criterioConsultaVentas);
         
-        if (restriccionesClausulaWhere.equals("Error Fecha Año")) {
-            conteoCitas.clear();
-            String[] error = new String[1];
-            error[0] = "Error Fecha Año";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Fecha Mes")) {
-            conteoCitas.clear();
-            String[] error = new String[1];
-            error[0] = "Error Fecha Mes";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error")) {
-            conteoCitas.clear();
+        if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];
             error[0] = "Error";
             conteoCitas.add(error);
             
             return conteoCitas;
+        } else if (restriccionesClausulaWhere.equals("Error Fecha")) {
+            String[] error = new String[1];
+            error[0] = "Error Fecha";
+            conteoCitas.add(error);
+            
+            return conteoCitas;
+        } else if (restriccionesClausulaWhere.equals("Error Vendedor")) {
+            String[] error = new String[1];
+            error[0] = "Error Vendedor";
+            conteoCitas.add(error);
+            
+            return conteoCitas;
         }
         
-        conteoCitas = daoCitasEspecialidad.conteoCitasEspecialidad(restriccionesClausulaWhere);
+        //conteoCitas = daoCitasEspecialista.conteoCitasEspecialista(restriccionesClausulaWhere);
         
         return conteoCitas;
     }

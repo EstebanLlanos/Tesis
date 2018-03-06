@@ -4,6 +4,7 @@ import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Citas_Especialidad.UiCitasEspecialidad;
+import GUI.Citas_Especialidad.UiCitasEspecialista;
 import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
@@ -160,7 +161,7 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
                 case 2:
                     UiCitasEspecialista citasPorEspecialista = new UiCitasEspecialista(this);
-                    asignaComponentesCitasEsecialista(citasPorEspecialista);
+                    asignaComponentesCitasEspecialista(citasPorEspecialista);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -175,15 +176,41 @@ public class Visualizador extends javax.swing.JFrame {
         }
     }
     
+    private void asignaComponentesCitasEspecialista(UiCitasEspecialista citasPorEspecialista) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(citasPorEspecialista.getBusquedaNombre());
+        panelOpciones.add(citasPorEspecialista.getBusquedaOtrosCriterios());
+        panelOpciones.add(citasPorEspecialista.getLabelEspecialista());
+        panelOpciones.add(citasPorEspecialista.getTextFieldEspecialista());
+        panelOpciones.add(citasPorEspecialista.getLabelDepartamento());
+        panelOpciones.add(citasPorEspecialista.getComboBoxDepartamentos());
+        panelOpciones.add(citasPorEspecialista.getLabelCiudad());
+        panelOpciones.add(citasPorEspecialista.getComboBoxCiudades());
+        panelOpciones.add(citasPorEspecialista.getLabelAnioInicio());
+        panelOpciones.add(citasPorEspecialista.getComboBoxAnioInicio());
+        panelOpciones.add(citasPorEspecialista.getLabelMesInicio());
+        panelOpciones.add(citasPorEspecialista.getComboBoxMesInicio());
+        panelOpciones.add(citasPorEspecialista.getLabelMesFin());
+        panelOpciones.add(citasPorEspecialista.getComboBoxMesFin());
+        panelOpciones.add(citasPorEspecialista.getLabelAnioFin());
+        panelOpciones.add(citasPorEspecialista.getComboBoxAnioFin());
+        panelOpciones.add(citasPorEspecialista.getLabelCriterioConsulta());
+        panelOpciones.add(citasPorEspecialista.getComboBoxCriterioConsulta());
+        panelOpciones.add(citasPorEspecialista.getSeparadorBoton());
+        panelOpciones.add(citasPorEspecialista.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
     private void asignaComponentesCitasEspecialidad(UiCitasEspecialidad citasPorEspecialidad) {
 
         panelOpciones.removeAll();
-        panelOpciones.add(citasPorEspecialidad.getLabelDepartamento());
-        panelOpciones.add(citasPorEspecialidad.getComboBoxDepartamentos());
         panelOpciones.add(citasPorEspecialidad.getLabelCiudad());
         panelOpciones.add(citasPorEspecialidad.getComboBoxCiudades());
-        panelOpciones.add(citasPorEspecialidad.getLabelSede());
-        panelOpciones.add(citasPorEspecialidad.getComboBoxSedes());
+        panelOpciones.add(citasPorEspecialidad.getLabelGenero());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxGenero());
+        panelOpciones.add(citasPorEspecialidad.getLabelEstrato());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxEstrato());
         panelOpciones.add(citasPorEspecialidad.getLabelAnioInicio());
         panelOpciones.add(citasPorEspecialidad.getComboBoxAnioInicio());
         panelOpciones.add(citasPorEspecialidad.getLabelMesInicio());
@@ -334,7 +361,7 @@ public class Visualizador extends javax.swing.JFrame {
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -344,11 +371,10 @@ public class Visualizador extends javax.swing.JFrame {
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelPestanas))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                    .addComponent(panelPestanas)))
         );
         jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);

@@ -29,8 +29,8 @@ import javax.swing.JOptionPane;
 
 public class UiCitasEspecialidad {
     
-    JComboBox comboBoxDepartamentos, comboBoxCiudades, comboBoxGenero, comboBoxEstrato, comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin, comboBoxCriterioConsulta;
-    JLabel labelDepartamento, labelCiudad, labelGenero, labelEstrato, labelEstrcomboBoxGeneroato, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
+    JComboBox comboBoxCiudades, comboBoxGenero, comboBoxEstrato, comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin, comboBoxCriterioConsulta;
+    JLabel labelCiudad, labelGenero, labelEstrato, labelEstrcomboBoxGeneroato, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
     JLabel separadorBoton;
     JButton botonConsultar;
     
@@ -46,12 +46,7 @@ public class UiCitasEspecialidad {
     public UiCitasEspecialidad() {
 
         controladorCitasEspecialidad = new ControladorCitasEspecialidad();
-        
-        labelDepartamento = new JLabel();
-        inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
-        comboBoxDepartamentos = new JComboBox();
-        
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:                          ");
 
@@ -77,9 +72,11 @@ public class UiCitasEspecialidad {
                 if (!comboBoxAnioInicio.getSelectedItem().equals("Escoger una Opción...")) {
                     comboBoxMesInicio.setEnabled(true);
                     comboBoxMesFin.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
                 } else {
                     comboBoxMesInicio.setEnabled(false);
                     comboBoxMesFin.setEnabled(false);
+                    comboBoxAnioFin.setEnabled(false);
                 }
             }
         });
@@ -99,8 +96,8 @@ public class UiCitasEspecialidad {
         botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         separadorBoton = new JLabel();
-        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
-                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
         separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
         
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +116,6 @@ public class UiCitasEspecialidad {
         
         comboBoxMesFin = new JComboBox();  
         
-        inicializarDepartamentos(comboBoxDepartamentos);
         inicializarCiudades(comboBoxCiudades);
         inicializarGeneros(comboBoxGenero);
         inicializarEstratos(comboBoxEstrato);
@@ -140,7 +136,6 @@ public class UiCitasEspecialidad {
         
         //verificamos que el rango de estrato sea correcto
 
-        String departamento = "" + comboBoxDepartamentos.getSelectedItem();
         String ciudad = "" + comboBoxCiudades.getSelectedItem();
         String genero = "" + comboBoxGenero.getSelectedItem();
         String estrato = "" + comboBoxEstrato.getSelectedItem();
@@ -150,14 +145,14 @@ public class UiCitasEspecialidad {
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(departamento, ciudad, genero, estrato, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
+        ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(ciudad, genero, estrato, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (citasPorEspecialidad.isEmpty()) {            
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
                     + "No existen registros que coincidan con los filtros solicitados");
             
         } else if(citasPorEspecialidad.get(0)[0].equals("Error")){            
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una ciudad o una sede (o ambos) para realizar la consulta");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar alguno de los filtros para realizar la consulta");
         } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Año")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
         } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Mes")){            
@@ -202,8 +197,8 @@ public class UiCitasEspecialidad {
         criteriosDeConsulta.setMaximumSize(new Dimension(250, 30));
 
         String criterios[][] = new String[2][1];
-        criterios[0][0] = "Especialidades más Solicitadas";
-        criterios[1][0] = "Especialidades menos Solicitadas";
+        criterios[0][0] = "Especialidades Más Solicitadas";
+        criterios[1][0] = "Especialidades Menos Solicitadas";
 
         for (int i = 0; i < criterios.length; i++) {
             criteriosDeConsulta.addItem(criterios[i][0]);
@@ -237,37 +232,6 @@ public class UiCitasEspecialidad {
         }
     }
 
-    protected void inicializarDepartamentos(JComboBox departamentos) {
-
-        BaseDeDatos = new ConexionBD();
-        
-        departamentos.setVisible(true);
-        departamentos.setSize(new Dimension(300, 30));
-        departamentos.setMaximumSize(new Dimension(300, 30));
-        
-        ArrayList<String> listaDepartamentos = new ArrayList();
-        
-        try {
-         
-            conn = BaseDeDatos.conectar();
-            Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_departamento "
-                    + "FROM departamento;");
-
-            listaDepartamentos.add("Escoger una Opción...");
-            
-            while (tabla.next()) {
-                listaDepartamentos.add(tabla.getObject(1) + "");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
-            departamentos.addItem(listaDepartamentos.get(i));
-        }
-    }
-    
     protected void inicializarCiudades(JComboBox ciudades){
         BaseDeDatos = new ConexionBD();
         
@@ -355,27 +319,15 @@ public class UiCitasEspecialidad {
         }
     }
 
-    public JComboBox getComboBoxDepartamentos() {
-        return comboBoxDepartamentos;
-    }
-
-    public void setComboBoxDepartamentos(JComboBox comboBoxDepartamentos) {
-        this.comboBoxDepartamentos = comboBoxDepartamentos;
-    }
-
-    public JLabel getLabelDepartamento() {
-        return labelDepartamento;
-    }
-
-    public JComboBox getComboBoxSedes() {
+    public JComboBox getComboBoxGenero() {
         return comboBoxGenero;
     }
 
-    public void setComboBoxSedes(JComboBox comboBoxSedes) {
-        this.comboBoxGenero = comboBoxSedes;
+    public void setComboBoxGenero(JComboBox comboBoxGenero) {
+        this.comboBoxGenero = comboBoxGenero;
     }
     
-    public JLabel getLabelSede() {
+    public JLabel getLabelGenero() {
         return labelGenero;
     }
 
@@ -489,6 +441,22 @@ public class UiCitasEspecialidad {
 
     public void setLabelCiudad(JLabel labelCiudad) {
         this.labelCiudad = labelCiudad;
+    }
+
+    public JComboBox getComboBoxEstrato() {
+        return comboBoxEstrato;
+    }
+
+    public void setComboBoxEstrato(JComboBox comboBoxEstrato) {
+        this.comboBoxEstrato = comboBoxEstrato;
+    }
+
+    public JLabel getLabelEstrato() {
+        return labelEstrato;
+    }
+
+    public void setLabelEstrato(JLabel labelEstrato) {
+        this.labelEstrato = labelEstrato;
     }
     
 }
