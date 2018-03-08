@@ -15,6 +15,7 @@ import Recursos.AutoSuggestor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicButtonListener;
 
 /**
  *
@@ -147,7 +149,7 @@ public class UiCitasEspecialista {
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
         comboBoxDepartamentos = new JComboBox();
-
+        
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:                          ");
 
@@ -187,7 +189,7 @@ public class UiCitasEspecialista {
         botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         separadorBoton = new JLabel();
-        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
                 + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
         separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
 
@@ -216,6 +218,53 @@ public class UiCitasEspecialista {
         inicializarMeses(comboBoxMesFin);
         inicializarCriteriosDeConsulta(comboBoxCriterioConsulta);
         comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Citas");
+        
+        comboBoxCiudades.addMouseListener(new java.awt.event.MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                comboBoxDepartamentos.setSelectedItem("Escoger una Opción...");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+            }
+        });
+        
+        comboBoxDepartamentos.addMouseListener(new java.awt.event.MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+            }
+        });
+        
     }
 
     void hacerConsulta(ActionEvent evt) {
@@ -242,11 +291,11 @@ public class UiCitasEspecialista {
                     + "No existen registros que coincidan con los filtros solicitados");
 
         } else if (citasPorEspecialista.get(0)[0].equals("Error")) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento o una sede (o ambos) para realizar la consulta");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar uno o más de los filtros disponibles (distintos a las fechas) para realizar la consulta.");
         } else if (citasPorEspecialista.get(0)[0].equals("Error Fecha Año")) {
-            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione Año de Inicio unicamente o un rango válido a consultar.");
         } else if (citasPorEspecialista.get(0)[0].equals("Error Fecha Mes")) {
-            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar.");
         } else {
             try {
                 ArrayList<String> especialistas = new ArrayList();

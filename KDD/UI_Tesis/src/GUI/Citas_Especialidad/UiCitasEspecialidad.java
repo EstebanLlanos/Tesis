@@ -152,11 +152,11 @@ public class UiCitasEspecialidad {
                     + "No existen registros que coincidan con los filtros solicitados");
             
         } else if(citasPorEspecialidad.get(0)[0].equals("Error")){            
-            JOptionPane.showMessageDialog(null, "Debe seleccionar alguno de los filtros para realizar la consulta");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar uno o más de los filtros disponibles para realizar la consulta.");
         } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Año")){            
-            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione fecha de Inicio unicamente o un rango válido a consultar");
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione Año de Inicio unicamente o un rango válido a consultar.");
         } else if(citasPorEspecialidad.get(0)[0].equals("Error Fecha Mes")){            
-            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
+            JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar.");
         }else {
             try{ 
                 ArrayList<String> especialidades = new ArrayList();

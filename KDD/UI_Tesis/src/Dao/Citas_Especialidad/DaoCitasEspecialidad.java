@@ -729,21 +729,21 @@ public class DaoCitasEspecialidad {
         String sql_select;
         
         if (criterioConsultaVentas.equals("Especialidades Más Solicitadas")) {
-            sql_select = "SELECT nombre_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
-                            "INNER JOIN (SELECT especialidad.nombre_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
+            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
+                            "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
                             "INNER JOIN especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta \n" +
                             "ON (de.especialista_cita = consulta.id_especialista)\n" +
                             "INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia)" + where +
-                            "GROUP BY nombre_especialidad \n" +
-                            "ORDER BY total_citas DESC LIMIT 10;";   
+                            "GROUP BY descripcion_especialidad \n" +
+                            "ORDER BY total_citas DESC LIMIT 5;";   
         } else {
-            sql_select = "SELECT nombre_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
-                            "INNER JOIN (SELECT especialidad.nombre_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
+            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
+                            "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
                             "INNER JOIN especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta \n" +
                             "ON (de.especialista_cita = consulta.id_especialista)\n" +
                             "INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia)" + where +
-                            "GROUP BY nombre_especialidad \n" +
-                            "ORDER BY total_citas ASC LIMIT 10;";  
+                            "GROUP BY descripcion_especialidad \n" +
+                            "ORDER BY total_citas ASC LIMIT 5;";
         }
         
         System.out.println("Consulta: " + sql_select);
@@ -756,7 +756,7 @@ public class DaoCitasEspecialidad {
             while (tabla.next()) {
                 
                 String[] registro = new String[2];
-                registro[0] = tabla.getString("nombre_especialidad");
+                registro[0] = tabla.getString("descripcion_especialidad");
                 registro[1] = tabla.getString("total_citas");
                 
                 conteoCitas.add(registro);

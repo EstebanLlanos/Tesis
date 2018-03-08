@@ -10,7 +10,7 @@ public class ConexionBD {
     private final String driver = "org.postgresql.Driver";
     private final String name_dir = "jdbc:postgresql://localhost:5432/previser";
     private final String user = "postgres";
-    private final String password = "postgres";
+    private final String password = "giossalpha";
     private Connection conexion;
     
     /*localhost -> es el servidor local, en la universidad es pgsql, el puerto es el mismo

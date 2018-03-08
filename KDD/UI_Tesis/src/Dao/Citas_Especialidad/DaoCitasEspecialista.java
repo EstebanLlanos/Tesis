@@ -5,9 +5,7 @@
  */
 package Dao.Citas_Especialidad;
 
-import Dao.Afiliaciones.*;
 import ConectorBD.ConexionBD;
-import Logico.Afiliaciones.VentasVendedores;
 import Logico.Citas_Especialidad.CitasEspecialista;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.objects.NativeString;
 
 /**
  *
@@ -154,6 +151,8 @@ public class DaoCitasEspecialista {
 
             } else if (citasEspecialista.getCiudad().equals("Escoger una Opción...") && 
                       !citasEspecialista.getDepartamento().equals("Escoger una Opción...")) {
+                
+                System.out.println("Entra a Departamento con los datos: " + citasEspecialista.getDepartamento() + "  "  + citasEspecialista.getAnioInicio());
 
                 if (!citasEspecialista.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialista.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -194,6 +193,8 @@ public class DaoCitasEspecialista {
                 } // FIN IF + AÑO INICIO + AÑO FIN 
                 else if (!citasEspecialista.getAnioInicio().equals("Escoger una Opción...") && citasEspecialista.getAnioFin().equals("Escoger una Opción...")) {
 
+                    System.out.println("Entra a Departamento + Año Inicio con los datos: " + citasEspecialista.getDepartamento() + "  "  + citasEspecialista.getAnioInicio());
+                    
                     if (!citasEspecialista.getMesInicio().equals("Escoger una Opción...") && !citasEspecialista.getMesFin().equals("Escoger una Opción...")) {
 
                         mesInicio = obtenerCodigoMes(citasEspecialista.getMesInicio());
@@ -222,6 +223,10 @@ public class DaoCitasEspecialista {
                         }
 
                     } else if(citasEspecialista.getMesInicio().equals("Escoger una Opción...") && citasEspecialista.getMesFin().equals("Escoger una Opción...")){
+                        
+                        System.out.println("Entra a Departamento + Año Inicio - Meses con los datos: " + citasEspecialista.getDepartamento() + "  "  + citasEspecialista.getAnioInicio()
+                        + "  "  + citasEspecialista.getMesInicio() + "  "  + citasEspecialista.getMesFin());
+                        
                             where = " WHERE cd.departamento_ciudad = '" + codigoDepartamento 
                             + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
                     } else {
@@ -337,7 +342,7 @@ public class DaoCitasEspecialista {
                          "INNER JOIN ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
                          "INNER JOIN demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
                          " GROUP BY nombre_especialista " +
-                         "ORDER BY total_citas DESC LIMIT 10;";
+                         "ORDER BY total_citas DESC LIMIT 5;";
 
         } else if (criterioConsultaCitas.equals("Menor Número de Citas")) {
 
@@ -346,7 +351,7 @@ public class DaoCitasEspecialista {
                          "INNER JOIN ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
                          "INNER JOIN demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
                          " GROUP BY nombre_especialista " +
-                         "ORDER BY total_citas ASC LIMIT 10;";
+                         "ORDER BY total_citas ASC LIMIT 5;";
         } else {
             
             sql_select = "SELECT fch.anio_actual, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp " +
@@ -395,11 +400,14 @@ public class DaoCitasEspecialista {
                     String[] registro = new String[2];
                     String[] nombreEspecialistaAcortado = tabla.getString("nombre_especialista").split(" ");
                     
-                    if (nombreEspecialistaAcortado.length >= 3) {
+                    if (nombreEspecialistaAcortado.length == 3) {
                         registro[0] = nombreEspecialistaAcortado[0] + " " + nombreEspecialistaAcortado[2];
                         registro[1] = tabla.getString("total_citas");   
+                    } else if (nombreEspecialistaAcortado.length == 4) {
+                        registro[0] = nombreEspecialistaAcortado[0] + " " + nombreEspecialistaAcortado[3];
+                        registro[1] = tabla.getString("total_citas");  
                     } else {
-                        registro[0] = tabla.getString("nombre_especialista");  
+                        registro[0] = tabla.getString("nombre_especialista");
                         registro[1] = tabla.getString("total_citas");  
                     }
 

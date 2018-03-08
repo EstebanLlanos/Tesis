@@ -7,7 +7,6 @@ package Gráficos;
 
 import GUI.Visualizador;
 import java.util.ArrayList;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
@@ -49,20 +48,20 @@ public class FXLineChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top 5 Ciudades") ||
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialistas")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top 5 Ciudades") ||
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialistas")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top 5 Ciudades") ||
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialistas")){
@@ -72,16 +71,20 @@ public class FXLineChart {
         
         Visualizador.panelPestanas.addTab("Gráfico Lineal - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
+        
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         // This method is invoked on the JavaFX thread
+        System.out.println("Se pinta el gráfico de linea.");
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
 
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
+        
+        System.out.println("Se crea la escena de Linea.");
         
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

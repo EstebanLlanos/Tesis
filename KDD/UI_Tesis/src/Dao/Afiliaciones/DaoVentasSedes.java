@@ -138,7 +138,7 @@ public class DaoVentasSedes {
         String sql_select;
         
         sql_select = "SELECT sd.nombre_sede, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN sede sd "
-                    + "ON (dv.sede_venta = sd.id_sede) " + where + " GROUP BY sd.nombre_sede;";
+                    + "ON (dv.sede_venta = sd.id_sede) " + where + " GROUP BY sd.nombre_sede LIMIT 5;";
         
         System.out.println("Consulta: " + sql_select);
 

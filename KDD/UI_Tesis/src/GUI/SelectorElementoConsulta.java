@@ -5,7 +5,9 @@
  */
 package GUI;
 
-import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
+import javafx.scene.control.ComboBox;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author Esteban
@@ -16,9 +18,10 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
      * Creates new form SelectorElementoConsulta
      */
     public String elementoDeConsulta = "";
+    public ComboBox comboBox;
     
     public SelectorElementoConsulta() {
-       initComponents();
+        initComponents();
     }
 
     /**
@@ -33,7 +36,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         botonCancelarElementoConsulta = new javax.swing.JButton();
         botonSeleccionarElementoConsulta = new javax.swing.JButton();
-        comboBoxElementoConsulta = new javax.swing.JComboBox<>();
+        comboBoxElementoConsulta = new JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -139,7 +142,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         //elementoDeConsulta = comboBoxElementoConsulta.getSelectedItem()+"";
         
         elementoDeConsulta = comboBoxElementoConsulta.getSelectedItem()+"";
-        System.out.println("Elemento Seleccionado: " + elementoDeConsulta);
+        System.out.println("Se selecciona el elemento de Consulta: " + elementoDeConsulta);
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

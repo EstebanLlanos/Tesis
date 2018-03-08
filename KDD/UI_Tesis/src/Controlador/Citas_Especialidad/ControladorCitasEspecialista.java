@@ -44,7 +44,7 @@ public class ControladorCitasEspecialista {
         citasEspecialista.setAnioInicio(anioInicioCitas);
         citasEspecialista.setAnioFin(anioFinCitas);
         citasEspecialista.setMesInicio(mesInicioCitas);
-        citasEspecialista.setAnioFin(mesFinCitas);
+        citasEspecialista.setMesFin(mesFinCitas);
 
         if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
             int anioInicial = Integer.parseInt(anioInicioCitas);

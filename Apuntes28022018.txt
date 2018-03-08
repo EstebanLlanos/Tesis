@@ -2,13 +2,26 @@ Sobre la información a clasificar de las quejas del usuario.
 
 Sobre los KPI's se tiene OPERATIVOS y PRODUCTIVOS
 
+Para el DATAMART de Llamadas
+
 --> Casos resueltos en la primera Llamada.
 --> Casos NO resueltos en la primera llamada.
 --> Número de llamadas atendidas.
---> Número de llamadas atendidas por día / hora.
+--> Número de llamadas atendidas por día / hora (sin demografía).
+--> Promedio de Duración de Llamadas / por Asesor.
+
+Para el DATAMART de Citas_Resueltas
+
 --> Número de casos atendidos.
 --> Número de casos resueltos.
 --> Número de casos NO resueltos.
 --> Tiempo Promedio en que se resuelve un caso.
---> Promedio de Duración de Llamadas / por Asesor.
 --> Tasa de Retencion de Clientes
+
+Modificar Demografía
+
+--> Estrato
+--> Genero
+--> Grupo Hectareo (Entre 0 y 18, Entre 18 y 26, Entre 26 y 40, Entre 40 y 60, Mayores de 60)
+--> Nivel de Ingresos (Para la documentación)
+--> Nivel de Estudios (Sin Estudios, Primaria, Bachillerato, Pregrado, Posgrado)

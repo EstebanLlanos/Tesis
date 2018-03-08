@@ -51,6 +51,9 @@ public class UiVentasCiudades {
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
 
         comboBoxDepartamentos = new JComboBox();
+        comboBoxDepartamentos.setToolTipText("Seleccione un departamento para conocer\n"
+                + " las ciudades con mayor o menor número de ventas, según el criterio\n"
+                + " de consulta que haya definido.");
         
         labelSede = new JLabel();
         inicializarJLabel(labelSede, "Sede:                          ");
@@ -58,7 +61,10 @@ public class UiVentasCiudades {
         labelAnioInicio = new JLabel();
         inicializarJLabel(labelAnioInicio, "Desde el Año:                      ");
         
-        comboBoxAnioInicio = new JComboBox();        
+        comboBoxAnioInicio = new JComboBox();
+        comboBoxAnioInicio.setToolTipText("Seleccione un año inicial para conocer las\n"
+                + " ciudades con mayor o menor número de ventas a partir de este, según\n"
+                + " el criterio de consulta que haya definido.");
         
         comboBoxAnioInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,10 +85,18 @@ public class UiVentasCiudades {
         inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                      ");
         
         comboBoxAnioFin = new JComboBox();
+        comboBoxAnioFin.setToolTipText("Seleccione un año final para completar \n"
+                + " el rango dentro del cual desea conocer las ciudades con mayor\n"
+                + " o menor número de ventas, según el criterio que haya definido.");
         
         comboBoxSedes = new JComboBox();
+        comboBoxSedes.setToolTipText("Seleccione una sede para conocer las\n"
+                + " ciudades con mayor o menor número de ventas, según el\n"
+                + " criterio de consulta que haya definido.");
         
         comboBoxCriterioConsulta = new JComboBox();
+        comboBoxCriterioConsulta.setToolTipText("Seleccione en este menú el criterio bajo\n"
+                + " el cual desea consultar la información disponible.");
 
         botonConsultar = new JButton("Consultar");
         botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -95,6 +109,7 @@ public class UiVentasCiudades {
         
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.out.println("Se realiza la consulta");
                 hacerConsulta(evt);
             }
         });
@@ -102,12 +117,19 @@ public class UiVentasCiudades {
         labelMesInicio = new JLabel();
         inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
         
-        comboBoxMesInicio = new JComboBox();  
+        comboBoxMesInicio = new JComboBox();
+        comboBoxMesInicio.setToolTipText("Seleccione un mes inicial dentro del\n"
+                + " año seleccionado para conocer las ciudades con mayor o menor\n"
+                + " número de ventas a partir de este, según el criterio de consulta\n"
+                + " que haya definido.");
         
         labelMesFin = new JLabel();
         inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
         
-        comboBoxMesFin = new JComboBox();  
+        comboBoxMesFin = new JComboBox();
+        comboBoxMesFin.setToolTipText("Seleccione un mes final para completar \n"
+                + " el rango dentro del cual desea conocer las ciudades con mayor\n"
+                + " o menor número de ventas, según el criterio que haya definido.");
         
         inicializarDepartamentos(comboBoxDepartamentos);
         inicializarSedes(comboBoxSedes);

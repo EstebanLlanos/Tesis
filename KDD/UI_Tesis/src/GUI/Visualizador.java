@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
@@ -29,9 +31,9 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.setLayout(layout);
         
         //Inicializamos y asignamos las Preguntas
-        comboBoxPreguntas = new javax.swing.JComboBox<>();;
+        comboBoxPreguntas = new javax.swing.JComboBox<>();
         
-        comboBoxPreguntas.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        comboBoxPreguntas.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N 
         comboBoxPreguntas.setForeground(new java.awt.Color(0, 153, 153));
         
         elementoSeleccionado = elementoDeConsulta;
@@ -484,15 +486,22 @@ public class Visualizador extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
+        this.panelPestanas.removeAll();
+        System.out.println("Se cambia el objeto de consulta.");
         java.awt.EventQueue.invokeLater(() -> {
             SelectorElementoConsulta sec = new SelectorElementoConsulta();
             sec.setVisible(true);
             sec.setLocationRelativeTo(null);
         });
         
-        this.dispose();
+        try {
+            this.dispose();
+            this.finalize();
+            this.removeAll();
+        } catch (Throwable ex) {
+            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
 
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed

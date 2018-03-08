@@ -124,13 +124,13 @@ public class DaoVentasVendedores {
             sql_select = "SELECT per.nombre_personal, per.apellido_personal, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
                        + "INNER JOIN personal per ON (dv.vendedor = CAST ( per.id_personal AS BIGINT )) "
                        + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
-                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) DESC LIMIT 10;";
+                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";
 
         } else if (criterioConsultaVentas.equals("Menor Número de Ventas")) {
             sql_select = "SELECT per.nombre_personal, per.apellido_personal, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
                        + "INNER JOIN personal per ON (dv.vendedor = CAST ( per.id_personal AS BIGINT )) "
                        + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
-                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) ASC LIMIT 10;";
+                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) ASC LIMIT 5;";
         } else {
             
             sql_select = "SELECT per.id_personal, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "

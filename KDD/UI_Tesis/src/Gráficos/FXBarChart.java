@@ -6,7 +6,6 @@
 package Gráficos;
 
 import GUI.Visualizador;
-import java.awt.Color;
 import java.util.ArrayList;
 import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
@@ -16,9 +15,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -74,17 +70,19 @@ public class FXBarChart {
         
         Visualizador.panelPestanas.addTab("Gráfico De Barras - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
-        
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
-        // This method is invoked on the JavaFX thread      
+        // This method is invoked on the JavaFX thread
+        System.out.println("Se pinta el gráfico de barras.");
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
 
     private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
+        
+        System.out.println("Se crea la escena de Barras.");
         
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

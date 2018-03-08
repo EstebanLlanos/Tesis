@@ -55,34 +55,41 @@ public class FXPieChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top 5 Ciudades") ||
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialistas")) {
+                
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top 5 Ciudades") ||
+                
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Vendedores") || 
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialistas")){
+                
                 Visualizador.panelPestanas.removeTabAt(1);
+                
             } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 10 Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 5 Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialistas")){
+                
                 Visualizador.panelPestanas.removeTabAt(2);
+                
             }
         }
         
         Visualizador.panelPestanas.addTab("Gráfico De Torta - " + chartName, panelVisualizador);
         panelVisualizador.setVisible(true);
-        
+    
     }
 
     private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
         // This method is invoked on the JavaFX thread
+        System.out.println("Se pinta el gráfico de torta.");
         Scene scene = createScene(chartName, tags, values);
         fxPanel.setScene(scene);
     }
@@ -91,6 +98,8 @@ public class FXPieChart {
         Group root = new Group();
         Scene scene = new Scene(root);
 
+        System.out.println("Se crea la escena de torta.");
+        
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for (int i = 0; i < tags.size(); i++) {
             pieChartData.add(new PieChart.Data(tags.get(i), values.get(i)));
