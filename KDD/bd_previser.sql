@@ -1,11 +1,13 @@
 ﻿/*==============================================================*/
-/*=======================BASE DE DATOS==========================*/
+/*========================BODEGA DE DATOS=======================*/
 /*==============================================================*/
 
-DROP TABLE IF EXISTS ciudad;
-DROP TABLE IF EXISTS plan;
-DROP TABLE IF EXISTS personal;
-DROP TABLE IF EXISTS sede;
+DROP TABLE IF EXISTS dim_ciudad;
+DROP TABLE IF EXISTS dim_plan;
+DROP TABLE IF EXISTS dim_personal;
+DROP TABLE IF EXISTS dim_sede;
+
+DROP SEQUENCE IF EXISTS seq_ciudad;
 
 /*==============================================================*/
 /* Dimensión: Ciudad                                            */
@@ -13,21 +15,21 @@ DROP TABLE IF EXISTS sede;
 
 CREATE SEQUENCE seq_ciudad INCREMENT BY 1 START WITH 1;
 
-create table ciudad
+create table dim_ciudad
 (
   id_ciudad BIGINT NOT NULL DEFAULT nextval('seq_ciudad'::regclass),
   cod_ciudad VARCHAR(5) NOT NULL,
   nombre_ciudad VARCHAR(50) NOT NULL,
   departamento_ciudad VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_ciudad),
-  UNIQUE (cod_ciudad, nombre_ciudad)
+  UNIQUE (cod_ciudad, departamento_ciudad)
 );
 
 /*==============================================================*/
 /* Dimensión: Plan                                              */
 /*==============================================================*/
 
-create table plan
+create table dim_plan
 (
   id_plan BIGINT NOT NULL,
   nombre_plan VARCHAR(50) NOT NULL,
@@ -36,23 +38,23 @@ create table plan
 );
 
 /*==============================================================*/
-/* Dimensión: Personal                                          */
+/* Dimensión: Vendedor                                          */
 /*==============================================================*/
 
-create table personal 
+create table dim_vendedor 
 (
-  id_personal BIGINT NOT NULL,
-  nombre_personal VARCHAR(50) NOT NULL,
-  apellido_personal VARCHAR(50) NOT NULL,
-  tipo_personal VARCHAR(2) NOT NULL,
-  PRIMARY KEY (id_personal) 
+  id_vendedor BIGINT NOT NULL,
+  nombre_vendedor VARCHAR(50) NOT NULL,
+  apellido_vendedor VARCHAR(50) NOT NULL,
+  tipo_vendedor VARCHAR(2) NOT NULL,
+  PRIMARY KEY (id_vendedor) 
 );
 
 /*==============================================================*/
 /* Dimensión: Departamento                                      */
 /*==============================================================*/
 
-create table departamento 
+create table dim_departamento 
 (
   id_departamento BIGINT NOT NULL,
   nombre_departamento VARCHAR(50) NOT NULL,
@@ -63,7 +65,7 @@ create table departamento
 /* Dimensión: Sede                                            	*/
 /*==============================================================*/
 
-create table sede 
+create table dim_sede 
 (
   id_sede BIGINT NOT NULL DEFAULT 0,
   nombre_sede VARCHAR(50) NOT NULL,
@@ -76,64 +78,64 @@ create table sede
 /*==============================================================*/
 
 
-create table demografia (
-
+create table dim_demografia 
+(
   id_demografia INTEGER NOT NULL,
-  estrato_demografia INTEGER NOT NULL,
   genero_demografia VARCHAR(10) NOT NULL,
+  estrato_demografia INTEGER NOT NULL,
+  edad_demografia INTEGER NOT NULL,
+  ingresos_demografia INTEGER NOT NULL,
   PRIMARY KEY (id_demografia)
-
 );
 
 /*==============================================================*/
 /* Dimensión: Especialidad                                      */
 /*==============================================================*/
 
-CREATE TABLE especialidad (
-
+CREATE TABLE dim_especialidad 
+(
   id_especialidad INTEGER NOT NULL,
   descripcion_especialidad VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_especialidad)
-
 );
 
 /*==============================================================*/
 /* Dimensión: Especialista                                      */
 /*==============================================================*/
 
-CREATE TABLE especialista (
-
+CREATE TABLE dim_especialista 
+(
   id_especialista INTEGER NOT NULL,
   nombre_especialista VARCHAR(100) NOT NULL,
-  sede_especialista INTEGER REFERENCES sede (id_sede),
+  sede_especialista INTEGER REFERENCES dim_sede (id_sede),
   zona_especialista VARCHAR(10) NOT NULL,
-  especialidad_especialista INTEGER REFERENCES especialidad (id_especialidad),
+  especialidad_especialista INTEGER REFERENCES dim_especialidad (id_especialidad),
   costo_a_particular BIGINT NOT NULL,
   costo_a_cliente BIGINT NOT NULL,
   PRIMARY KEY (id_especialista)
-
 );
 
 /*==============================================================*/
-/* Dimensión: Ventas                                            */
+/* Dimensión: Afiliaciones                                            */
 /*==============================================================*/
 
-CREATE SEQUENCE seq_dim_venta INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE seq_dim_afiliacion INCREMENT BY 1 START WITH 1;
 
-create table dim_venta
+create table dim_afiiliacion
 (
-  id_venta BIGINT NOT NULL DEFAULT nextval('seq_dim_venta'::regclass),
-  fecha_venta BIGINT NOT NULL,
-  plan_venta BIGINT NOT NULL,
-  sede_venta BIGINT NOT NULL,
-  ciudad_venta BIGINT NOT NULL,
-  vendedor BIGINT NOT NULL,
-  total_ventas INTEGER NOT NULL,
-  PRIMARY KEY (id_venta),
-  FOREIGN KEY (plan_venta) REFERENCES plan (id_plan),
-  FOREIGN KEY (sede_venta) REFERENCES sede (id_sede),
-  FOREIGN KEY (ciudad_venta) REFERENCES ciudad (cod_ciudad),
-  FOREIGN KEY (vendedor) REFERENCES personal (id_personal)
+  id_afiliacion BIGINT NOT NULL DEFAULT nextval('seq_dim_afiliacion'::regclass),
+  fecha_afiliacion BIGINT NOT NULL,
+  plan_afiliacion BIGINT NOT NULL,
+  sede_afiliacion BIGINT NOT NULL,
+  ciudad_afiliacion BIGINT NOT NULL,
+  vendedor_afiliacion BIGINT NOT NULL,
+  demografia_afiliacion BIGINT NOT NULL,
+  cantidad_afiliaciones INTEGER NOT NULL,
+  PRIMARY KEY (id_afiliacion),
+  FOREIGN KEY (plan_afiliacion) REFERENCES dim_plan (id_plan),
+  FOREIGN KEY (sede_afiliacion) REFERENCES dim_sede (id_sede),
+  FOREIGN KEY (ciudad_afiliacion) REFERENCES dim_ciudad (id_ciudad),
+  FOREIGN KEY (vendedor_afiliacion) REFERENCES dim_vendedor (id_vendedor)
 );
 
 /*==============================================================*/
