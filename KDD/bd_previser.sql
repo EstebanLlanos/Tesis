@@ -119,11 +119,11 @@ CREATE TABLE dim_especialista
 /* Dimensión: Afiliaciones                                            */
 /*==============================================================*/
 
-CREATE SEQUENCE seq_dim_afiliacion INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE seq_datamart_afiliacion INCREMENT BY 1 START WITH 1;
 
-create table dim_afiiliacion
+create table datamart_afiiliacion
 (
-  id_afiliacion BIGINT NOT NULL DEFAULT nextval('seq_dim_afiliacion'::regclass),
+  id_afiliacion BIGINT NOT NULL DEFAULT nextval('seq_datamart_afiliacion'::regclass),
   fecha_afiliacion BIGINT NOT NULL,
   plan_afiliacion BIGINT NOT NULL,
   sede_afiliacion BIGINT NOT NULL,
@@ -139,40 +139,54 @@ create table dim_afiiliacion
 );
 
 /*==============================================================*/
-/* Dimensión: Ventas_2                                          */
-/*==============================================================*/
-
-CREATE SEQUENCE seq_dim_venta_2 INCREMENT BY 1 START WITH 1;
-
-create table dim_venta_2
-(
-  id_venta BIGINT NOT NULL DEFAULT nextval('seq_dim_venta'::regclass),
-  fecha_venta BIGINT NOT NULL,
-  plan_venta BIGINT NOT NULL,
-  sede_venta BIGINT NOT NULL,
-  ciudad_venta BIGINT NOT NULL,
-  vendedor BIGINT NOT NULL,
-  total_ventas INTEGER NOT NULL,
-  PRIMARY KEY (id_venta),
-  FOREIGN KEY (plan_venta) REFERENCES plan (id_plan),
-  FOREIGN KEY (sede_venta) REFERENCES sede (id_sede),
-  FOREIGN KEY (ciudad_venta) REFERENCES ciudad (cod_ciudad),
-  FOREIGN KEY (vendedor) REFERENCES personal (id_personal)
-);
-
-/*==============================================================*/
 /* Dimensión: Citas Especialidad                                */
 /*==============================================================*/
 
-CREATE SEQUENCE seq_dim_cita_especialidad INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE seq_datamart_cita_especialidad INCREMENT BY 1 START WITH 1;
 
-create table dim_cita_especialidad
+create table datamart_cita_especialidad
 (
-  id_cita_especialidad BIGINT NOT NULL DEFAULT nextval('seq_cita_especialidad'::regclass),
-  ciudad_cita BIGINT REFERENCES ciudad (id_ciudad),
+  id_cita_especialidad BIGINT NOT NULL DEFAULT nextval('seq_datamart_cita_especialidad'::regclass),
+  ciudad_cita BIGINT REFERENCES dim_ciudad (id_ciudad),
   fecha_actividad BIGINT references dim_fecha (id_dim_fecha),
-  demografia_cita BIGINT references demografia (id_demografia),
-    especialista_cita BIGINT references especialista (id_especialista),
+  demografia_cita BIGINT references dim_demografia (id_demografia),
+  especialista_cita BIGINT references dim_especialista (id_especialista),
   cantidad INTEGER NOT NULL DEFAULT 0,
-    PRIMARY KEY (id_cita_especialidad)
+  PRIMARY KEY (id_cita_especialidad)
+);
+
+/*==============================================================*/
+/* Dimensión: Citas Exámenes                                    */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_datamart_cita_examen INCREMENT BY 1 START WITH 1;
+
+create table datamart_cita_examen
+(
+  id_cita_examen BIGINT NOT NULL DEFAULT nextval('seq_datamart_cita_examen'::regclass),
+  fecha_actividad BIGINT references dim_fecha (id_dim_fecha),
+  ciudad_cita BIGINT REFERENCES dim_ciudad (id_ciudad),
+  examen_cita BIGINT references dim_examen (id_examen),
+  demografia_cita BIGINT references dim_demografia (id_demografia),
+  institucion_cita BIGINT references dim_institucion (id_institucion),
+  cantidad INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (id_cita_examen)
+);
+
+/*==============================================================*/
+/* Dimensión: Citas Otros Servicios                             */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_datamart_cita_otros_servicios INCREMENT BY 1 START WITH 1;
+
+create table datamart_cita_otros_servicios
+(
+  id_cita_otros_servicios BIGINT NOT NULL DEFAULT nextval('seq_datamart_cita_otros_servicios'::regclass),
+  fecha_actividad BIGINT references dim_fecha (id_dim_fecha),
+  institucion_cita BIGINT references dim_institucion (id_institucion),
+  demografia_cita BIGINT references dim_demografia (id_demografia),
+  especialidad_cita BIGINT references dim_especialidad (id_especialidad),
+  ciudad_cita BIGINT REFERENCES dim_ciudad (id_ciudad),
+  cantidad INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (id_cita_otros_servicios)
 );
