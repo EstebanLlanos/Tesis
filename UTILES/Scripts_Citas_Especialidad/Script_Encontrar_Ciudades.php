@@ -19,7 +19,8 @@ $coneccionBD->crearConexionCustom($host,$port,$dbname,$user,$pass);
 
 date_default_timezone_set('America/Bogota');
 
-function rename_win($oldfile,$newfile) {
+function rename_win($oldfile,$newfile) 
+{
     if (!rename($oldfile,$newfile)) {
         if (copy ($oldfile,$newfile)) {
             unlink($oldfile);
@@ -51,7 +52,6 @@ function elemento_seleccionado($valor,$valor_seleccionado)
 		return "selected";
 	}//fin if
 }//fin function
-
 
 function correctorFormatoFechaVersionCorta($fecha_actual)
 {
@@ -207,7 +207,6 @@ function diferencia_dias_entre_fechas($fecha_1,$fecha_2)
 	}
 
 	return $diferencia_dias_entre_fechas;
-
 }//fin calculo diferencia entre fechas
 
 $nombre_tabla="";
