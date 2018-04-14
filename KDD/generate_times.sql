@@ -33,9 +33,9 @@ SELECT
   to_char(datum, 'SSSS')::integer / 60 AS minuto_del_dia,
   to_char(datum, 'SSSS')::integer AS segundo_del_dia,
 
-  to_char(datum - (extract(minute FROM datum)::integer % 15 || 'minutos')::interval, 'hh24:mi') ||
+  to_char(datum - (extract(minute FROM datum)::integer % 15 || 'minutes')::interval, 'hh24:mi') ||
   ' – ' ||
-  to_char(datum - (extract(minute FROM datum)::integer % 15 || 'minutos')::interval + '14 minutos'::interval, 'hh24:mi')
+  to_char(datum - (extract(minute FROM datum)::integer % 15 || 'minutes')::interval + '14 minutes'::interval, 'hh24:mi')
     AS cuarto_de_hora,
 
   to_char(datum, 'AM') AS am_pm,
@@ -63,4 +63,4 @@ SELECT
   WHEN to_char(datum, 'hh24:mi') BETWEEN '20:00' AND '23:59' THEN 'Noche'
   END AS periodo_de_tiempo_abrev
 
-FROM generate_series('2000-01-01 00:00:00'::timestamp, '2000-01-01 23:59:59'::timestamp, '1 segundo') datum;
+FROM generate_series('2000-01-01 00:00:00'::timestamp, '2000-01-01 23:59:59'::timestamp, '1 second') datum;

@@ -116,6 +116,30 @@ CREATE TABLE dim_especialista
 );
 
 /*==============================================================*/
+/* Dimensión: Institución                                      */
+/*==============================================================*/
+
+CREATE TABLE dim_institucion 
+(
+  id_institucion INTEGER NOT NULL,
+  nombre_institucion VARCHAR(100) NOT NULL,
+  sede_institucion INTEGER REFERENCES dim_sede (id_sede),
+  zona_institucion VARCHAR(10) NOT NULL,
+  PRIMARY KEY (id_institucion)
+);
+
+/*==============================================================*/
+/* Dimensión: Examen                                            */
+/*==============================================================*/
+
+CREATE TABLE dim_examen 
+(
+  id_examen INTEGER NOT NULL,
+  nombre_examen VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_examen)
+);
+
+/*==============================================================*/
 /* Dimensión: Afiliaciones                                            */
 /*==============================================================*/
 
