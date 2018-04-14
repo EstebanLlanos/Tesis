@@ -6,12 +6,12 @@ ini_set('memory_limit', '2000M');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
-include_once ('conexionbd/clase_coneccion_bd.php');
+include_once ('../conexionbd/clase_coneccion_bd.php');
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5432";
+$port="5433";
 //$dbname="giossprepagadacoo";
-$dbname="previser";
+$dbname="bodega_previser";
 //$user="giossuser";
 $user="postgres";
 $pass="postgres";
@@ -226,7 +226,7 @@ if( isset($_REQUEST['columnas_a_imprimir'])
 }
 
 $parte_from="";
-$parte_from.="  ciudad ";
+$parte_from.="  dim_ciudad ";
 
 $parte_where="";
 
@@ -317,11 +317,11 @@ if( isset($_REQUEST['iniciar'])
 
 	mkdir("destino/".$carpetaPropia,777,true);
 
-	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Encontrados".$fecha_archivo.".csv";
+	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Ciudades_Encontradas".$fecha_archivo.".csv";
 	$archivoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoEncontradosBD);
 
-	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."NoEncontrados".$fecha_archivo.".csv";
+	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."Ciudades_No_Encontradas".$fecha_archivo.".csv";
 	$archivoNoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoNoEncontradosBD);
 
@@ -383,12 +383,20 @@ if( isset($_REQUEST['iniciar'])
 			$vendedor=trim($array_linea_a1[5]);
 
 		}//fin if
-		
-		$cantidad="";
+
+		$demografia="";
 		if(isset($array_linea_a1[6])==true)
 		{
-			$array_linea_a1[6]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[6]) );
-			$cantidad=trim($array_linea_a1[6]);
+			$array_linea_a1[5]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[6]) );
+			$demografia=trim($array_linea_a1[6]);
+
+		}//fin if
+		
+		$cantidad="";
+		if(isset($array_linea_a1[7])==true)
+		{
+			$array_linea_a1[7]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[7]) );
+			$cantidad=trim($array_linea_a1[7]);
 
 		}//fin if
 
@@ -409,7 +417,7 @@ if( isset($_REQUEST['iniciar'])
 			$query_a_extraer_resultados_contar.=" WHERE $parte_where ; ";
 		}
 
-		$query_comun="	select * FROM $parte_from   ";
+		$query_comun="	SELECT * FROM $parte_from   ";
 		if(trim($parte_where)!="")
 		{
 			$query_comun.=" WHERE $parte_where  ";//aca no lleva punto y coma debido a que despues va el limit y offset en el ciclo
@@ -469,7 +477,7 @@ if( isset($_REQUEST['iniciar'])
 
 							$id_ciudad = trim($fila_actual['id_ciudad']);
 
-							$linea_a_escribir = "$fecha,$plan,$sede,$ciudad,$vendedor,$cantidad";
+							$linea_a_escribir = "$fecha,$plan,$sede,$id_ciudad,$vendedor,$demografia,$cantidad";
 
 							$archivoEncontradosBD=fopen($pathArchivoEncontrados, "a");
 							fwrite($archivoEncontradosBD, $linea_a_escribir."\n");
@@ -487,7 +495,7 @@ if( isset($_REQUEST['iniciar'])
 						
 					$linea_a_escribir="";
 
-					$linea_a_escribir = "$fecha,$plan,$sede,$departamento,$ciudad,$vendedor,$cantidad";
+					$linea_a_escribir = "$fecha,$plan,$sede,$departamento,$ciudad,$vendedor,$demografia,$cantidad";
 
 					$archivoNoEncontradosBD=fopen($pathArchivoNoEncontrados, "a");
 					fwrite($archivoNoEncontradosBD, $linea_a_escribir."\n");
@@ -509,7 +517,7 @@ if( isset($_REQUEST['iniciar'])
 			
 			$linea_a_escribir="";
 
-			$linea_a_escribir = "$fecha,$plan,$sede,$departamento,$ciudad,$vendedor,$cantidad";
+			$linea_a_escribir = "$fecha,$plan,$sede,$departamento,$ciudad,$vendedor,$demografia,$cantidad";
 
 			$archivoNoEncontradosBD=fopen($pathArchivoNoEncontrados, "a");
 			fwrite($archivoNoEncontradosBD, $linea_a_escribir."\n");
@@ -519,8 +527,8 @@ if( isset($_REQUEST['iniciar'])
 		$cont_linea_actual_archivo++;
 	}//fin while
 	
-	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Encontrados en BD.</a><br>";
-	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Ciudades Encontradas en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">Ciudades No Encontradas en BD.</a><br>";
 
 }//fin if
 else

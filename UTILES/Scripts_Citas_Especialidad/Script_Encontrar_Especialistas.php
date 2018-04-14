@@ -6,12 +6,12 @@ ini_set('memory_limit', '2000M');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
-include_once ('conexionbd/clase_coneccion_bd.php');
+include_once ('../conexionbd/clase_coneccion_bd.php');
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5432";
+$port="5433";
 //$dbname="giossprepagadacoo";
-$dbname="previser";
+$dbname="bodega_previser";
 //$user="giossuser";
 $user="postgres";
 $pass="postgres";
@@ -225,7 +225,7 @@ if( isset($_REQUEST['columnas_a_imprimir'])
 }
 
 $parte_from="";
-$parte_from.="  especialista ";
+$parte_from.=" dim_especialista ";
 
 $parte_where="";
 
@@ -316,11 +316,11 @@ if( isset($_REQUEST['iniciar'])
 
 	mkdir("destino/".$carpetaPropia,777,true);
 
-	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Encontrados".$fecha_archivo.".csv";
+	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Especialistas_Encontrados".$fecha_archivo.".csv";
 	$archivoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoEncontradosBD);
 
-	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."NoEncontrados".$fecha_archivo.".csv";
+	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."Especialistas_No_Encontrados".$fecha_archivo.".csv";
 	$archivoNoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoNoEncontradosBD);
 
@@ -494,8 +494,8 @@ if( isset($_REQUEST['iniciar'])
 		$cont_linea_actual_archivo++;
 	}//fin while
 	
-	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Encontrados en BD.</a><br>";
-	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">No Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Espeialistas Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">Espcialistas No Encontrados en BD.</a><br>";
 
 }//fin if
 else
