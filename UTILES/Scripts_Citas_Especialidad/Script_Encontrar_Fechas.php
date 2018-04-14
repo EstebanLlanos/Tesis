@@ -6,12 +6,12 @@ ini_set('memory_limit', '2000M');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
-include_once ('conexionbd/clase_coneccion_bd.php');
+include_once ('../conexionbd/clase_coneccion_bd.php');
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5432";
+$port="5433";
 //$dbname="giossprepagadacoo";
-$dbname="previser";
+$dbname="bodega_previser";
 //$user="giossuser";
 $user="postgres";
 $pass="postgres";
@@ -316,11 +316,11 @@ if( isset($_REQUEST['iniciar'])
 
 	mkdir("destino/".$carpetaPropia,777,true);
 
-	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Encontrados".$fecha_archivo.".csv";
+	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Fechas_Encontradas".$fecha_archivo.".csv";
 	$archivoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoEncontradosBD);
 
-	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."NoEncontrados".$fecha_archivo.".csv";
+	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."Fechas_No_Encontradas".$fecha_archivo.".csv";
 	$archivoNoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoNoEncontradosBD);
 
@@ -338,19 +338,19 @@ if( isset($_REQUEST['iniciar'])
 
 		$array_linea_a1=explode(",", $line1);
 
-		$codigo_ciudad="";
+		$ciudad="";
 		if(isset($array_linea_a1[0])==true)
 		{
 			$array_linea_a1[0]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[0]) );
-			$codigo_ciudad=trim($array_linea_a1[0]);
+			$ciudad=trim($array_linea_a1[0]);
 
 		}//fin if
 
-		$fecha_actividad="";
+		$fecha="";
 		if(isset($array_linea_a1[1])==true)
 		{
 			$array_linea_a1[1]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[1]) );
-			$fecha_actividad=trim($array_linea_a1[1]);
+			$fecha=trim($array_linea_a1[1]);
 
 		}//fin if
 		
@@ -361,7 +361,7 @@ if( isset($_REQUEST['iniciar'])
 			$demografia=trim($array_linea_a1[2]);
 
 		}//fin if
-		
+
 		$especialista="";
 		if(isset($array_linea_a1[3])==true)
 		{
@@ -369,7 +369,7 @@ if( isset($_REQUEST['iniciar'])
 			$especialista=trim($array_linea_a1[3]);
 
 		}//fin if
-		
+
 		$cantidad="";
 		if(isset($array_linea_a1[4])==true)
 		{
@@ -385,7 +385,7 @@ if( isset($_REQUEST['iniciar'])
 		)
 		{
 			//$parte_where.=" primer_nombre ilike '%A' AND sexo ilike 'M' and primer_apellido NOT ilike '%hijo%de%' ";
-			$parte_where.=" id_dim_fecha='$fecha_actividad'";
+			$parte_where.=" id_dim_fecha='$fecha'";
 		}
 
 
@@ -395,7 +395,7 @@ if( isset($_REQUEST['iniciar'])
 			$query_a_extraer_resultados_contar.=" WHERE $parte_where ; ";
 		}
 
-		$query_comun="	select * FROM $parte_from   ";
+		$query_comun=" SELECT * FROM $parte_from   ";
 		if(trim($parte_where)!="")
 		{
 			$query_comun.=" WHERE $parte_where  ";//aca no lleva punto y coma debido a que despues va el limit y offset en el ciclo
@@ -444,7 +444,7 @@ if( isset($_REQUEST['iniciar'])
 					{
 						$linea_a_escribir="";
 
-						if( ($fecha_actividad == trim($fila_actual['id_dim_fecha'])) ){
+						if( ($fecha == trim($fila_actual['id_dim_fecha'])) ){
 
 							$registro_encontrado = true;
 
@@ -453,7 +453,7 @@ if( isset($_REQUEST['iniciar'])
 							//ob_flush();
 							//flush();
 
-							$linea_a_escribir = "$codigo_ciudad,$fecha_actividad,$demografia,$especialista,$cantidad";
+							$linea_a_escribir = "$ciudad,$fecha,$demografia,$especialista,$cantidad";
 
 							$archivoEncontradosBD=fopen($pathArchivoEncontrados, "a");
 							fwrite($archivoEncontradosBD, $linea_a_escribir."\n");
@@ -481,7 +481,7 @@ if( isset($_REQUEST['iniciar'])
 
 			$linea_a_escribir="";
 
-			$linea_a_escribir = "$codigo_ciudad,$fecha_actividad,$demografia,$especialista,$cantidad";
+			$linea_a_escribir = "$ciudad,$fecha,$demografia,$especialista,$cantidad";
 
 			$archivoNoEncontradosBD=fopen($pathArchivoNoEncontrados, "a");
 			fwrite($archivoNoEncontradosBD, $linea_a_escribir."\n");
@@ -492,8 +492,8 @@ if( isset($_REQUEST['iniciar'])
 		$cont_linea_actual_archivo++;
 	}//fin while
 	
-	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Encontrados en BD.</a><br>";
-	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">No Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Fechas Encontradas en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">Fechas No Encontradas en BD.</a><br>";
 
 }//fin if
 else

@@ -6,12 +6,12 @@ ini_set('memory_limit', '2000M');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
-include_once ('conexionbd/clase_coneccion_bd.php');
+include_once ('../conexionbd/clase_coneccion_bd.php');
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5432";
+$port="5433";
 //$dbname="giossprepagadacoo";
-$dbname="previser";
+$dbname="bodega_previser";
 //$user="giossuser";
 $user="postgres";
 $pass="postgres";
@@ -224,7 +224,7 @@ if( isset($_REQUEST['columnas_a_imprimir'])
 }
 
 $parte_from="";
-$parte_from.="  plan ";
+$parte_from.="  dim_plan ";
 
 $parte_where="";
 
@@ -315,11 +315,11 @@ if( isset($_REQUEST['iniciar'])
 
 	mkdir("destino/".$carpetaPropia,777,true);
 
-	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Encontrados".$fecha_archivo.".csv";
+	$pathArchivoEncontrados="destino/".$carpetaPropia."/"."Planes_Encontrados".$fecha_archivo.".csv";
 	$archivoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoEncontradosBD);
 
-	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."NoEncontrados".$fecha_archivo.".csv";
+	$pathArchivoNoEncontrados="destino/".$carpetaPropia."/"."Planes_No_Encontrados".$fecha_archivo.".csv";
 	$archivoNoEncontradosBD=fopen($pathArchivoEncontrados, "w");
 	fclose($archivoNoEncontradosBD);
 
@@ -376,12 +376,20 @@ if( isset($_REQUEST['iniciar'])
 			$vendedor=trim($array_linea_a1[4]);
 
 		}//fin if
-		
-		$cantidad="";
+
+		$demografia="";
 		if(isset($array_linea_a1[5])==true)
 		{
 			$array_linea_a1[5]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[5]) );
-			$cantidad=trim($array_linea_a1[5]);
+			$demografia=trim($array_linea_a1[5]);
+
+		}//fin if
+		
+		$cantidad="";
+		if(isset($array_linea_a1[6])==true)
+		{
+			$array_linea_a1[6]=preg_replace("/[^0-9]+/", "", trim($array_linea_a1[6]) );
+			$cantidad=trim($array_linea_a1[6]);
 		}//fin if
 
 		$parte_where="";
@@ -456,7 +464,7 @@ if( isset($_REQUEST['iniciar'])
 
 							$registro_encontrado = true;
 
-							$linea_a_escribir = "$fecha,$plan,$sede,$ciudad,$vendedor,$cantidad";
+							$linea_a_escribir = "$fecha,$plan,$sede,$ciudad,$vendedor,$demografia,$cantidad";
 
 							$archivoEncontradosBD=fopen($pathArchivoEncontrados, "a");
 							fwrite($archivoEncontradosBD, $linea_a_escribir."\n");
@@ -484,7 +492,7 @@ if( isset($_REQUEST['iniciar'])
 
 			$linea_a_escribir="";
 
-			$linea_a_escribir = "$fecha,$plan,$sede,$ciudad,$vendedor,$cantidad";
+			$linea_a_escribir = "$fecha,$plan,$sede,$ciudad,$vendedor,$demografia,$cantidad";
 
 			$archivoNoEncontradosBD=fopen($pathArchivoNoEncontrados, "a");
 			fwrite($archivoNoEncontradosBD, $linea_a_escribir."\n");
@@ -495,8 +503,8 @@ if( isset($_REQUEST['iniciar'])
 		$cont_linea_actual_archivo++;
 	}//fin while
 	
-	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Encontrados en BD.</a><br>";
-	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">No Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoEncontrados\" target=\"blank_\">Planes Encontrados en BD.</a><br>";
+	$mensajes.="<a href=\"$pathArchivoNoEncontrados\" target=\"blank_\">Planes No Encontrados en BD.</a><br>";
 
 }//fin if
 else
