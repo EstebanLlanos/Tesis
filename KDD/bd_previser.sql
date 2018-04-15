@@ -2,12 +2,27 @@
 /*========================BODEGA DE DATOS=======================*/
 /*==============================================================*/
 
+DROP TABLE IF EXISTS datamart_afiiliacion;
+DROP TABLE IF EXISTS datamart_cita_especialidad;
+DROP TABLE IF EXISTS datamart_cita_examen;
+DROP TABLE IF EXISTS datamart_cita_otros_servicios;
+
 DROP TABLE IF EXISTS dim_ciudad;
+DROP TABLE IF EXISTS dim_departamento;
 DROP TABLE IF EXISTS dim_plan;
-DROP TABLE IF EXISTS dim_personal;
+DROP TABLE IF EXISTS dim_vendedor;
+DROP TABLE IF EXISTS dim_examen;
+DROP TABLE IF EXISTS dim_institucion;
+DROP TABLE IF EXISTS dim_demografia;
+DROP TABLE IF EXISTS dim_especialista;
+DROP TABLE IF EXISTS dim_especialidad;
 DROP TABLE IF EXISTS dim_sede;
 
 DROP SEQUENCE IF EXISTS seq_ciudad;
+DROP SEQUENCE IF EXISTS seq_datamart_afiliacion;
+DROP SEQUENCE IF EXISTS seq_datamart_cita_especialidad;
+DROP SEQUENCE IF EXISTS seq_datamart_cita_examen;
+DROP SEQUENCE IF EXISTS seq_datamart_cita_otros_servicios;
 
 /*==============================================================*/
 /* Dimensión: Ciudad                                            */
@@ -140,7 +155,7 @@ CREATE TABLE dim_examen
 );
 
 /*==============================================================*/
-/* Dimensión: Afiliaciones                                            */
+/* Dimensión: Afiliaciones                                      */
 /*==============================================================*/
 
 CREATE SEQUENCE seq_datamart_afiliacion INCREMENT BY 1 START WITH 1;
