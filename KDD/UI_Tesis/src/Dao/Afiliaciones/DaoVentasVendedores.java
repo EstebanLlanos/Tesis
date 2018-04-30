@@ -61,48 +61,48 @@ public class DaoVentasVendedores {
         if (criterioConsultaVentas.equals("Escoger una Opción...") && !ventasVendedores.getVendedor().equals("")) {
             String[] datosVendedor = ventasVendedores.getVendedor().split(",");
             int codVendedor = Integer.parseInt(datosVendedor[0].replaceAll("\\s+",""));
-            where = " WHERE id_personal = '" + codVendedor + "'";
+            where = " WHERE id_vendedor = '" + codVendedor + "'";
         } else if(!criterioConsultaVentas.equals("Escoger una Opción...")){
             if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {
 
                 if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = " WHERE dv.sede_venta = '" + codigoSede 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
+                    where = " WHERE dv.sede_afiliacion = '" + codigoSede 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + anioFin + ") ";
                 } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = " WHERE dv.sede_venta = '" + codigoSede 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
+                    where = " WHERE dv.sede_afiliacion = '" + codigoSede 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201) ");
                 }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
                     return "Error Fecha";
                 } else {
-                    where = " WHERE dv.sede_venta = '" + codigoSede + "'";
+                    where = " WHERE dv.sede_afiliacion = '" + codigoSede + "'";
                 }
 
             } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && ventasVendedores.getSede().equals("Escoger una Opción...")) {
 
                 if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = "WHERE dv.ciudad_venta = '" + codigoCiudad 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ") ";
+                    where = "WHERE dv.ciudad_afiliacion = '" + codigoCiudad 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + anioFin + ") ";
                 } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = " WHERE dv.ciudad_venta = '" + codigoCiudad 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
+                    where = " WHERE dv.ciudad_afiliacion = '" + codigoCiudad 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
                 }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
                     return "Error Fecha";
                 } else {
-                    where = "WHERE dv.ciudad_venta = '" + codigoCiudad + "'";
+                    where = "WHERE dv.ciudad_afiliacion = '" + codigoCiudad + "'";
                 }
 
             } else if (!ventasVendedores.getCiudad().equals("Escoger una Opción...") && !ventasVendedores.getSede().equals("Escoger una Opción...")) {
 
                 if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + anioFin + ")";
+                    where = "WHERE dv.sede_afiliacion = '" + codigoSede + "' AND dv.ciudad_afiliacion = '" + codigoCiudad 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + anioFin + ")";
                 } else if (!ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
-                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad 
-                            + "' AND (dv.fecha_venta BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
+                    where = "WHERE dv.sede_afiliacion = '" + codigoSede + "' AND dv.ciudad_afiliacion = '" + codigoCiudad 
+                            + "' AND (dv.fecha_afiliacion BETWEEN " + anioInicio + " AND " + ((anioInicio+"").substring(0, 4)+"1201)");
                 }  else if (ventasVendedores.getAnioInicio().equals("Escoger una Opción...") && !ventasVendedores.getAnioFin().equals("Escoger una Opción...")) {
                     return "Error Fecha";
                 } else {
-                    where = "WHERE dv.sede_venta = '" + codigoSede + "' AND dv.ciudad_venta = '" + codigoCiudad + "'";
+                    where = "WHERE dv.sede_afiliacion = '" + codigoSede + "' AND dv.ciudad_afiliacion = '" + codigoCiudad + "'";
                 }
 
             } else {
@@ -121,23 +121,23 @@ public class DaoVentasVendedores {
         
         if (criterioConsultaVentas.equals("Mayor Número de Ventas")) {
             
-            sql_select = "SELECT per.nombre_personal, per.apellido_personal, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                       + "INNER JOIN personal per ON (dv.vendedor = CAST ( per.id_personal AS BIGINT )) "
-                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
-                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) DESC LIMIT 5;";
+            sql_select = "SELECT per.nombre_vendedor, per.apellido_vendedor, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv "
+                       + "INNER JOIN dim_vendedor per ON (dv.vendedor_afiliacion = CAST ( per.id_vendedor AS BIGINT )) "
+                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
+                       + where + " GROUP BY per.nombre_vendedor, per.apellido_vendedor ORDER BY SUM(dv.cantidad_afiliaciones) DESC LIMIT 5;";
 
         } else if (criterioConsultaVentas.equals("Menor Número de Ventas")) {
-            sql_select = "SELECT per.nombre_personal, per.apellido_personal, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                       + "INNER JOIN personal per ON (dv.vendedor = CAST ( per.id_personal AS BIGINT )) "
-                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_venta) "
-                       + where + " GROUP BY per.nombre_personal, per.apellido_personal ORDER BY SUM(dv.total_ventas) ASC LIMIT 5;";
+            sql_select = "SELECT per.nombre_vendedor, per.apellido_vendedor, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv "
+                       + "INNER JOIN dim_vendedor per ON (dv.vendedor_afiliacion = CAST ( per.id_vendedor AS BIGINT )) "
+                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
+                       + where + " GROUP BY per.nombre_vendedor, per.apellido_vendedor ORDER BY SUM(dv.cantidad_afiliaciones) ASC LIMIT 5;";
         } else {
             
-            sql_select = "SELECT per.id_personal, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                    + "INNER JOIN personal per ON (dv.vendedor = per.id_personal) "
-                    + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha) "
+            sql_select = "SELECT per.id_vendedor, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv "
+                    + "INNER JOIN dim_vendedor per ON (dv.vendedor_afiliacion = per.id_vendedor) "
+                    + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha) "
                     + where
-                    + " GROUP BY per.id_personal, fch.anio_actual "
+                    + " GROUP BY per.id_vendedor, fch.anio_actual "
                     + "ORDER BY fch.anio_actual;";            
         }
         
@@ -154,7 +154,7 @@ public class DaoVentasVendedores {
 
                     String[] registro = new String[2];
                     registro[0] = tabla.getString("anio_actual");
-                    registro[1] = tabla.getString("total_ventas");
+                    registro[1] = tabla.getString("cantidad_afiliaciones");
 
                     conteoVentas.add(registro);
 
@@ -177,11 +177,11 @@ public class DaoVentasVendedores {
 
                 while (tabla.next()) {
 
-                    String[] apellidos = tabla.getString("apellido_personal").split(" ");
+                    String[] apellidos = tabla.getString("apellido_vendedor").split(" ");
 
                     String[] registro = new String[2];
-                    registro[0] = tabla.getString("nombre_personal") + " " + apellidos[0];
-                    registro[1] = tabla.getString("total_ventas");
+                    registro[0] = tabla.getString("nombre_vendedor") + " " + apellidos[0];
+                    registro[1] = tabla.getString("cantidad_afiliaciones");
 
                     conteoVentas.add(registro);
 

@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.Afiliaciones.UiVentasCiudades;
+import GUI.Afiliaciones.UiVentasDemografia;
 import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Citas_Especialidad.UiCitasEspecialidad;
@@ -8,13 +9,17 @@ import GUI.Citas_Especialidad.UiCitasEspecialista;
 import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -62,11 +67,12 @@ public class Visualizador extends javax.swing.JFrame {
             switch (elementoConsultaSeleccionada) {
                 case 1:
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[4][1];
+                    arregloPreguntas = new String[5][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
                     arregloPreguntas[1][0] = "Venta de Afiliaciones por Ciudades";
                     arregloPreguntas[2][0] = "Venta de Afiliaciones por Vendedor";
                     arregloPreguntas[3][0] = "Venta de Afiliaciones por Sede";
+                    arregloPreguntas[4][0] = "Venta de Afiliaciones por Perfil Demográfico";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -147,6 +153,10 @@ public class Visualizador extends javax.swing.JFrame {
                 case 3:
                     UiVentasSedes ventasPorSede = new UiVentasSedes();
                     asignaComponentesVentasSede(ventasPorSede);
+                    break;
+                case 4:
+                    UiVentasDemografia ventasPorDemografia = new UiVentasDemografia();
+                    asignaComponentesVentasDemografia(ventasPorDemografia);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -286,6 +296,51 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(ventasPorSede.getComboBoxAnioFin());
         panelOpciones.add(ventasPorSede.getSeparadorBoton());
         panelOpciones.add(ventasPorSede.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
+    private void asignaComponentesVentasDemografia(UiVentasDemografia ventasPorDemografia) {
+
+        panelOpciones.removeAll();
+        
+        panelOpciones.setLayout(new GridLayout(20, 1));
+        
+        panelOpciones.add(ventasPorDemografia.getLabelGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelIngreso());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxIngreso());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelMesInicio());
+        panelOpciones.add(ventasPorDemografia.getLabelMesFin());
+        panelOpciones.add(ventasPorDemografia.getComboBoxMesInicio());
+        panelOpciones.add(ventasPorDemografia.getComboBoxMesFin());
+        panelOpciones.add(ventasPorDemografia.getLabelAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getLabelCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getComboBoxCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(new JLabel("≡≡≡≡≡≡≡≡≡≡≡≡≡"));
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(ventasPorDemografia.getBotonConsultar());
+
         panelOpciones.updateUI();
     }
     

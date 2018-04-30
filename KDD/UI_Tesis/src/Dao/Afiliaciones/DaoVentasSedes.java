@@ -56,17 +56,17 @@ public class DaoVentasSedes {
                 mesFin = obtenerCodigoMes(ventasSedes.getMesFin());
                 
                 if (mesInicio < 10 && mesFin < 10) {
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin < 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01'";
                 } else if (mesInicio < 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
                 }
                 
             } else if(ventasSedes.getMesInicio().equals("Escoger una Opción...") && ventasSedes.getMesFin().equals("Escoger una Opción...")){
-                where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0101' AND '" + anioFin + "1201'";
+                where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0101' AND '" + anioFin + "1201'";
             } else {
                 return "Error Fecha Mes";
             }
@@ -81,17 +81,17 @@ public class DaoVentasSedes {
                 mesFin = obtenerCodigoMes(ventasSedes.getMesFin());
                 
                 if (mesInicio < 10 && mesFin < 10) {
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin < 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01'";
                 } else if (mesInicio < 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01'";
                 }
                 
             } else if(ventasSedes.getMesInicio().equals("Escoger una Opción...") && ventasSedes.getMesFin().equals("Escoger una Opción...")){
-                where = " WHERE dv.fecha_venta BETWEEN '" + anioInicio + "0101' AND '" + anioInicio + "1201'";
+                where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioInicio + "0101' AND '" + anioInicio + "1201'";
             } else {
                 
                 return "Error Fecha Mes";
@@ -108,17 +108,17 @@ public class DaoVentasSedes {
                 mesFin = obtenerCodigoMes(ventasSedes.getMesFin());
                 
                 if (mesInicio < 10 && mesFin < 10) {
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioFin + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioFin + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin < 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioFin + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioFin + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01'";
                 } else if (mesInicio < 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioFin + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioFin + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
                 } else if (mesInicio >= 10 && mesFin >= 10){
-                    where = " WHERE dv.fecha_venta BETWEEN '" + anioFin + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
+                    where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioFin + mesInicio + "01' AND '" + anioFin + mesFin + "01'";
                 }
                 
             } else if(ventasSedes.getMesInicio().equals("Escoger una Opción...") && ventasSedes.getMesFin().equals("Escoger una Opción...")){
-                where = " WHERE dv.fecha_venta BETWEEN '" + anioFin + "0101' AND '" + anioFin + "1201'";
+                where = " WHERE dv.fecha_afiliacion BETWEEN '" + anioFin + "0101' AND '" + anioFin + "1201'";
             } else {
                 
                 return "Error Fecha Mes";
@@ -137,8 +137,8 @@ public class DaoVentasSedes {
         ArrayList<String[]> conteoVentas = new ArrayList<String[]>();
         String sql_select;
         
-        sql_select = "SELECT sd.nombre_sede, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv INNER JOIN sede sd "
-                    + "ON (dv.sede_venta = sd.id_sede) " + where + " GROUP BY sd.nombre_sede LIMIT 5;";
+        sql_select = "SELECT sd.nombre_sede, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv INNER JOIN dim_sede sd "
+                    + "ON (dv.sede_afiliacion = sd.id_sede) " + where + " GROUP BY sd.nombre_sede LIMIT 5;";
         
         System.out.println("Consulta: " + sql_select);
 

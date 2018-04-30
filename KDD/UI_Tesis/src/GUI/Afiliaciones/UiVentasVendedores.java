@@ -57,7 +57,7 @@ public class UiVentasVendedores {
         labelTipoConsulta = new JLabel();
         inicializarJLabel(labelTipoConsulta , "Tipo de Consulta a Realizar:                              ");
         
-        busquedaNombre = new JCheckBox("Buscar por nombre del Vendedor");
+        busquedaNombre = new JCheckBox("Buscar por código de Vendedor");
         busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
         busquedaNombre.setSelected(false);
@@ -256,8 +256,8 @@ public class UiVentasVendedores {
          
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_personal, apellido_personal, id_personal "
-                    + "FROM personal WHERE tipo_personal = 'V';");
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_vendedor, apellido_vendedor, id_vendedor "
+                    + "FROM dim_vendedor WHERE tipo_vendedor = 'V';");
             
             while (tabla.next()) {
                 vendedores.add(tabla.getObject(3) +  ", " + tabla.getObject(2) + " " + tabla.getObject(1));
@@ -308,7 +308,7 @@ public class UiVentasVendedores {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
-                    + "FROM ciudad;");
+                    + "FROM dim_ciudad;");
 
             listaCiudades.add("Escoger una Opción...");
             
@@ -337,7 +337,7 @@ public class UiVentasVendedores {
          
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
-            ResultSet tabla = sentencia.executeQuery("SELECT nombre_sede FROM sede;");
+            ResultSet tabla = sentencia.executeQuery("SELECT nombre_sede FROM dim_sede;");
 
 
             listaSedes.add("Escoger una Opción...");
