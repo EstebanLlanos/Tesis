@@ -59,7 +59,10 @@ public class FXPieChart {
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialistas")) {
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")) {
                 
                 Visualizador.panelPestanas.removeTabAt(0);
                 
@@ -67,7 +70,10 @@ public class FXPieChart {
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialistas")){
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")){
                 
                 Visualizador.panelPestanas.removeTabAt(1);
                 
@@ -75,7 +81,10 @@ public class FXPieChart {
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 5 Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialistas")){
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")){
                 
                 Visualizador.panelPestanas.removeTabAt(2);
                 

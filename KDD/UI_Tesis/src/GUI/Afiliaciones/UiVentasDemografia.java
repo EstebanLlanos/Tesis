@@ -6,7 +6,6 @@
 package GUI.Afiliaciones;
 
 import ConectorBD.ConexionBD;
-import Controlador.Afiliaciones.ControladorVentasCiudades;
 import Controlador.Afiliaciones.ControladorVentasDemografia;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;

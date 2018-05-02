@@ -7,7 +7,7 @@ package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
 import Controlador.Afiliaciones.ControladorVentasCiudades;
-import Controlador.Citas_Especialidad.ControladorCitasEspecialista;
+import Controlador.Citas_Especialidad.ControladorCitasInstitucion;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -44,7 +44,7 @@ public class UiCitasEspecialista {
 
     AutoSuggestor autoCompletar;
 
-    ControladorCitasEspecialista controladorCitasEspecialista;
+    ControladorCitasInstitucion controladorCitasEspecialista;
 
     // Elementos de conexion de la BD para el llenado de los comboBox
     ConexionBD BaseDeDatos;
@@ -143,7 +143,7 @@ public class UiCitasEspecialista {
             }
         });
 
-        controladorCitasEspecialista = new ControladorCitasEspecialista();
+        controladorCitasEspecialista = new ControladorCitasInstitucion();
 
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
@@ -330,7 +330,7 @@ public class UiCitasEspecialista {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT id_especialista, nombre_especialista "
-                    + "FROM especialista;");
+                    + "FROM dim_especialista;");
             
             while (tabla.next()) {
                 especialistas.add(tabla.getObject(1) + ", " + tabla.getObject(2));
@@ -355,7 +355,7 @@ public class UiCitasEspecialista {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
-                    + "FROM ciudad;");
+                    + "FROM dim_ciudad;");
 
             listaCiudades.add("Escoger una Opción...");
 
@@ -436,7 +436,7 @@ public class UiCitasEspecialista {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_departamento "
-                    + "FROM departamento;");
+                    + "FROM dim_departamento;");
 
             listaDepartamentos.add("Escoger una Opción...");
 

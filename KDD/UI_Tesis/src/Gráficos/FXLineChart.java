@@ -52,19 +52,28 @@ public class FXLineChart {
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialistas")) {
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico Lineal - Top Servicios Solicitados")) {
                 Visualizador.panelPestanas.removeTabAt(0);
             } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialistas")){
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico Lineal - Top Servicios Solicitados")){
                 Visualizador.panelPestanas.removeTabAt(1);
             } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Vendedores") || 
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Ciudades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Ventas por Sedes") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialistas")){
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Especialistas") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Examenes") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico Lineal - Top Servicios Solicitados")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }

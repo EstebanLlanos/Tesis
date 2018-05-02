@@ -6,17 +6,19 @@ import GUI.Afiliaciones.UiVentasSedes;
 import GUI.Afiliaciones.UiVentasVendedores;
 import GUI.Citas_Especialidad.UiCitasEspecialidad;
 import GUI.Citas_Especialidad.UiCitasEspecialista;
+import GUI.Citas_Examenes.UiCitasExamen;
+import GUI.Citas_Examenes.UiCitasInstitucion;
+import GUI.Citas_Otros_Servicios.UiCitasInstitucionServicio;
+import GUI.Citas_Otros_Servicios.UiCitasTipoServicio;
 import GUI.Resumenes.VisualizadorResumenes;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -43,16 +45,22 @@ public class Visualizador extends javax.swing.JFrame {
         
         elementoSeleccionado = elementoDeConsulta;
         
-        if (elementoSeleccionado.equals("Afiliaciones")) {
-            elementoConsultaSeleccionada = 1;
-        } else if (elementoSeleccionado.equals("Citas por Especialidad")) {
-            elementoConsultaSeleccionada = 2;
-        } else if (elementoSeleccionado.equals("Citas por Exámenes")) {
-            elementoConsultaSeleccionada = 3;
-        } else if (elementoSeleccionado.equals("Citas para Otros Servicios")) {
-            elementoConsultaSeleccionada = 4;
-        } else if (elementoSeleccionado.equals("Quejas y Comunicaciones Directas con Clientes")) {
-            elementoConsultaSeleccionada = 5;
+        switch (elementoSeleccionado) {
+            case "Afiliaciones":
+                elementoConsultaSeleccionada = 1;
+                break;
+            case "Citas por Especialidad":
+                elementoConsultaSeleccionada = 2;
+                break;
+            case "Citas por Exámenes":
+                elementoConsultaSeleccionada = 3;
+                break;
+            case "Citas para Otros Servicios":
+                elementoConsultaSeleccionada = 4;
+                break;
+            case "Quejas y Comunicaciones Directas con Clientes":
+                elementoConsultaSeleccionada = 5;
+                break;
         }
         
         comboBoxPreguntas = this.setPreguntas();
@@ -94,8 +102,10 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
                 case 3:
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas = new String[3][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Citas por Examen";
+                    arregloPreguntas[2][0] = "Citas por Institucion";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -104,8 +114,10 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
                 case 4:
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas = new String[3][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Citas por Tipo de Servicio";
+                    arregloPreguntas[2][0] = "Citas por Institucion";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -181,6 +193,40 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
             }
 
+        } else if (elementoConsultaSeleccionada == 3) {
+
+            switch (codigoDePregunta) {
+                case 1:
+                    UiCitasExamen citasPorExamen = new UiCitasExamen();
+                    asignaComponentesCitasExamen(citasPorExamen);
+                    break;
+                case 2:
+                    UiCitasInstitucion citasPorInstitucion = new UiCitasInstitucion(this);
+                    asignaComponentesCitasInstitucion(citasPorInstitucion);
+                    break;
+                default:
+                    panelOpciones.removeAll();
+                    panelOpciones.updateUI();
+                    break;
+            }
+
+        } else if (elementoConsultaSeleccionada == 4) {
+
+            switch (codigoDePregunta) {
+                case 1:
+                    UiCitasTipoServicio citasPorTipoServicio = new UiCitasTipoServicio();
+                    asignaComponentesCitasTipoServicio(citasPorTipoServicio);
+                    break;
+                case 2:
+                    UiCitasInstitucionServicio citasPorInstitucionServicio = new UiCitasInstitucionServicio(this);
+                    asignaComponentesCitasInstitucionServicio(citasPorInstitucionServicio);
+                    break;
+                default:
+                    panelOpciones.removeAll();
+                    panelOpciones.updateUI();
+                    break;
+            }
+
         } else {
             //por ahora eliminamos los componentes de la interfaz
             panelOpciones.removeAll();
@@ -217,24 +263,196 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignaComponentesCitasEspecialidad(UiCitasEspecialidad citasPorEspecialidad) {
 
         panelOpciones.removeAll();
+        
+        panelOpciones.setLayout(new GridLayout(20, 1));
+        
         panelOpciones.add(citasPorEspecialidad.getLabelCiudad());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxCiudades());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getLabelGenero());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxGenero());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getLabelEstrato());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorEspecialidad.getLabelEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorEspecialidad.getComboBoxEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorEspecialidad.getLabelIngresos());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorEspecialidad.getComboBoxIngresos());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getLabelAnioInicio());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxAnioInicio());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getLabelMesInicio());
-        panelOpciones.add(citasPorEspecialidad.getComboBoxMesInicio());
         panelOpciones.add(citasPorEspecialidad.getLabelMesFin());
+        panelOpciones.add(citasPorEspecialidad.getComboBoxMesInicio());
         panelOpciones.add(citasPorEspecialidad.getComboBoxMesFin());
         panelOpciones.add(citasPorEspecialidad.getLabelAnioFin());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxAnioFin());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getLabelCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getComboBoxCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getSeparadorBoton());
+        panelOpciones.add(new JLabel("  "));
         panelOpciones.add(citasPorEspecialidad.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
+    private void asignaComponentesCitasExamen(UiCitasExamen citasPorExamen) {
+
+        panelOpciones.removeAll();
+        
+        panelOpciones.setLayout(new GridLayout(20, 1));
+        
+        panelOpciones.add(citasPorExamen.getLabelCiudad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxCiudades());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelIngresos());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxIngresos());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelMesInicio());
+        panelOpciones.add(citasPorExamen.getLabelMesFin());
+        panelOpciones.add(citasPorExamen.getComboBoxMesInicio());
+        panelOpciones.add(citasPorExamen.getComboBoxMesFin());
+        panelOpciones.add(citasPorExamen.getLabelAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getLabelCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getComboBoxCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getSeparadorBoton());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorExamen.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
+    private void asignaComponentesCitasInstitucion(UiCitasInstitucion citasPorInstitucion) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(citasPorInstitucion.getBusquedaNombre());
+        panelOpciones.add(citasPorInstitucion.getBusquedaOtrosCriterios());
+        panelOpciones.add(citasPorInstitucion.getLabelInstitucion());
+        panelOpciones.add(citasPorInstitucion.getTextFieldInstitucion());
+        panelOpciones.add(citasPorInstitucion.getLabelDepartamento());
+        panelOpciones.add(citasPorInstitucion.getComboBoxDepartamentos());
+        panelOpciones.add(citasPorInstitucion.getLabelCiudad());
+        panelOpciones.add(citasPorInstitucion.getComboBoxCiudades());
+        panelOpciones.add(citasPorInstitucion.getLabelAnioInicio());
+        panelOpciones.add(citasPorInstitucion.getComboBoxAnioInicio());
+        panelOpciones.add(citasPorInstitucion.getLabelMesInicio());
+        panelOpciones.add(citasPorInstitucion.getComboBoxMesInicio());
+        panelOpciones.add(citasPorInstitucion.getLabelMesFin());
+        panelOpciones.add(citasPorInstitucion.getComboBoxMesFin());
+        panelOpciones.add(citasPorInstitucion.getLabelAnioFin());
+        panelOpciones.add(citasPorInstitucion.getComboBoxAnioFin());
+        panelOpciones.add(citasPorInstitucion.getLabelCriterioConsulta());
+        panelOpciones.add(citasPorInstitucion.getComboBoxCriterioConsulta());
+        panelOpciones.add(citasPorInstitucion.getSeparadorBoton());
+        panelOpciones.add(citasPorInstitucion.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
+    private void asignaComponentesCitasTipoServicio(UiCitasTipoServicio citasPorTipoServicio) {
+
+        panelOpciones.removeAll();
+        
+        panelOpciones.setLayout(new GridLayout(20, 1));
+        
+        panelOpciones.add(citasPorTipoServicio.getLabelCiudad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxCiudades());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxGenero());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxEstrato());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxEdad());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelIngresos());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxIngresos());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxAnioInicio());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelMesInicio());
+        panelOpciones.add(citasPorTipoServicio.getLabelMesFin());
+        panelOpciones.add(citasPorTipoServicio.getComboBoxMesInicio());
+        panelOpciones.add(citasPorTipoServicio.getComboBoxMesFin());
+        panelOpciones.add(citasPorTipoServicio.getLabelAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxAnioFin());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getLabelCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getComboBoxCriterioConsulta());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getSeparadorBoton());
+        panelOpciones.add(new JLabel("  "));
+        panelOpciones.add(citasPorTipoServicio.getBotonConsultar());
+        panelOpciones.updateUI();
+    }
+    
+    private void asignaComponentesCitasInstitucionServicio(UiCitasInstitucionServicio citasPorInstitucionServicio) {
+
+        panelOpciones.removeAll();
+        panelOpciones.add(citasPorInstitucionServicio.getBusquedaNombre());
+        panelOpciones.add(citasPorInstitucionServicio.getBusquedaOtrosCriterios());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelInstitucion());
+        panelOpciones.add(citasPorInstitucionServicio.getTextFieldInstitucion());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelDepartamento());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxDepartamentos());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelCiudad());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxCiudades());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelAnioInicio());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxAnioInicio());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelMesInicio());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxMesInicio());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelMesFin());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxMesFin());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelAnioFin());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxAnioFin());
+        panelOpciones.add(citasPorInstitucionServicio.getLabelCriterioConsulta());
+        panelOpciones.add(citasPorInstitucionServicio.getComboBoxCriterioConsulta());
+        panelOpciones.add(citasPorInstitucionServicio.getSeparadorBoton());
+        panelOpciones.add(citasPorInstitucionServicio.getBotonConsultar());
         panelOpciones.updateUI();
     }
     
@@ -263,6 +481,7 @@ public class Visualizador extends javax.swing.JFrame {
     private void asignaComponentesVentasVendedor(UiVentasVendedores ventasPorVendedor) {
 
         panelOpciones.removeAll();
+        
         panelOpciones.add(ventasPorVendedor.getLabelTipoConsulta());
         panelOpciones.add(ventasPorVendedor.getBusquedaNombre());
         panelOpciones.add(ventasPorVendedor.getBusquedaOtrosCriterios());

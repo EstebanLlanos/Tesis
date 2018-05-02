@@ -1,0 +1,4 @@
+Recursos.SuggestionLabel$1
+Recursos.SuggestionLabel$2
+Recursos.AutoSuggestor
+Recursos.SuggestionLabel

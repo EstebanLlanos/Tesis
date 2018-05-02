@@ -6,7 +6,7 @@
 package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
-import Controlador.Citas_Especialidad.ControladorCitasEspecialidad;
+import Controlador.Citas_Especialidad.ControladorCitasExamen;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -29,12 +29,12 @@ import javax.swing.JOptionPane;
 
 public class UiCitasEspecialidad {
     
-    JComboBox comboBoxCiudades, comboBoxGenero, comboBoxEstrato, comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin, comboBoxCriterioConsulta;
-    JLabel labelCiudad, labelGenero, labelEstrato, labelEstrcomboBoxGeneroato, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
+    JComboBox comboBoxCiudades, comboBoxGenero, comboBoxEstrato, comboBoxEdad, comboBoxIngresos, comboBoxAnioInicio, comboBoxAnioFin, comboBoxMesInicio, comboBoxMesFin, comboBoxCriterioConsulta;
+    JLabel labelCiudad, labelGenero, labelEstrato, labelEdad, labelIngresos, labelEstrcomboBoxGeneroato, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
     JLabel separadorBoton;
     JButton botonConsultar;
     
-    ControladorCitasEspecialidad controladorCitasEspecialidad;
+    ControladorCitasExamen controladorCitasEspecialidad;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
     
@@ -45,25 +45,35 @@ public class UiCitasEspecialidad {
 
     public UiCitasEspecialidad() {
 
-        controladorCitasEspecialidad = new ControladorCitasEspecialidad();
+        controladorCitasEspecialidad = new ControladorCitasExamen();
 
         labelCiudad = new JLabel();
-        inicializarJLabel(labelCiudad, "Ciudad:                          ");
+        inicializarJLabel(labelCiudad, "Ciudad:");
 
         comboBoxCiudades = new JComboBox();
         
         labelGenero = new JLabel();
-        inicializarJLabel(labelGenero, "Género:                          ");
+        inicializarJLabel(labelGenero, "Género:");
         
         comboBoxGenero = new JComboBox();
         
         labelEstrato = new JLabel();
-        inicializarJLabel(labelEstrato, "Estrato:                          ");
+        inicializarJLabel(labelEstrato, "Estrato:");
         
         comboBoxEstrato = new JComboBox();
         
+        labelEdad = new JLabel();
+        inicializarJLabel(labelEdad, "Edad:");
+        
+        comboBoxEdad = new JComboBox();
+        
+        labelIngresos = new JLabel();
+        inicializarJLabel(labelIngresos, "Ingresos:");
+        
+        comboBoxIngresos = new JComboBox();
+        
         labelAnioInicio = new JLabel();
-        inicializarJLabel(labelAnioInicio, "Desde el Año:                      ");
+        inicializarJLabel(labelAnioInicio, "Desde el Año:");
         
         comboBoxAnioInicio = new JComboBox();        
         
@@ -82,10 +92,10 @@ public class UiCitasEspecialidad {
         });
         
         labelAnioFin = new JLabel();
-        inicializarJLabel(labelAnioFin, "Hasta el Año:                           ");
+        inicializarJLabel(labelAnioFin, "Hasta el Año:");
         
         labelCriterioConsulta = new JLabel();
-        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:                      ");
+        inicializarJLabel(labelCriterioConsulta, "Criterio de Consulta:");
         
         comboBoxAnioFin = new JComboBox();
         
@@ -96,8 +106,7 @@ public class UiCitasEspecialidad {
         botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         separadorBoton = new JLabel();
-        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
-                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
         separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
         
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,18 +116,20 @@ public class UiCitasEspecialidad {
         });
         
         labelMesInicio = new JLabel();
-        inicializarJLabel(labelMesInicio, "Desde el Mes:                       ");
+        inicializarJLabel(labelMesInicio, "Desde el Mes:");
         
         comboBoxMesInicio = new JComboBox();  
         
         labelMesFin = new JLabel();
-        inicializarJLabel(labelMesFin, "Hasta el Mes:                         ");
+        inicializarJLabel(labelMesFin, "Hasta el Mes:");
         
         comboBoxMesFin = new JComboBox();  
         
         inicializarCiudades(comboBoxCiudades);
         inicializarGeneros(comboBoxGenero);
         inicializarEstratos(comboBoxEstrato);
+        inicializarEdades(comboBoxEdad);
+        inicializarIngresos(comboBoxIngresos);
         inicializarAnios(comboBoxAnioInicio);
         inicializarAnios(comboBoxAnioFin);
         inicializarMeses(comboBoxMesInicio);
@@ -139,13 +150,15 @@ public class UiCitasEspecialidad {
         String ciudad = "" + comboBoxCiudades.getSelectedItem();
         String genero = "" + comboBoxGenero.getSelectedItem();
         String estrato = "" + comboBoxEstrato.getSelectedItem();
+        String edad = "" + comboBoxEdad.getSelectedItem();
+        String ingresos = "" + comboBoxIngresos.getSelectedItem();
         String anioInicio = "" + comboBoxAnioInicio.getSelectedItem();
         String mesInicio = "" + comboBoxMesInicio.getSelectedItem();
         String mesFin = "" + comboBoxMesFin.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(ciudad, genero, estrato, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
+        ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(ciudad, genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (citasPorEspecialidad.isEmpty()) {            
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "
@@ -246,7 +259,7 @@ public class UiCitasEspecialidad {
             conn = BaseDeDatos.conectar();
             Statement sentencia = conn.createStatement();
             ResultSet tabla = sentencia.executeQuery("SELECT nombre_ciudad "
-                    + "FROM ciudad;");
+                    + "FROM dim_ciudad;");
 
             listaCiudades.add("Escoger una Opción...");
             
@@ -291,12 +304,53 @@ public class UiCitasEspecialidad {
 
         String[][] generos = new String[3][1];
         generos[0][0] = "Escoger una Opción...";
-        generos[1][0] = "M";
-        generos[2][0] = "F";
+        generos[1][0] = "Masculino";
+        generos[2][0] = "Femenino";
 
         for (int i = 0; i < generos.length; i++) {
             generoCitas.addItem(generos[i][0]);
         }
+    }
+    
+    protected void inicializarEdades(JComboBox edadesVentas){
+    
+        edadesVentas.setVisible(true);
+        edadesVentas.setMaximumSize(new Dimension(250, 30));
+    
+        String[] edades = new String[7];
+        
+        edades[0] = "Escoger una Opción...";
+        edades[1] = "Menor a 18 años";
+        edades[2] = "De 18 a 25 años";
+        edades[3] = "De 26 a 40 años";
+        edades[4] = "De 41 a 50 años";
+        edades[5] = "De 51 a 60 años";
+        edades[6] = "Mayor a 60 años";
+        
+        for (int i = 0; i < edades.length; i++) {
+            edadesVentas.addItem(edades[i]);
+        }
+        
+    }
+    
+    protected void inicializarIngresos(JComboBox ingresosVentas){
+    
+        ingresosVentas.setVisible(true);
+        ingresosVentas.setMaximumSize(new Dimension(250, 30));
+    
+        String[] ingresos = new String[6];
+        
+        ingresos[0] = "Escoger una Opción...";
+        ingresos[1] = "Menor a 1.000.000 de pesos";
+        ingresos[2] = "De 1.000.001 a 2.000.000 de pesos";
+        ingresos[3] = "De 2.000.001 a 4.000.000 de pesos";
+        ingresos[4] = "De 4.000.001 a 5.000.000 de pesos";
+        ingresos[5] = "Mayor a 5.000.000 de pesos";
+        
+        for (int i = 0; i < ingresos.length; i++) {
+            ingresosVentas.addItem(ingresos[i]);
+        }
+        
     }
     
     protected void inicializarEstratos(JComboBox estratoCitas) {
@@ -457,6 +511,38 @@ public class UiCitasEspecialidad {
 
     public void setLabelEstrato(JLabel labelEstrato) {
         this.labelEstrato = labelEstrato;
+    }
+
+    public JComboBox getComboBoxEdad() {
+        return comboBoxEdad;
+    }
+
+    public void setComboBoxEdad(JComboBox comboBoxEdad) {
+        this.comboBoxEdad = comboBoxEdad;
+    }
+
+    public JComboBox getComboBoxIngresos() {
+        return comboBoxIngresos;
+    }
+
+    public void setComboBoxIngresos(JComboBox comboBoxIngresos) {
+        this.comboBoxIngresos = comboBoxIngresos;
+    }
+
+    public JLabel getLabelEdad() {
+        return labelEdad;
+    }
+
+    public void setLabelEdad(JLabel labelEdad) {
+        this.labelEdad = labelEdad;
+    }
+
+    public JLabel getLabelIngresos() {
+        return labelIngresos;
+    }
+
+    public void setLabelIngresos(JLabel labelIngresos) {
+        this.labelIngresos = labelIngresos;
     }
     
 }

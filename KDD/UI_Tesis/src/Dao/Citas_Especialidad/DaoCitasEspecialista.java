@@ -337,25 +337,25 @@ public class DaoCitasEspecialista {
         
         if (criterioConsultaCitas.equals("Mayor Número de Citas")) {
             
-            sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp " +
-                         "INNER JOIN especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
-                         "INNER JOIN ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
-                         "INNER JOIN demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
+            sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_citas FROM datamart_cita_especialidad desp " +
+                         "INNER JOIN dim_especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
+                         "INNER JOIN dim_ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
+                         "INNER JOIN dim_demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
                          " GROUP BY nombre_especialista " +
                          "ORDER BY total_citas DESC LIMIT 5;";
 
         } else if (criterioConsultaCitas.equals("Menor Número de Citas")) {
 
-            sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp " +
-                         "INNER JOIN especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
-                         "INNER JOIN ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
-                         "INNER JOIN demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
+            sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_citas FROM datamart_cita_especialidad desp " +
+                         "INNER JOIN dim_especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
+                         "INNER JOIN dim_ciudad cd ON (desp.ciudad_cita = cd.id_ciudad) " +
+                         "INNER JOIN dim_demografia dm ON (desp.demografia_cita = dm.id_demografia) " + where +
                          " GROUP BY nombre_especialista " +
                          "ORDER BY total_citas ASC LIMIT 5;";
         } else {
             
-            sql_select = "SELECT fch.anio_actual, SUM(desp.cantidad) AS total_citas FROM dim_cita_especialidad desp " +
-                         "INNER JOIN especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
+            sql_select = "SELECT fch.anio_actual, SUM(desp.cantidad) AS total_citas FROM datamart_cita_especialidad desp " +
+                         "INNER JOIN dim_especialista esp ON (desp.especialista_cita = esp.id_especialista) " +
                          "INNER JOIN dim_fecha fch ON (desp.fecha_actividad = fch.id_dim_fecha) " + where +
                          " GROUP BY anio_actual " +
                          "ORDER BY anio_actual ASC;";            
@@ -465,7 +465,7 @@ public class DaoCitasEspecialista {
         
         int departamentoSeleccionado = 0;
         
-        if (nombreDepartamento.equals("VALLE DEL CAUCA")) {
+        if (nombreDepartamento.equals("VALLE")) {
             departamentoSeleccionado = 1;
         } else if (nombreDepartamento.equals("CAUCA")) {
             departamentoSeleccionado = 2;

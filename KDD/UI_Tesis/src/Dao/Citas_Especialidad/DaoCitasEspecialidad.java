@@ -43,8 +43,10 @@ public class DaoCitasEspecialidad {
         String where = "";
 
         int codigoCiudad = obtenerCodigoCiudad(citasEspecialidad.getCiudad());
-        String codigoGenero = citasEspecialidad.getGenero();
+        String codigoGenero = obtenerGenero(citasEspecialidad.getGenero());
         String codigoEstrato = citasEspecialidad.getEstrato();
+        int codigoEdad = obtenerCodigoEdad(citasEspecialidad.getEdad());
+        int codigoIngresos = obtenerCodigoIngreso(citasEspecialidad.getIngresos());
         
         anioInicio = 0;
         anioFin = 0;
@@ -52,7 +54,7 @@ public class DaoCitasEspecialidad {
         mesFin = 0;
         
         /*
-        * En esta parte de determina el formato que debe tener el año de inicio y dde fin de la consulta
+        * En esta parte de determina el formato que debe tener el año de inicio y de fin de la consulta
         * de acueerdo a la selección que el usuario haya hecho
         */
         if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")){
@@ -64,10 +66,12 @@ public class DaoCitasEspecialidad {
             anioFin = Integer.parseInt(citasEspecialidad.getAnioFin());
         }
         
-        //TODOS
+        //INICIO IF + GENERO -ESTRATO - EDAD - INGRESOS - CIUDAD
         if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-             citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-             citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
 
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -78,7 +82,7 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero 
+                        where = " WHERE genero_demografia = '" + codigoGenero
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
@@ -99,7 +103,7 @@ public class DaoCitasEspecialidad {
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE genero_demografia = '" + codigoGenero 
+                        where = " WHERE genero_demografia = '" + codigoGenero
                         + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
                 } else {
                     return "Error Fecha Mes";
@@ -148,10 +152,361 @@ public class DaoCitasEspecialidad {
                 where = " WHERE genero_demografia = '" + codigoGenero + "' ";
             }
 
-        } //FIN IF + CODIGO SEDE - CODIGO DEPARTAMENTO
+        } //FIN IF + GENERO - ESTRATO - EDAD - INGRESOS - CIUDAD
+        // INICIO IF - GENERO + ESTRATO - EDAD - INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } // FIN IF + AÑO INICIO + AÑO FIN 
+            else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+               
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                 
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato+ "' ";
+            }
+
+        } //FIN IF - GENERO + ESTRATO - EDAD - INGRESOS - CIUDAD
+        // INICIO IF - GENERO - ESTRATO + EDAD - INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } // FIN IF + AÑO INICIO + AÑO FIN 
+            else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+               
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                 
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE edad_demografia = '" + codigoEdad+ "' ";
+            }
+
+        } //FIN IF - GENERO - ESTRATO + EDAD - INGRESOS - CIUDAD
+        // INICIO IF - GENERO - ESTRATO - EDAD + INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } // FIN IF + AÑO INICIO + AÑO FIN 
+            else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+               
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                 
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE ingresos_demografia = '" + codigoIngresos+ "' ";
+            }
+
+        } //FIN IF - GENERO - ESTRATO - EDAD + INGRESOS - CIUDAD
+        // INICIO IF - GENERO - ESTRATO - EDAD - INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } // FIN IF + AÑO INICIO + AÑO FIN 
+            else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+               
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                 
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE ciudad_cita = '" + codigoCiudad+ "' ";
+            }
+
+        } //FIN IF - GENERO - ESTRATO - EDAD - INGRESOS + CIUDAD
+        // INICIO IF + GENERO + ESTRATO - EDAD - INGRESOS - CIUDAD
         else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                 !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                  citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
 
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -230,10 +585,950 @@ public class DaoCitasEspecialidad {
             } else {
                 where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' ";
             }
-        } // CONSULTA GENERO + ESTRATO
+        } // FIN IF + GENERO + ESTRATO - EDAD - INGRESOS - CIUDAD
+        // INICIO IF + GENERO - ESTRATO + EDAD - INGRESOS - CIUDAD
         else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                 !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                 !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' ";
+            }
+        } // FIN IF + GENERO - ESTRATO + EDAD - INGRESOS - CIUDAD
+        // INICIO IF + GENERO - ESTRATO - EDAD + INGRESOS - CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
+            }
+        } // FIN IF + GENERO - ESTRATO - EDAD + INGRESOS - CIUDAD
+        // INICIO IF + GENERO - ESTRATO - EDAD - INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+        } // FIN IF + GENERO - ESTRATO - EDAD - INGRESOS + CIUDAD
+        // INICIO IF - GENERO + ESTRATO + EDAD - INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' ";
+            }
+        } // FIN IF - GENERO + ESTRATO + EDAD - INGRESOS - CIUDAD
+        // INICIO IF - GENERO + ESTRATO - EDAD + INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
+            }
+        } // FIN IF - GENERO + ESTRATO - EDAD + INGRESOS - CIUDAD
+        // INICIO IF - GENERO + ESTRATO - EDAD - INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+        } // FIN IF - GENERO + ESTRATO - EDAD - INGRESOS + CIUDAD
+        // INICIO IF - GENERO - ESTRATO + EDAD + INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
+            }
+        } // FIN IF - GENERO - ESTRATO + EDAD + INGRESOS - CIUDAD
+        // INICIO IF - GENERO - ESTRATO + EDAD - INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+        } // FIN IF - GENERO - ESTRATO + EDAD - INGRESOS + CIUDAD
+        // INICIO IF - GENERO - ESTRATO - EDAD + INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+        } // FIN IF - GENERO - ESTRATO - EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO + ESTRATO + EDAD - INGRESOS - CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' ";
+            }
+            
+        }// FIN IF + GENERO + ESTRATO + EDAD - INGRESOS - CIUDAD
+        // INICIO IF + GENERO + ESTRATO - EDAD + INGRESOS - CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
+            }
+            
+        }// FIN IF + GENERO + ESTRATO - EDAD + INGRESOS - CIUDAD
+        // INICIO IF + GENERO + ESTRATO - EDAD - INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
             
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -313,10 +1608,13 @@ public class DaoCitasEspecialidad {
                 where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad + "' ";
             }
             
-        } // CONSULTA GENERO + ESTRATO + CIUDAD 
-        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                  citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                 !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+        }// FIN IF + GENERO + ESTRATO - EDAD - INGRESOS + CIUDAD 
+        // INICIO IF - GENERO + ESTRATO + EDAD + INGRESOS - CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
             
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -327,28 +1625,28 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
                 } else {
                     return "Error Fecha Mes";
@@ -363,28 +1661,28 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
                         + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
                 } else {
                     return "Error Fecha Mes";
@@ -393,178 +1691,15 @@ public class DaoCitasEspecialidad {
             }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 return "Error Fecha";
             } else {
-                where = " WHERE genero_demografia = '" + codigoGenero + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
             }
             
-        } // CONSULTA GENERO + CIUDAD
+        }// FIN IF - GENERO + ESTRATO + EDAD + INGRESOS - CIUDAD 
+        // INICIO IF - GENERO + ESTRATO + EDAD - INGRESOS + CIUDAD
         else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                  !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                  !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
-            
-            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                
-                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
-                
-                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
-                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
-
-                    if (mesInicio < 10 && mesFin < 10) {
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin < 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
-                        
-                    } else if (mesInicio < 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
-                        
-                    }
-
-                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
-                } else {
-                    return "Error Fecha Mes";
-                }
-                
-            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                
-                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
-                
-                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
-                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
-
-                    if (mesInicio < 10 && mesFin < 10) {
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin < 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
-                        
-                    } else if (mesInicio < 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
-                        
-                    }
-
-                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad
-                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
-                } else {
-                    return "Error Fecha Mes";
-                }
-                
-            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                return "Error Fecha";
-            } else {
-                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ciudad_cita = '" + codigoCiudad + "' ";
-            }
-            
-        } // CONSULTA ESTRATO + CIUDAD
-        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                  !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                  citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
-            
-            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                
-                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
-                
-                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
-                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
-
-                    if (mesInicio < 10 && mesFin < 10) {
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin < 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
-                        
-                    } else if (mesInicio < 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
-                        
-                    }
-
-                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
-                } else {
-                    return "Error Fecha Mes";
-                }
-                
-            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                
-                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
-                
-                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
-                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
-
-                    if (mesInicio < 10 && mesFin < 10) {
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin < 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
-                        
-                    } else if (mesInicio < 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
-                        
-                    } else if (mesInicio >= 10 && mesFin >= 10){
-                        
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
-                        
-                    }
-
-                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE estrato_demografia = '" + codigoEstrato
-                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
-                } else {
-                    return "Error Fecha Mes";
-                }
-                
-            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
-                return "Error Fecha";
-            } else {
-                where = " WHERE estrato_demografia = '" + codigoEstrato + "' ";
-            }
-            
-        } // CONSULTA ESTRATO
-        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                 citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
                 !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
             
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
@@ -576,28 +1711,28 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
                 } else {
                     return "Error Fecha Mes";
@@ -612,28 +1747,28 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                        where = " WHERE ciudad_cita = '" + codigoCiudad
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
                         + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
                 } else {
                     return "Error Fecha Mes";
@@ -642,12 +1777,16 @@ public class DaoCitasEspecialidad {
             }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 return "Error Fecha";
             } else {
-                where = " WHERE ciudad_cita = '" + codigoCiudad + "' ";
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad + "' ";
             }
             
-        } else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
-                   citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
-                   citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+        }// FIN IF - GENERO + ESTRATO + EDAD - INGRESOS + CIUDAD
+        // INICIO IF - GENERO - ESTRATO + EDAD + INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
             
             if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 
@@ -658,24 +1797,29 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                    where = " WHERE (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
                 } else {
                     return "Error Fecha Mes";
                 }
@@ -689,33 +1833,729 @@ public class DaoCitasEspecialidad {
 
                     if (mesInicio < 10 && mesFin < 10) {
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin < 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
                         
                     } else if (mesInicio < 10 && mesFin >= 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     } else if (mesInicio >= 10 && mesFin >= 10){
                         
-                        where = " WHERE (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
                         
                     }
 
                 } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
-                    where = " WHERE (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                        where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
                 } else {
                     return "Error Fecha Mes";
                 }
                 
             }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
                 return "Error Fecha";
+            } else {
+                where = " WHERE edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
             }
             
-        } else {
+        }// FIN IF - GENERO - ESTRATO + EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO + ESTRATO + EDAD + INGRESOS - CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' ";
+            }
+            
+        }// FIN IF + GENERO + ESTRATO + EDAD + INGRESOS - CIUDAD
+        // INICIO IF - GENERO + ESTRATO + EDAD + INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF - GENERO + ESTRATO + EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO - ESTRATO + EDAD - INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF + GENERO - ESTRATO + EDAD - INGRESOS + CIUDAD
+        // INICIO IF + GENERO - ESTRATO - EDAD + INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF + GENERO - ESTRATO - EDAD + INGRESOS + CIUDAD
+        // INICIO IF - GENERO + ESTRATO - EDAD + INGRESOS + CIUDAD
+        else if (citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF - GENERO + ESTRATO - EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO + ESTRATO - EDAD + INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF + GENERO + ESTRATO - EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO - ESTRATO + EDAD + INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF + GENERO - ESTRATO + EDAD + INGRESOS + CIUDAD
+        // INICIO IF + GENERO + ESTRATO + EDAD + INGRESOS + CIUDAD
+        else if (!citasEspecialidad.getGenero().equals("Escoger una Opción...") && 
+                !citasEspecialidad.getEstrato().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getEdad().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getIngresos().equals("Escoger una Opción...") &&
+                !citasEspecialidad.getCiudad().equals("Escoger una Opción...")) {
+            
+            if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioFin + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            } else if (!citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                
+                if (!citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && !citasEspecialidad.getMesFin().equals("Escoger una Opción...")) {
+                
+                    mesInicio = obtenerCodigoMes(citasEspecialidad.getMesInicio());
+                    mesFin = obtenerCodigoMes(citasEspecialidad.getMesFin());
+
+                    if (mesInicio < 10 && mesFin < 10) {
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + "0" + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin < 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + "0" +mesFin + "01') ";
+                        
+                    } else if (mesInicio < 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + "0" + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    } else if (mesInicio >= 10 && mesFin >= 10){
+                        
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + anioInicio + mesInicio + "01' AND '" + anioInicio + mesFin + "01') ";
+                        
+                    }
+
+                } else if(citasEspecialidad.getMesInicio().equals("Escoger una Opción...") && citasEspecialidad.getMesFin().equals("Escoger una Opción...")){
+                        where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad
+                        + "' AND (fecha_actividad BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioInicio+"").substring(0, 4) + "1201') ";
+                } else {
+                    return "Error Fecha Mes";
+                }
+                
+            }  else if (citasEspecialidad.getAnioInicio().equals("Escoger una Opción...") && !citasEspecialidad.getAnioFin().equals("Escoger una Opción...")) {
+                return "Error Fecha";
+            } else {
+                where = " WHERE genero_demografia = '" + codigoGenero + "' AND estrato_demografia = '" + codigoEstrato + "' AND edad_demografia = '" + codigoEdad + "' AND ingresos_demografia = '" + codigoIngresos + "' AND ciudad_cita = '" + codigoCiudad + "' ";
+            }
+            
+        }// FIN IF + GENERO + ESTRATO + EDAD + INGRESOS + CIUDAD
+         else {
             
             return "Error";
         }
@@ -729,21 +2569,21 @@ public class DaoCitasEspecialidad {
         String sql_select;
         
         if (criterioConsultaVentas.equals("Especialidades Más Solicitadas")) {
-            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
-                            "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
-                            "INNER JOIN especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta \n" +
-                            "ON (de.especialista_cita = consulta.id_especialista)\n" +
-                            "INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia)" + where +
-                            "GROUP BY descripcion_especialidad \n" +
-                            "ORDER BY total_citas DESC LIMIT 5;";   
+            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM datamart_cita_especialidad de "
+                       + "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM dim_especialidad especialidad "
+                       + "INNER JOIN dim_especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta "
+                       + "ON (de.especialista_cita = consulta.id_especialista) "
+                       + "INNER JOIN dim_demografia dm ON (de.demografia_cita = dm.id_demografia) " + where
+                       + " GROUP BY descripcion_especialidad "
+                       + "ORDER BY total_citas DESC LIMIT 5;";   
         } else {
-            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM dim_cita_especialidad de\n" +
-                            "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM especialidad especialidad\n" +
-                            "INNER JOIN especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta \n" +
-                            "ON (de.especialista_cita = consulta.id_especialista)\n" +
-                            "INNER JOIN demografia dm ON (de.demografia_cita = dm.id_demografia)" + where +
-                            "GROUP BY descripcion_especialidad \n" +
-                            "ORDER BY total_citas ASC LIMIT 5;";
+            sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM datamart_cita_especialidad de "
+                       + "INNER JOIN (SELECT especialidad.descripcion_especialidad, especialista.id_especialista FROM dim_especialidad especialidad "
+                       + "INNER JOIN dim_especialista especialista ON (especialidad.id_especialidad = especialista.especialidad_especialista)) AS consulta "
+                       + "ON (de.especialista_cita = consulta.id_especialista) "
+                       + "INNER JOIN dim_demografia dm ON (de.demografia_cita = dm.id_demografia) " + where
+                       + " GROUP BY descripcion_especialidad "
+                       + "ORDER BY total_citas ASC LIMIT 5;";
         }
         
         System.out.println("Consulta: " + sql_select);
@@ -772,6 +2612,75 @@ public class DaoCitasEspecialidad {
         }
 
         return null;
+    }
+    
+    public int obtenerCodigoEdad(String edad){
+        
+        int codigoEdad = 0;
+        
+        switch (edad) {
+            case "Menor a 18 años":
+                codigoEdad = 1;
+                break;
+            case "De 18 a 25 años":
+                codigoEdad = 2;
+                break;
+            case "De 26 a 40 años":
+                codigoEdad = 3;
+                break;
+            case "De 41 a 50 años":
+                codigoEdad = 4;
+                break;
+            case "De 51 a 60 años":
+                codigoEdad = 5;
+                break;
+            case "Mayor a 60 años":
+                codigoEdad = 6;
+                break;
+        }
+        
+        return codigoEdad;
+    }
+    
+    public int obtenerCodigoIngreso(String ingreso){
+        
+        int codigoIngresos = 0;
+        
+        switch (ingreso) {
+            case "Menor a 1.000.000 de pesos":
+                codigoIngresos = 1;
+                break;
+            case "De 1.000.001 a 2.000.000 de pesos":
+                codigoIngresos = 2;
+                break;
+            case "De 2.000.001 a 4.000.000 de pesos":
+                codigoIngresos = 3;
+                break;
+            case "De 4.000.001 a 5.000.000 de pesos":
+                codigoIngresos = 4;
+                break;
+            case "Mayor a 5.000.000 de pesos":
+                codigoIngresos = 5;
+                break;
+        }
+        
+        return codigoIngresos;
+    }
+    
+    public String obtenerGenero(String genero){
+        
+        String codigoGenero = "";
+        
+        switch (genero) {
+            case "Femenino":
+                codigoGenero = "F";
+                break;
+            case "Masculino":
+                codigoGenero = "M";
+                break;
+        }
+        
+        return codigoGenero;
     }
     
     public int obtenerCodigoMes(String nombreMes){

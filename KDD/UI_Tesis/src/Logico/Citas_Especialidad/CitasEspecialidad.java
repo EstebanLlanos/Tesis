@@ -11,12 +11,14 @@ package Logico.Citas_Especialidad;
  */
 public class CitasEspecialidad {
     
-    String ciudad, genero, estrato, anioInicio, anioFin, mesInicio, mesFin;
+    String ciudad, genero, estrato, edad, ingresos, anioInicio, anioFin, mesInicio, mesFin;
     
     public CitasEspecialidad(){
         ciudad = "";
         genero = "";
         estrato = "";
+        edad = "";
+        ingresos = "";
         anioInicio = "";
         anioFin = "";
         mesInicio = "";
@@ -77,6 +79,22 @@ public class CitasEspecialidad {
 
     public void setEstrato(String estrato) {
         this.estrato = estrato;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+
+    public String getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(String ingresos) {
+        this.ingresos = ingresos;
     }
 
 }
