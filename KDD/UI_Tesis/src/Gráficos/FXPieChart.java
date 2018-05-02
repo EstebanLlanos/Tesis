@@ -135,12 +135,7 @@ public class FXPieChart {
                     });
         });
         
-        chart.setLegendSide(Side.LEFT);
-        
         chart.setPrefSize(Visualizador.panelPestanas.getWidth() - 50, Visualizador.panelPestanas.getHeight() - 50);
-        /*chart.setMinSize(400, 400);
-        chart.setStartAngle(250);
-        chart.setTranslateY(-200);*/
         
         ((Group) scene.getRoot()).getChildren().add(chart);
         ((Group) scene.getRoot()).getChildren().add(caption);

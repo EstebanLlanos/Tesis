@@ -7,6 +7,7 @@ package GUI.Citas_Otros_Servicios;
 
 import ConectorBD.ConexionBD;
 import Controlador.Citas_Especialidad.ControladorCitasExamen;
+import Controlador.Citas_Otros_Servicios.ControladorCitasTipoServicio;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -33,7 +34,7 @@ public class UiCitasTipoServicio {
     JLabel separadorBoton;
     JButton botonConsultar;
     
-    ControladorCitasExamen controladorCitasExamen;
+    ControladorCitasTipoServicio controladorCitasTipoServicio;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
     
@@ -44,7 +45,7 @@ public class UiCitasTipoServicio {
 
     public UiCitasTipoServicio() {
 
-        controladorCitasExamen = new ControladorCitasExamen();
+        controladorCitasTipoServicio = new ControladorCitasTipoServicio();
 
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:");
@@ -157,7 +158,7 @@ public class UiCitasTipoServicio {
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
-        ArrayList <String[]> citasPorEspecialidad = controladorCitasExamen.getCitas(ciudad, genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
+        ArrayList <String[]> citasPorEspecialidad = controladorCitasTipoServicio.getCitas(ciudad, genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (citasPorEspecialidad.isEmpty()) {            
             JOptionPane.showMessageDialog(null, "Esta consulta no entregó resultados. "

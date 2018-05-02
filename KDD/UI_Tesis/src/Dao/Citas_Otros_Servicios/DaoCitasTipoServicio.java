@@ -2574,13 +2574,13 @@ public class DaoCitasTipoServicio {
                        + "INNER JOIN dim_especialidad especialidad ON (de.especialidad_cita = especialidad.id_especialidad) "
                        + "INNER JOIN dim_demografia dm ON (de.demografia_cita = dm.id_demografia) " + where 
                        + "GROUP BY descripcion_especialidad "
-                       + "ORDER BY total_citas DESC LIMIT 5;";
+                       + "ORDER BY total_citas DESC LIMIT 10;";
         } else {
             sql_select = "SELECT descripcion_especialidad, SUM(de.cantidad) AS total_citas FROM datamart_cita_otros_servicios  de "
                        + "INNER JOIN dim_especialidad especialidad ON (de.especialidad_cita = especialidad.id_especialidad) "
                        + "INNER JOIN dim_demografia dm ON (de.demografia_cita = dm.id_demografia) " + where 
                        + "GROUP BY descripcion_especialidad "
-                       + "ORDER BY total_citas ASC LIMIT 5;";
+                       + "ORDER BY total_citas ASC LIMIT 10;";
         }
         
         System.out.println("Consulta: " + sql_select);
@@ -2593,7 +2593,7 @@ public class DaoCitasTipoServicio {
             while (tabla.next()) {
                 
                 String[] registro = new String[2];
-                registro[0] = tabla.getString("nombre_examen");
+                registro[0] = tabla.getString("descripcion_especialidad");
                 registro[1] = tabla.getString("total_citas");
                 
                 conteoCitas.add(registro);
