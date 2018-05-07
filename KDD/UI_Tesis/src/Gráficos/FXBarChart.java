@@ -16,16 +16,16 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-/**
- *
+/*
  * @author Esteban
  */
 public class FXBarChart {
-    final String chartName, valuesName, tagName, legend;
-    final ArrayList<String> tags;
-    final ArrayList<Integer> values;
+    
+    String chartName, valuesName, tagName, legend;
+    ArrayList<String> tags;
+    ArrayList<Integer> values;
 
-    public FXBarChart(final String chartName, final String tagName, final ArrayList<String> tags, final String valuesName, final ArrayList<Integer> values, final String legend) {
+    public FXBarChart(String chartName, String tagName, ArrayList<String> tags, String valuesName, ArrayList<Integer> values, String legend) {
 
         this.tags = tags;
         this.values = values;
@@ -33,7 +33,7 @@ public class FXBarChart {
         this.valuesName = valuesName;
         this.tagName = tagName;
         this.legend = legend;
-        final JFXPanel panelVisualizador = new JFXPanel();
+        JFXPanel panelVisualizador = new JFXPanel();
                 
         Task task = new Task<Void>() { 
             
@@ -81,22 +81,17 @@ public class FXBarChart {
         panelVisualizador.setVisible(true);
     }
 
-    private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
-        // This method is invoked on the JavaFX thread
-        System.out.println("Se pinta el gráfico de barras.");
+    private void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Scene scene = createScene(chartName, tags, tagName, values, valuesName, legend);
         fxPanel.setScene(scene);
     }
 
-    private static Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
+    private Scene createScene(String chartName, ArrayList<String> tags, String tagName, ArrayList<Integer> values, String valuesName, String legend) {
         Group root = new Group();
-        
-        System.out.println("Se crea la escena de Barras.");
-        
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> bc
-                = new BarChart(xAxis, yAxis);
+                
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        BarChart<String, Number> bc = new BarChart(xAxis, yAxis);
         bc.setTitle(chartName);
         xAxis.setLabel(tagName);
         yAxis.setLabel(valuesName);

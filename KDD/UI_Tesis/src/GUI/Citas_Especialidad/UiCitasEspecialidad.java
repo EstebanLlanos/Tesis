@@ -6,7 +6,7 @@
 package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
-import Controlador.Citas_Especialidad.ControladorCitasExamen;
+import Controlador.Citas_Especialidad.ControladorCitasEspecialidad;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -22,8 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-/**
- *
+/*
  * @author Esteban
  */
 
@@ -34,7 +33,7 @@ public class UiCitasEspecialidad {
     JLabel separadorBoton;
     JButton botonConsultar;
     
-    ControladorCitasExamen controladorCitasEspecialidad;
+    ControladorCitasEspecialidad controladorCitasEspecialidad;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
     
@@ -45,7 +44,7 @@ public class UiCitasEspecialidad {
 
     public UiCitasEspecialidad() {
 
-        controladorCitasEspecialidad = new ControladorCitasExamen();
+        controladorCitasEspecialidad = new ControladorCitasEspecialidad();
 
         labelCiudad = new JLabel();
         inicializarJLabel(labelCiudad, "Ciudad:");

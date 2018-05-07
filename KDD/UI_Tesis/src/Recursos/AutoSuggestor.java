@@ -19,7 +19,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
@@ -28,8 +27,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
+/*
  * @author Esteban - Casa
  */
 public class AutoSuggestor {
@@ -225,7 +223,7 @@ public class AutoSuggestor {
     private void showPopUpWindow() {
         autoSuggestionPopUpWindow.getContentPane().add(scrollPane);
         autoSuggestionPopUpWindow.setMinimumSize(new Dimension(textField.getWidth(), 30));
-        autoSuggestionPopUpWindow.setMaximumSize(new Dimension(tW, 500));
+        autoSuggestionPopUpWindow.setMaximumSize(new Dimension(tW, 200));
         autoSuggestionPopUpWindow.setSize(tW, tH);
         autoSuggestionPopUpWindow.setVisible(true);
 
@@ -280,14 +278,9 @@ public class AutoSuggestor {
 
         boolean suggestionAdded = false;
 
-        for (Iterator<String> it = dictionary.iterator(); it.hasNext();) {
-            String word = it.next();
+        for (String word : dictionary) {
             //get words in the dictionary which we added
             boolean fullymatches = true;
-            
-//            System.out.println("Palabra de Diccionario: " + word.toLowerCase());
-//            System.out.println("Palabra del TextField: " + typedWord.toLowerCase());
-//            System.out.println("Resultado de la condición: " + word.toLowerCase().indexOf(typedWord.toLowerCase()));
             
             for (int i = 0; i < typedWord.length(); i++) {//each string in the word
 

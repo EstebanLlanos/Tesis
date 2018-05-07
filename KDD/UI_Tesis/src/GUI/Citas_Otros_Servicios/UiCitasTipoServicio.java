@@ -6,7 +6,7 @@
 package GUI.Citas_Otros_Servicios;
 
 import ConectorBD.ConexionBD;
-import Controlador.Citas_Especialidad.ControladorCitasExamen;
+import Controlador.Citas_Examen.ControladorCitasExamen;
 import Controlador.Citas_Otros_Servicios.ControladorCitasTipoServicio;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;

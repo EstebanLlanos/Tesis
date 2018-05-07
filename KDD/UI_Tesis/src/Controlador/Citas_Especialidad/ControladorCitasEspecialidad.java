@@ -5,23 +5,22 @@
  */
 package Controlador.Citas_Especialidad;
 
-import Dao.Citas_Examenes.DaoCitasExamen;
+import Dao.Citas_Especialidad.DaoCitasEspecialidad;
 import Logico.Citas_Especialidad.CitasEspecialidad;
-import Logico.Citas_Examenes.CitasExamen;
 import java.util.ArrayList;
 
 /**
  *
  * @author Esteban
  */
-public class ControladorCitasExamen {
+public class ControladorCitasEspecialidad {
     
-    DaoCitasExamen daoCitasExamen;
+    DaoCitasEspecialidad daoCitasEspecialidad;
     ArrayList<String[]> conteoCitas = new ArrayList();
 
-    public ControladorCitasExamen() {
+    public ControladorCitasEspecialidad() {
 
-        daoCitasExamen = new DaoCitasExamen();
+        daoCitasEspecialidad = new DaoCitasEspecialidad();
     }
 
     public ArrayList<String[]> getCitas(String ciudad, String genero, String estrato, String edad, String ingresos, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
@@ -40,16 +39,16 @@ public class ControladorCitasExamen {
         
         String criterioConsultaVentas = criterioConsulta;
 
-        CitasExamen citasExamen = new CitasExamen();
-        citasExamen.setCiudad(ciudadCitas);
-        citasExamen.setGenero(generoCitas);
-        citasExamen.setEstrato(estratoCitas);
-        citasExamen.setEdad(edadCitas);
-        citasExamen.setIngresos(ingresosCitas);
-        citasExamen.setAnioInicio(anioInicioCitas);
-        citasExamen.setAnioFin(anioFinCitas);
-        citasExamen.setMesInicio(mesInicioCitas);
-        citasExamen.setMesFin(mesFinCitas);
+        CitasEspecialidad citasEspecialidad = new CitasEspecialidad();
+        citasEspecialidad.setCiudad(ciudadCitas);
+        citasEspecialidad.setGenero(generoCitas);
+        citasEspecialidad.setEstrato(estratoCitas);
+        citasEspecialidad.setEdad(edadCitas);
+        citasEspecialidad.setIngresos(ingresosCitas);
+        citasEspecialidad.setAnioInicio(anioInicioCitas);
+        citasEspecialidad.setAnioFin(anioFinCitas);
+        citasEspecialidad.setMesInicio(mesInicioCitas);
+        citasEspecialidad.setMesFin(mesFinCitas);
 
         if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
             int anioInicial = Integer.parseInt(anioInicioCitas);
@@ -79,7 +78,7 @@ public class ControladorCitasExamen {
             }
         }
         
-        String restriccionesClausulaWhere = daoCitasExamen.prepararRestriccionesClausulaWhereVentas(citasExamen, criterioConsultaVentas);
+        String restriccionesClausulaWhere = daoCitasEspecialidad.prepararRestriccionesClausulaWhereVentas(citasEspecialidad, criterioConsultaVentas);
         
         if (restriccionesClausulaWhere.equals("Error Fecha Año")) {
             conteoCitas.clear();
@@ -104,7 +103,7 @@ public class ControladorCitasExamen {
             return conteoCitas;
         }
         
-        conteoCitas = daoCitasExamen.conteoCitasEspecialidad(restriccionesClausulaWhere);
+        conteoCitas = daoCitasEspecialidad.conteoCitasEspecialidad(restriccionesClausulaWhere);
         
         return conteoCitas;
     }

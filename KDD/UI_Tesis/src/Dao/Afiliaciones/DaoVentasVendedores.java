@@ -123,13 +123,13 @@ public class DaoVentasVendedores {
             
             sql_select = "SELECT per.nombre_vendedor, per.apellido_vendedor, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv "
                        + "INNER JOIN dim_vendedor per ON (dv.vendedor_afiliacion = CAST ( per.id_vendedor AS BIGINT )) "
-                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
+                       + "INNER JOIN dim_ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
                        + where + " GROUP BY per.nombre_vendedor, per.apellido_vendedor ORDER BY SUM(dv.cantidad_afiliaciones) DESC LIMIT 5;";
 
         } else if (criterioConsultaVentas.equals("Menor Número de Ventas")) {
             sql_select = "SELECT per.nombre_vendedor, per.apellido_vendedor, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv "
                        + "INNER JOIN dim_vendedor per ON (dv.vendedor_afiliacion = CAST ( per.id_vendedor AS BIGINT )) "
-                       + "INNER JOIN ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
+                       + "INNER JOIN dim_ciudad cd ON (CAST ( cd.cod_ciudad AS BIGINT ) = dv.ciudad_afiliacion) "
                        + where + " GROUP BY per.nombre_vendedor, per.apellido_vendedor ORDER BY SUM(dv.cantidad_afiliaciones) ASC LIMIT 5;";
         } else {
             

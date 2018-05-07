@@ -3,32 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador.Citas_Especialidad;
+package Controlador.Citas_Examen;
 
-import Dao.Citas_Examenes.DaoCitasInstitucion;
-import Logico.Citas_Especialidad.CitasEspecialista;
-import Logico.Citas_Examenes.CitasInstitucion;
+import Dao.Citas_Examenes.DaoCitasExamen;
+import Logico.Citas_Especialidad.CitasEspecialidad;
+import Logico.Citas_Examenes.CitasExamen;
 import java.util.ArrayList;
 
 /**
  *
  * @author Esteban
  */
-public class ControladorCitasInstitucion {
+public class ControladorCitasExamen {
     
-    DaoCitasInstitucion daoCitasInstitucion;
+    DaoCitasExamen daoCitasExamen;
     ArrayList<String[]> conteoCitas = new ArrayList();
 
-    public ControladorCitasInstitucion() {
-        daoCitasInstitucion = new DaoCitasInstitucion();
+    public ControladorCitasExamen() {
+
+        daoCitasExamen = new DaoCitasExamen();
     }
 
-    public ArrayList<String[]> getCitas(String institucion, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
+    public ArrayList<String[]> getCitas(String ciudad, String genero, String estrato, String edad, String ingresos, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
 
-        String institucionCitas = institucion;
-        
         String ciudadCitas = ciudad;
-        String departamentoCitas = departamento;
+        String generoCitas = genero;
+        String estratoCitas = estrato;
+        String edadCitas = edad;
+        String ingresosCitas = ingresos;
         
         String anioInicioCitas = anioInicio;
         String anioFinCitas = anioFin;
@@ -38,32 +40,29 @@ public class ControladorCitasInstitucion {
         
         String criterioConsultaVentas = criterioConsulta;
 
-        CitasInstitucion citasInstitucion = new CitasInstitucion();
-        citasInstitucion.setInstitucion(institucionCitas);
-        citasInstitucion.setCiudad(ciudadCitas);
-        citasInstitucion.setDepartamento(departamentoCitas);
-        citasInstitucion.setAnioInicio(anioInicioCitas);
-        citasInstitucion.setAnioFin(anioFinCitas);
-        citasInstitucion.setMesInicio(mesInicioCitas);
-        citasInstitucion.setMesFin(mesFinCitas);
+        CitasExamen citasExamen = new CitasExamen();
+        citasExamen.setCiudad(ciudadCitas);
+        citasExamen.setGenero(generoCitas);
+        citasExamen.setEstrato(estratoCitas);
+        citasExamen.setEdad(edadCitas);
+        citasExamen.setIngresos(ingresosCitas);
+        citasExamen.setAnioInicio(anioInicioCitas);
+        citasExamen.setAnioFin(anioFinCitas);
+        citasExamen.setMesInicio(mesInicioCitas);
+        citasExamen.setMesFin(mesFinCitas);
 
         if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
             int anioInicial = Integer.parseInt(anioInicioCitas);
             int anioFinal = Integer.parseInt(anioFinCitas);
             
             if (anioInicial > anioFinal) {
+                conteoCitas.clear();
                 String[] error = new String[1];
-                error[0] = "Error Fecha";
+                error[0] = "Error Fecha Año";
                 conteoCitas.add(error);
 
                 return conteoCitas;   
             }
-        } else if (institucionCitas.equals("") && criterioConsultaVentas.equals("")) {
-            String[] error = new String[1];
-            error[0] = "Error Institucion";
-            conteoCitas.add(error);
-
-            return conteoCitas;   
         }
         
         int mesInicial = obtenerCodigoMes(mesInicioCitas);
@@ -80,29 +79,32 @@ public class ControladorCitasInstitucion {
             }
         }
         
-        String restriccionesClausulaWhere = daoCitasInstitucion.prepararRestriccionesClausulaWhereCitas(citasInstitucion, criterioConsultaVentas);
+        String restriccionesClausulaWhere = daoCitasExamen.prepararRestriccionesClausulaWhereVentas(citasExamen, criterioConsultaVentas);
         
-        if (restriccionesClausulaWhere.equals("Error")) {
+        if (restriccionesClausulaWhere.equals("Error Fecha Año")) {
+            conteoCitas.clear();
+            String[] error = new String[1];
+            error[0] = "Error Fecha Año";
+            conteoCitas.add(error);
+            
+            return conteoCitas;
+        } else if (restriccionesClausulaWhere.equals("Error Fecha Mes")) {
+            conteoCitas.clear();
+            String[] error = new String[1];
+            error[0] = "Error Fecha Mes";
+            conteoCitas.add(error);
+            
+            return conteoCitas;
+        } else if (restriccionesClausulaWhere.equals("Error")) {
+            conteoCitas.clear();
             String[] error = new String[1];
             error[0] = "Error";
             conteoCitas.add(error);
             
             return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Fecha")) {
-            String[] error = new String[1];
-            error[0] = "Error Fecha";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Institucion")) {
-            String[] error = new String[1];
-            error[0] = "Error Institucion";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
         }
         
-        conteoCitas = daoCitasInstitucion.conteoCitasInstitucion(restriccionesClausulaWhere);
+        conteoCitas = daoCitasExamen.conteoCitasEspecialidad(restriccionesClausulaWhere);
         
         return conteoCitas;
     }
@@ -139,4 +141,5 @@ public class ControladorCitasInstitucion {
         
         return mesSeleccionado;
     }
+    
 }

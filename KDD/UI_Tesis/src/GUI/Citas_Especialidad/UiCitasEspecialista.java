@@ -6,8 +6,7 @@
 package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
-import Controlador.Afiliaciones.ControladorVentasCiudades;
-import Controlador.Citas_Especialidad.ControladorCitasInstitucion;
+import Controlador.Citas_Especialidad.ControladorCitasEspecialista;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -27,7 +26,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicButtonListener;
 
 /**
  *
@@ -44,7 +42,7 @@ public class UiCitasEspecialista {
 
     AutoSuggestor autoCompletar;
 
-    ControladorCitasInstitucion controladorCitasEspecialista;
+    ControladorCitasEspecialista controladorCitasEspecialista;
 
     // Elementos de conexion de la BD para el llenado de los comboBox
     ConexionBD BaseDeDatos;
@@ -143,7 +141,7 @@ public class UiCitasEspecialista {
             }
         });
 
-        controladorCitasEspecialista = new ControladorCitasInstitucion();
+        controladorCitasEspecialista = new ControladorCitasEspecialista();
 
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");

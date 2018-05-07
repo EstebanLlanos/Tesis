@@ -6,7 +6,7 @@
 package GUI.Citas_Examenes;
 
 import ConectorBD.ConexionBD;
-import Controlador.Citas_Especialidad.ControladorCitasInstitucion;
+import Controlador.Citas_Examen.ControladorCitasInstitucion;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;

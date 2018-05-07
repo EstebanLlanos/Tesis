@@ -761,21 +761,21 @@ public class Visualizador extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         /* Create and display the form */
-        this.panelPestanas.removeAll();
-        System.out.println("Se cambia el objeto de consulta.");
-        java.awt.EventQueue.invokeLater(() -> {
-            SelectorElementoConsulta sec = new SelectorElementoConsulta();
-            sec.setVisible(true);
-            sec.setLocationRelativeTo(null);
-        });
         
         try {
-            this.dispose();
-            this.finalize();
-            this.removeAll();
+            this.setFocusableWindowState( false );
+            this.setVisible(false);
         } catch (Throwable ex) {
             Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println("Se cambia el objeto de consulta.");
+        java.awt.EventQueue.invokeLater(() -> {
+            SelectorElementoConsulta sec = new SelectorElementoConsulta();
+            sec.setFocusableWindowState(true);
+            sec.setVisible(true);
+            sec.setLocationRelativeTo(null);
+        });
     }//GEN-LAST:event_menuSeleccionarHechoActionPerformed
 
     private void jMenuResumenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResumenesActionPerformed

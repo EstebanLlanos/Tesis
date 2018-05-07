@@ -9,8 +9,7 @@ import Dao.Afiliaciones.DaoVentasVendedores;
 import Logico.Afiliaciones.VentasVendedores;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author Esteban
  */
 public class ControladorVentasVendedores {

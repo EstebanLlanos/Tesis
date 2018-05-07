@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
-import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -21,23 +20,22 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-/**
- *
+/*
  * @author Esteban
  */
 public class FXPieChart {
 
-    final String chartName;
-    final ArrayList<String> tags;
-    final ArrayList<Integer> values;
+    String chartName;
+    ArrayList<String> tags;
+    ArrayList<Integer> values;
 
-    public FXPieChart(final String chartName, final ArrayList<String> tags, final ArrayList<Integer> values) {
+    public FXPieChart(String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
 
         this.tags = tags;
         this.values = values;
         this.chartName = chartName;
-        final JFXPanel panelVisualizador = new JFXPanel();
-        final ScrollBar barra = new ScrollBar();
+        JFXPanel panelVisualizador = new JFXPanel();
+        ScrollBar barra = new ScrollBar();
         
         //Visualizador.panelPestanas.removeAll();
         panelVisualizador.removeAll();
@@ -72,8 +70,8 @@ public class FXPieChart {
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialistas") ||
                     Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")){
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Servicios Solicitados")){
                 
                 Visualizador.panelPestanas.removeTabAt(1);
                 
@@ -83,8 +81,8 @@ public class FXPieChart {
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialidades") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialistas") ||
                     Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")){
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Instituciones") ||
+                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Servicios Solicitados")){
                 
                 Visualizador.panelPestanas.removeTabAt(2);
                 
@@ -96,29 +94,25 @@ public class FXPieChart {
     
     }
 
-    private static void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
+    private void initFX(JFXPanel fxPanel, String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
         // This method is invoked on the JavaFX thread
-        System.out.println("Se pinta el gráfico de torta.");
         Scene scene = createScene(chartName, tags, values);
         fxPanel.setScene(scene);
     }
 
-    private static Scene createScene(String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
+    private Scene createScene(String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
         Group root = new Group();
         Scene scene = new Scene(root);
-
-        System.out.println("Se crea la escena de torta.");
         
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for (int i = 0; i < tags.size(); i++) {
             pieChartData.add(new PieChart.Data(tags.get(i), values.get(i)));
         }
 
-        final PieChart chart = new PieChart(pieChartData);
-        //chart.setTitle(chartName);
-        //chart.setTitleSide(Side.BOTTOM);
+        PieChart chart = new PieChart(pieChartData);
+        chart.setTitle(chartName);
         
-        final Label caption = new Label("");
+        Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
         caption.setOpacity(0.9);
         caption.setStyle("-fx-font: 20 arial;-fx-text-fill: midnightblue;");

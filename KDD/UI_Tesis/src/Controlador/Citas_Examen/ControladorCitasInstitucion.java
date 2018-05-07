@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador.Citas_Examenes;
+package Controlador.Citas_Examen;
 
-import Controlador.Citas_Especialidad.*;
-import Dao.Citas_Especialidad.DaoCitasEspecialista;
+import Dao.Citas_Examenes.DaoCitasInstitucion;
 import Logico.Citas_Especialidad.CitasEspecialista;
+import Logico.Citas_Examenes.CitasInstitucion;
 import java.util.ArrayList;
 
 /**
  *
  * @author Esteban
  */
-public class ControladorCitasEspecialista {
+public class ControladorCitasInstitucion {
     
-    DaoCitasEspecialista daoCitasEspecialista;
+    DaoCitasInstitucion daoCitasInstitucion;
     ArrayList<String[]> conteoCitas = new ArrayList();
 
-    public ControladorCitasEspecialista() {
-        daoCitasEspecialista = new DaoCitasEspecialista();
+    public ControladorCitasInstitucion() {
+        daoCitasInstitucion = new DaoCitasInstitucion();
     }
 
-    public ArrayList<String[]> getCitas(String especialista, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
+    public ArrayList<String[]> getCitas(String institucion, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
 
-        String especialistaCitas = especialista;
+        String institucionCitas = institucion;
         
         String ciudadCitas = ciudad;
         String departamentoCitas = departamento;
@@ -38,14 +38,14 @@ public class ControladorCitasEspecialista {
         
         String criterioConsultaVentas = criterioConsulta;
 
-        CitasEspecialista citasEspecialista = new CitasEspecialista();
-        citasEspecialista.setEspecialista(especialistaCitas);
-        citasEspecialista.setCiudad(ciudadCitas);
-        citasEspecialista.setDepartamento(departamentoCitas);
-        citasEspecialista.setAnioInicio(anioInicioCitas);
-        citasEspecialista.setAnioFin(anioFinCitas);
-        citasEspecialista.setMesInicio(mesInicioCitas);
-        citasEspecialista.setMesFin(mesFinCitas);
+        CitasInstitucion citasInstitucion = new CitasInstitucion();
+        citasInstitucion.setInstitucion(institucionCitas);
+        citasInstitucion.setCiudad(ciudadCitas);
+        citasInstitucion.setDepartamento(departamentoCitas);
+        citasInstitucion.setAnioInicio(anioInicioCitas);
+        citasInstitucion.setAnioFin(anioFinCitas);
+        citasInstitucion.setMesInicio(mesInicioCitas);
+        citasInstitucion.setMesFin(mesFinCitas);
 
         if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
             int anioInicial = Integer.parseInt(anioInicioCitas);
@@ -58,9 +58,9 @@ public class ControladorCitasEspecialista {
 
                 return conteoCitas;   
             }
-        } else if (especialistaCitas.equals("") && criterioConsultaVentas.equals("")) {
+        } else if (institucionCitas.equals("") && criterioConsultaVentas.equals("")) {
             String[] error = new String[1];
-            error[0] = "Error Especialista";
+            error[0] = "Error Institucion";
             conteoCitas.add(error);
 
             return conteoCitas;   
@@ -80,7 +80,7 @@ public class ControladorCitasEspecialista {
             }
         }
         
-        String restriccionesClausulaWhere = daoCitasEspecialista.prepararRestriccionesClausulaWhereCitas(citasEspecialista, criterioConsultaVentas);
+        String restriccionesClausulaWhere = daoCitasInstitucion.prepararRestriccionesClausulaWhereCitas(citasInstitucion, criterioConsultaVentas);
         
         if (restriccionesClausulaWhere.equals("Error")) {
             String[] error = new String[1];
@@ -94,15 +94,15 @@ public class ControladorCitasEspecialista {
             conteoCitas.add(error);
             
             return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Especialista")) {
+        } else if (restriccionesClausulaWhere.equals("Error Institucion")) {
             String[] error = new String[1];
-            error[0] = "Error Vendedor";
+            error[0] = "Error Institucion";
             conteoCitas.add(error);
             
             return conteoCitas;
         }
         
-        conteoCitas = daoCitasEspecialista.conteoCitasEspecialista(restriccionesClausulaWhere);
+        conteoCitas = daoCitasInstitucion.conteoCitasInstitucion(restriccionesClausulaWhere);
         
         return conteoCitas;
     }
