@@ -33,6 +33,12 @@ public class UiCitasExamen {
     JLabel separadorBoton;
     JButton botonConsultar;
     
+    // Clases para el despligue Gráfico de resultados
+    
+    FXPieChart PieChart;
+    FXBarChart BarChart;
+    FXLineChart LineChart;
+    
     ControladorCitasExamen controladorCitasExamen;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
@@ -137,12 +143,6 @@ public class UiCitasExamen {
     }
 
     void hacerConsulta(ActionEvent evt) {
-
-        // Clases para el despligue Gráfico de resultados
-    
-        FXPieChart PieChart;
-        FXBarChart BarChart;
-        FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
 

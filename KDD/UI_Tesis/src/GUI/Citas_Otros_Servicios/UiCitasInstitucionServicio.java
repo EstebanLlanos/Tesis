@@ -6,7 +6,7 @@
 package GUI.Citas_Otros_Servicios;
 
 import ConectorBD.ConexionBD;
-import Controlador.Citas_Examen.ControladorCitasInstitucion;
+import Controlador.Citas_Examen.ControladorCitasInstitucionExamen;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -39,9 +39,14 @@ public class UiCitasInstitucionServicio {
     JLabel separadorBoton;
     JButton botonConsultar;
 
+    // Clases para el despligue Gráfico de resultados
+    FXPieChart PieChart;
+    FXBarChart BarChart;
+    FXLineChart LineChart;
+    
     AutoSuggestor autoCompletar;
 
-    ControladorCitasInstitucion controladorCitasEspecialista;
+    ControladorCitasInstitucionExamen controladorCitasEspecialista;
 
     // Elementos de conexion de la BD para el llenado de los comboBox
     ConexionBD BaseDeDatos;
@@ -140,7 +145,7 @@ public class UiCitasInstitucionServicio {
             }
         });
 
-        controladorCitasEspecialista = new ControladorCitasInstitucion();
+        controladorCitasEspecialista = new ControladorCitasInstitucionExamen();
 
         labelDepartamento = new JLabel();
         inicializarJLabel(labelDepartamento, "Departamento:                    ");
@@ -264,11 +269,6 @@ public class UiCitasInstitucionServicio {
     }
 
     void hacerConsulta(ActionEvent evt) {
-
-        // Clases para el despligue Gráfico de resultados
-        FXPieChart PieChart;
-        FXBarChart BarChart;
-        FXLineChart LineChart;
 
         //verificamos que el rango de estrato sea correcto
         String especialista = "" + textFieldInstitucion.getText();

@@ -33,6 +33,12 @@ public class UiVentasSedes {
     JLabel labelAnioInicio, labelAnioFin, labelMesInicio, labelMesFin, separadorBoton;
     JButton botonConsultar;
     
+    // Clases para el despligue Gráfico de resultados
+
+    FXPieChart PieChart;
+    FXBarChart BarChart;
+    FXLineChart LineChart;
+    
     ControladorVentasSedes controladorVentasSedes;
     
     // Elementos de conexion de la BD para el llenado de los comboBox
@@ -98,12 +104,6 @@ public class UiVentasSedes {
     }
 
     void hacerConsulta(ActionEvent evt) {
-
-        // Clases para el despligue Gráfico de resultados
-    
-        FXPieChart PieChart;
-        FXBarChart BarChart;
-        FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
         

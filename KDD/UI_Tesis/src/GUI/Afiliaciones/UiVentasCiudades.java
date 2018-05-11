@@ -22,8 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-/**
- *
+/*
  * @author Esteban
  */
 
@@ -33,6 +32,12 @@ public class UiVentasCiudades {
     JLabel labelDepartamento, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelMesInicio, labelMesFin;
     JLabel separadorBoton;
     JButton botonConsultar;
+    
+    // Clases para el despligue Gráfico de resultados
+
+    FXPieChart PieChart;
+    FXBarChart BarChart;
+    FXLineChart LineChart;
     
     ControladorVentasCiudades controladorVentasCiudad;
     
@@ -141,12 +146,6 @@ public class UiVentasCiudades {
     }
 
     void hacerConsulta(ActionEvent evt) {
-
-        // Clases para el despligue Gráfico de resultados
-    
-        FXPieChart PieChart;
-        FXBarChart BarChart;
-        FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
 

@@ -102,7 +102,7 @@ public class DaoVentasCiudades {
                     return "Error Fecha Mes";
                 }
                 
-            } // FIN IF + AÑO INICIO + AÑO FIN 
+            } // FIN IF + ANIO INICIO + ANIO FIN 
             else if (!ventasCiudades.getAnioInicio().equals("Escoger una Opción...") && ventasCiudades.getAnioFin().equals("Escoger una Opción...")) {
                
                 if (!ventasCiudades.getMesInicio().equals("Escoger una Opción...") && !ventasCiudades.getMesFin().equals("Escoger una Opción...")) {

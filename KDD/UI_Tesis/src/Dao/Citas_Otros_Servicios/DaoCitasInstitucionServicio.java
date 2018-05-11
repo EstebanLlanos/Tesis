@@ -7,6 +7,7 @@ package Dao.Citas_Otros_Servicios;
 
 import ConectorBD.ConexionBD;
 import Logico.Citas_Examenes.CitasInstitucion;
+import Logico.Citas_Otros_Servicios.CitasInstitucionServicio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class DaoCitasInstitucionServicio {
         BaseDeDatos = new ConexionBD();
     }
 
-    public String prepararRestriccionesClausulaWhereCitas(CitasInstitucion citasInstitucion, String criterioConsulta) {
+    public String prepararRestriccionesClausulaWhereCitas(CitasInstitucionServicio citasInstitucion, String criterioConsulta) {
 
         criterioConsultaCitas = criterioConsulta;
         String where = "";

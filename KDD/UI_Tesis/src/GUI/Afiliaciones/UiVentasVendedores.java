@@ -39,6 +39,12 @@ public class UiVentasVendedores {
     JCheckBox busquedaNombre, busquedaOtrosCriterios;
     JButton botonConsultar;
     
+    // Clases para el despligue Gráfico de resultados
+    
+    FXPieChart PieChart;
+    FXBarChart BarChart;
+    FXLineChart LineChart;
+    
     AutoSuggestor autoCompletar;
     
     ControladorVentasVendedores controladorVentasVendedor;
@@ -195,12 +201,6 @@ public class UiVentasVendedores {
     }
 
     void hacerConsulta(ActionEvent evt) {
-
-        // Clases para el despligue Gráfico de resultados
-    
-        FXPieChart PieChart;
-        FXBarChart BarChart;
-        FXLineChart LineChart;
         
         //verificamos que el rango de estrato sea correcto
         String vendedor = textFieldVendedor.getText();
