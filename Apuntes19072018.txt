@@ -1,0 +1,9 @@
+Mejoras a la Interfaz
+
+--> Poner porcentajes en los gráficos de torta.
+--> Revisar en qué consultas tiene sentido un gráfico de torta.
+--> Hacer el radio button para buscar por código o por nombre de vendedor.
+--> Hacer el radio button para buscar por código o por nombre de especialista.
+--> Para Reporte en PDF: Titulo y Logo de la Empresa, Nombre Reporte, Al pie de página información básica de la empresa y el contenido del reporte. (Incluir KPI's)
+--> Agregar filtro de número de vendedores traidos en la consulta.
+--> Títulos más específicos para los reportes gráficos generados.
