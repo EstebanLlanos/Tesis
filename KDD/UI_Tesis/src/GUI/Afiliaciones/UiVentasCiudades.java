@@ -170,8 +170,10 @@ public class UiVentasCiudades {
         } else if(ventasPorCiudad.get(0)[0].equals("Error Fecha Mes")){            
             JOptionPane.showMessageDialog(null, "La consulta no pudo ser realizada. Seleccione un rango de meses válido a consultar");
         }else {
-            try{ ArrayList<String> ciudades = new ArrayList();
+            try{ 
+                ArrayList<String> ciudades = new ArrayList();
                 ArrayList<Integer> ventas = new ArrayList();
+                
                 for (int i = 0; i <= ventasPorCiudad.size() - 1; i++) {
                     ciudades.add(ventasPorCiudad.get(i)[0]);
                     ventas.add(Integer.parseInt(ventasPorCiudad.get(i)[1]));

@@ -1,6 +1,6 @@
 Mejoras a la Interfaz
 
---> Poner porcentajes en los gráficos de torta.
+--> Poner porcentajes en los gráficos de torta. Listo!!
 --> Revisar en qué consultas tiene sentido un gráfico de torta.
 --> Hacer el radio button para buscar por código o por nombre de vendedor.
 --> Hacer el radio button para buscar por código o por nombre de especialista.

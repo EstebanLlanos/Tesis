@@ -6,7 +6,9 @@
 package Gráficos;
 
 import GUI.Visualizador;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -26,13 +28,38 @@ import javafx.scene.paint.Color;
 public class FXPieChart {
 
     String chartName;
-    ArrayList<String> tags;
-    ArrayList<Integer> values;
+    ArrayList<String> etiquetas;
+    ArrayList<Integer> valores;
+    ArrayList<String[]> mensajes;
 
-    public FXPieChart(String chartName, ArrayList<String> tags, ArrayList<Integer> values) {
+    public FXPieChart(String chartName, ArrayList<String> etiquetas, ArrayList<Integer> valores) {
 
-        this.tags = tags;
-        this.values = values;
+        this.etiquetas = etiquetas;
+        this.valores = valores;
+        this.mensajes = new ArrayList<>();
+        
+        int totalVentas = 0;
+        
+        for (int i = 0; i < valores.size(); i++) {
+            totalVentas += valores.get(i);
+        }
+        
+        for (int i = 0; i < valores.size(); i++) {
+            String arregloMensaje[] = new String[2];
+            double porcentaje = ((double)valores.get(i)*100.0)/(double)totalVentas;
+            
+            DecimalFormat numberFormat = new DecimalFormat("#.00");
+            
+            System.out.println("Posición: " + i);
+            System.out.println("Valor: " + valores.get(i));
+            System.out.println("Total Ventas: " + totalVentas);
+            
+            arregloMensaje[0] = etiquetas.get(i);
+            arregloMensaje[1] = numberFormat.format(porcentaje) + "%";
+            
+            mensajes.add(arregloMensaje);
+        }
+        
         this.chartName = chartName;
         JFXPanel panelVisualizador = new JFXPanel();
         ScrollBar barra = new ScrollBar();
@@ -45,7 +72,7 @@ public class FXPieChart {
             
             @Override
             public Void call() {
-                initFX(panelVisualizador, chartName, tags, values);
+                initFX(panelVisualizador, chartName, etiquetas, valores);
                 return null;
             }
         };
@@ -124,7 +151,12 @@ public class FXPieChart {
                         public void handle(MouseEvent e) {
                             caption.setTranslateX(e.getSceneX());
                             caption.setTranslateY(e.getSceneY());
-                            caption.setText(String.valueOf((int)data.getPieValue()));
+                            
+                            for (int i = 0; i < mensajes.size(); i++) {
+                                if (data.getName().equals(mensajes.get(i)[0])) {
+                                    caption.setText(String.valueOf((int)data.getPieValue()) + " - " + mensajes.get(i)[1]);
+                                }
+                            }
                         }
                     });
         });
