@@ -556,7 +556,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(new JLabel("  "));
         panelOpciones.add(ventasPorDemografia.getComboBoxCriterioConsulta());
         panelOpciones.add(new JLabel("  "));
-        panelOpciones.add(new JLabel("≡≡≡≡≡≡≡≡≡≡≡≡≡"));
+        panelOpciones.add(ventasPorDemografia.getSeparadorBoton());
         panelOpciones.add(new JLabel("  "));
         panelOpciones.add(ventasPorDemografia.getBotonConsultar());
 

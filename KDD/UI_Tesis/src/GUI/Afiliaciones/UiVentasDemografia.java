@@ -34,7 +34,7 @@ public class UiVentasDemografia {
     JLabel separadorBoton;
     JButton botonConsultar;
     
-// Clases para el despligue Gráfico de resultados
+    // Clases para el despligue Gráfico de resultados
 
     FXPieChart PieChart;
     FXBarChart BarChart;
@@ -124,6 +124,11 @@ public class UiVentasDemografia {
         botonConsultar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         botonConsultar.setPreferredSize(new Dimension(120, 30));
         
+        separadorBoton = new JLabel();
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+                                            + "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
+        
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 System.out.println("Se realiza la consulta");
@@ -173,6 +178,232 @@ public class UiVentasDemografia {
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
+        String tituloGraficos = "";
+        
+        if (!genero.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Ingresos \n                                     " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Ingresos \n                                     " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y los Ingresos \n                                     " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y los Ingresos \n                                     " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y los Ingresos \n                                      " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y los Ingresos \n                                    " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                       " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                       " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEdad.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEdad.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para los Ingresos \n                                    " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para los Ingresos \n                                    " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + "\n                                    y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + "\n                                      y la Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + "\n                                    y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + "\n                                   y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + "\n                                          y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + "\n                                          y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem() + "\n                               en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem() + "\n                            en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + "\n                                    y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                               en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + "\n                                  y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                                      en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + "\n                                     y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + "\n                                    y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem() + "\n                                  en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad " + comboBoxEdad.getSelectedItem() + "\n                                   en el periodo seleccionado";
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEstrato.getSelectedItem() + "\n                                 y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                                          en el periodo seleccionado";
+        }
+        
+        if (!edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la Edad " + comboBoxEstrato.getSelectedItem() + "\n                             y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                                      en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad \n                                   " + comboBoxEdad.getSelectedItem() + " y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad \n                                    " + comboBoxEdad.getSelectedItem() + " y los Ingresos " + comboBoxIngreso.getSelectedItem();
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad \n                                   " + comboBoxEdad.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + " y la Edad \n                                  " + comboBoxEdad.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                      " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...")  && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                    " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                 " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...")  && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad " + comboBoxEdad.getSelectedItem() + " y los Ingresos \n                                    " + comboBoxIngreso.getSelectedItem() + " en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad \n                                    " + comboBoxEdad.getSelectedItem() + " y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                                                                       en el periodo seleccionado";
+        }
+        
+        if (!genero.equals("Escoger una Opción...") && !estrato.equals("Escoger una Opción...") && !edad.equals("Escoger una Opción...") && !ingresos.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...")  && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Género " + comboBoxGenero.getSelectedItem() + ", el Estrato " + comboBoxEstrato.getSelectedItem() + ", la Edad \n                                 " + comboBoxEdad.getSelectedItem() + " y los Ingresos " + comboBoxIngreso.getSelectedItem() + "\n                                                                          en el periodo seleccionado";
+        }
+        
         ArrayList <String[]> ventasPorDemografia = controladorVentasDemografia.getVentas(genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (ventasPorDemografia.isEmpty()) {            
@@ -194,9 +425,9 @@ public class UiVentasDemografia {
                 }
 
                 if (!ventasPorDemografia.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top Ciudades", ciudades, ventas);
-                    BarChart = new FXBarChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart(tituloGraficos, ciudades, ventas);
+                    BarChart = new FXBarChart(tituloGraficos, "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart(tituloGraficos, "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }

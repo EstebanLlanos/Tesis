@@ -112,6 +112,24 @@ public class UiVentasSedes {
         String mesInicio = "" + comboBoxMesInicio.getSelectedItem();
         String mesFin = "" + comboBoxMesFin.getSelectedItem();
 
+        String tituloGrafico = "";
+        
+        if (!anioInicio.equals("Escoger una Opción...") && mesInicio.equals("Escoger una Opción...") && anioFin.equals("Escoger una Opción...") && mesFin.equals("Escoger una Opción...")) {
+            tituloGrafico = "Número de Ventas de Afiliaciones entre el 01 de Enero de " + comboBoxAnioInicio.getSelectedItem() + " y el 01 de Diciembre de " + comboBoxAnioInicio.getSelectedItem();
+        }
+        
+        if (!anioInicio.equals("Escoger una Opción...") && !mesInicio.equals("Escoger una Opción...") && anioFin.equals("Escoger una Opción...") && !mesFin.equals("Escoger una Opción...")) {
+            tituloGrafico = "Número de Ventas de Afiliaciones entre el 01 de " + comboBoxMesInicio.getSelectedItem() + " de " + comboBoxAnioInicio.getSelectedItem() + " y el 01 de " + comboBoxMesFin.getSelectedItem() + " de " + comboBoxAnioInicio.getSelectedItem();
+        }
+        
+        if (!anioInicio.equals("Escoger una Opción...") && !mesInicio.equals("Escoger una Opción...") && !anioFin.equals("Escoger una Opción...") && !mesFin.equals("Escoger una Opción...")) {
+            tituloGrafico = "Número de Ventas de Afiliaciones entre el 01 de " + comboBoxMesInicio.getSelectedItem() + " de " + comboBoxAnioInicio.getSelectedItem() + " y el 01 de " + comboBoxMesFin.getSelectedItem() + " de " + comboBoxAnioFin.getSelectedItem();
+        }
+        
+        if (!anioInicio.equals("Escoger una Opción...") && mesInicio.equals("Escoger una Opción...") && !anioFin.equals("Escoger una Opción...") && mesFin.equals("Escoger una Opción...")) {
+            tituloGrafico = "Número de Ventas de Afiliaciones entre el 01 de Enero de " + comboBoxAnioInicio.getSelectedItem() + " y el 01 de Enero de " + comboBoxAnioFin.getSelectedItem();
+        }
+        
         ArrayList <String[]> ventasPorSede = controladorVentasSedes.getVentas(anioInicio, anioFin, mesInicio, mesFin);
 
         if (ventasPorSede.isEmpty()) {
@@ -132,9 +150,9 @@ public class UiVentasSedes {
                 }
 
                 if (!ventasPorSede.isEmpty()) {
-                    PieChart = new FXPieChart("Ventas por Sedes", sedes, ventas);
-                    BarChart = new FXBarChart("Ventas por Sedes", "Sedes", sedes, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Ventas por Sedes", "Sedes", sedes, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart(tituloGrafico, sedes, ventas);
+                    BarChart = new FXBarChart(tituloGrafico, "Sedes", sedes, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart(tituloGrafico, "Sedes", sedes, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }

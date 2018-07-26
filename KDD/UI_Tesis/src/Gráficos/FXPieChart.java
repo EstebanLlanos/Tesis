@@ -76,15 +76,10 @@ public class FXPieChart {
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
             if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta")) {
-                
                 Visualizador.panelPestanas.removeTabAt(0);
-                
             } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta")){
-                
                 Visualizador.panelPestanas.removeTabAt(1);
-                
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta")){
-                
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta")){              
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }

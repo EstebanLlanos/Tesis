@@ -210,6 +210,12 @@ public class UiVentasVendedores {
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
+        String tituloGrafica = "";
+        
+        if (busquedaNombre.isSelected()) {
+            System.out.println("SE SELECCIONO LA BUSQUEDA POR NOMBRE DE VENDEDOR");
+        } else if(true){}
+        
         ArrayList <String[]> ventasPorVendedor = controladorVentasVendedor.getVentas(vendedor, ciudad, sede, anioInicio, anioFin, criterioConsulta);
 
         if (ventasPorVendedor.isEmpty()) {

@@ -192,11 +192,19 @@ public class UiVentasCiudades {
         }
         
         if (departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
-            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + " durante el periodo seleccionado";
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + "\n                                                durante el periodo seleccionado";
         }
         
         if (departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
-            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + " durante el periodo seleccionado";
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + "\n                                                durante el periodo seleccionado";
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para el Departamento " + comboBoxDepartamentos.getSelectedItem() + "\n                                                durante el periodo seleccionado";
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para el Departamento " + comboBoxDepartamentos.getSelectedItem() + "\n                                                durante el periodo seleccionado";
         }
 
         ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
