@@ -5,10 +5,10 @@
  */
 package Gráficos;
 
+import GUI.Resumenes.ResumenVentasAnuales_Ciudad;
 import GUI.Visualizador;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -48,12 +48,7 @@ public class FXPieChart {
             String arregloMensaje[] = new String[2];
             double porcentaje = ((double)valores.get(i)*100.0)/(double)totalVentas;
             
-            DecimalFormat numberFormat = new DecimalFormat("#.00");
-            
-            System.out.println("Posición: " + i);
-            System.out.println("Valor: " + valores.get(i));
-            System.out.println("Total Ventas: " + totalVentas);
-            
+            DecimalFormat numberFormat = new DecimalFormat("#.00");            
             arregloMensaje[0] = etiquetas.get(i);
             arregloMensaje[1] = numberFormat.format(porcentaje) + "%";
             
@@ -80,43 +75,21 @@ public class FXPieChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta - Top Servicios Solicitados")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Torta")) {
                 
                 Visualizador.panelPestanas.removeTabAt(0);
                 
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta - Top Servicios Solicitados")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Torta")){
                 
                 Visualizador.panelPestanas.removeTabAt(1);
                 
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 10 Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top 5 Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta - Top Servicios Solicitados")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Torta")){
                 
                 Visualizador.panelPestanas.removeTabAt(2);
-                
             }
         }
         
-        Visualizador.panelPestanas.addTab("Gráfico De Torta - " + chartName, panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico De Torta", panelVisualizador);
         panelVisualizador.setVisible(true);
     
     }
@@ -159,6 +132,18 @@ public class FXPieChart {
                             }
                         }
                     });
+            
+            data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED,
+                    new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent e) {
+                            System.out.println("SE HIZO CLIC SOBRE EL OBJETIVO");
+                            
+                            ResumenVentasAnuales_Ciudad rva = new ResumenVentasAnuales_Ciudad();
+                            rva.setVisible(true);
+                            rva.setLocationRelativeTo(null);
+                        }
+                    });
         });
         
         chart.setPrefSize(Visualizador.panelPestanas.getWidth() - 50, Visualizador.panelPestanas.getHeight() - 50);
@@ -168,5 +153,4 @@ public class FXPieChart {
 
         return (scene);
     }
-
 }

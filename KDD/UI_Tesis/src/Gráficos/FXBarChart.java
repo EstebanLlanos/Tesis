@@ -47,37 +47,16 @@ public class FXBarChart {
         new Thread(task).start();
         
         if (Visualizador.panelPestanas.getTabCount() == 3) {
-            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras - Top Servicios Solicitados")) {
+            if (Visualizador.panelPestanas.getTitleAt(0).equals("Gráfico De Barras")) {
                 Visualizador.panelPestanas.removeTabAt(0);
-            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras - Top Servicios Solicitados")){
+            } else if(Visualizador.panelPestanas.getTitleAt(1).equals("Gráfico De Barras")){
                 Visualizador.panelPestanas.removeTabAt(1);
-            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Vendedores") || 
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Ciudades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Ventas por Sedes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Especialidades") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Especialistas") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Examenes") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Instituciones") ||
-                    Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras - Top Servicios Solicitados")){
+            } else if(Visualizador.panelPestanas.getTitleAt(2).equals("Gráfico De Barras")){
                 Visualizador.panelPestanas.removeTabAt(2);
             }
         }
         
-        Visualizador.panelPestanas.addTab("Gráfico De Barras - " + chartName, panelVisualizador);
+        Visualizador.panelPestanas.addTab("Gráfico De Barras", panelVisualizador);
         panelVisualizador.setVisible(true);
     }
 

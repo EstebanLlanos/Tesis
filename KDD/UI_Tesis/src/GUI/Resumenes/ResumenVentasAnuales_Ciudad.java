@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -58,9 +57,9 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("SEDE CALI");
         
-        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                + "INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede)"
-                + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha)"
+        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv "
+                + "INNER JOIN dim_sede sd ON (dv.sede_afiliacion = sd.id_sede)"
+                + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha)"
                 + "GROUP BY fch.anio_actual, sd.nombre_sede "
                 + "ORDER BY fch.anio_actual) AS consulta WHERE nombre_sede = 'SEDE CALI' ORDER BY anio_actual ASC LIMIT 7;";
 
@@ -82,9 +81,9 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("SEDE PALMIRA");
         
-        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                + "INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede)"
-                + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha)"
+        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv "
+                + "INNER JOIN dim_sede sd ON (dv.sede_afiliacion = sd.id_sede)"
+                + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha)"
                 + "GROUP BY fch.anio_actual, sd.nombre_sede "
                 + "ORDER BY fch.anio_actual) AS consulta WHERE nombre_sede = 'SEDE PALMIRA' ORDER BY anio_actual ASC LIMIT 7;";
 
@@ -106,9 +105,9 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("SEDE TULUA");
         
-        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                + "INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede)"
-                + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha)"
+        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv "
+                + "INNER JOIN dim_sede sd ON (dv.sede_afiliacion = sd.id_sede)"
+                + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha)"
                 + "GROUP BY fch.anio_actual, sd.nombre_sede "
                 + "ORDER BY fch.anio_actual) AS consulta WHERE nombre_sede = 'SEDE TULUA' ORDER BY anio_actual ASC LIMIT 7;";
 
@@ -130,9 +129,9 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         XYChart.Series series4 = new XYChart.Series();
         series4.setName("SEDE ARMENIA");
         
-        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                + "INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede)"
-                + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha)"
+        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv "
+                + "INNER JOIN dim_sede sd ON (dv.sede_afiliacion = sd.id_sede)"
+                + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha)"
                 + "GROUP BY fch.anio_actual, sd.nombre_sede "
                 + "ORDER BY fch.anio_actual) AS consulta WHERE nombre_sede = 'SEDE ARMENIA' ORDER BY anio_actual ASC LIMIT 7;";
 
@@ -154,9 +153,9 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         XYChart.Series series5 = new XYChart.Series();
         series5.setName("SEDE PEREIRA");
         
-        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.total_ventas) AS total_ventas FROM dim_venta dv "
-                + "INNER JOIN sede sd ON (dv.sede_venta = sd.id_sede)"
-                + "INNER JOIN dim_fecha fch ON (dv.fecha_venta = fch.id_dim_fecha)"
+        sql_select = "SELECT * FROM (SELECT sd.nombre_sede, fch.anio_actual, SUM(dv.cantidad_afiliaciones) AS total_ventas FROM datamart_afiliacion dv "
+                + "INNER JOIN dim_sede sd ON (dv.sede_afiliacion = sd.id_sede)"
+                + "INNER JOIN dim_fecha fch ON (dv.fecha_afiliacion = fch.id_dim_fecha)"
                 + "GROUP BY fch.anio_actual, sd.nombre_sede "
                 + "ORDER BY fch.anio_actual) AS consulta WHERE nombre_sede = 'SEDE PEREIRA' ORDER BY anio_actual ASC LIMIT 7;";
 
@@ -208,14 +207,14 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 1302, Short.MAX_VALUE)
+                .addComponent(jPanelPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
+                .addComponent(jPanelPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -156,6 +156,48 @@ public class UiVentasCiudades {
         String mesFin = "" + comboBoxMesFin.getSelectedItem();
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
+        
+        String tituloGraficos = "";
+        
+        if (!departamento.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas en el Departamento del " + comboBoxDepartamentos.getSelectedItem();
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas en el Departamento del " + comboBoxDepartamentos.getSelectedItem();
+        }
+        
+        if (!sede.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para la " + comboBoxSedes.getSelectedItem();
+        }
+        
+        if (!sede.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la " + comboBoxSedes.getSelectedItem();
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas en el Departamento " + comboBoxDepartamentos.getSelectedItem() + " para la " + comboBoxSedes.getSelectedItem();
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas en el Departamento " + comboBoxDepartamentos.getSelectedItem() + " para la " + comboBoxSedes.getSelectedItem();
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas en el Departamento " + comboBoxDepartamentos.getSelectedItem() + " para la " + comboBoxSedes.getSelectedItem() + "\n                                                 durante el periodo seleccionado";
+        }
+        
+        if (!departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas en el Departamento " + comboBoxDepartamentos.getSelectedItem() + " para la " + comboBoxSedes.getSelectedItem() + "\n                                                 durante el periodo seleccionado";
+        }
+        
+        if (departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + " durante el periodo seleccionado";
+        }
+        
+        if (departamento.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+            tituloGraficos = "Top 5 de Ciudades con Menor Número de Ventas para la " + comboBoxSedes.getSelectedItem() + " durante el periodo seleccionado";
+        }
 
         ArrayList <String[]> ventasPorCiudad = controladorVentasCiudad.getVentas(departamento, sede, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
@@ -180,9 +222,9 @@ public class UiVentasCiudades {
                 }
 
                 if (!ventasPorCiudad.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top Ciudades", ciudades, ventas);
-                    BarChart = new FXBarChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top Ciudades", "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart(tituloGraficos, ciudades, ventas);
+                    BarChart = new FXBarChart(tituloGraficos, "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart(tituloGraficos, "Ciudades", ciudades, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
