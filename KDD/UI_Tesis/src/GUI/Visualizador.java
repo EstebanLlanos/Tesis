@@ -483,6 +483,7 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.removeAll();
         
         panelOpciones.add(ventasPorVendedor.getLabelTipoConsulta());
+        panelOpciones.add(ventasPorVendedor.getBusquedaCodigo());
         panelOpciones.add(ventasPorVendedor.getBusquedaNombre());
         panelOpciones.add(ventasPorVendedor.getBusquedaOtrosCriterios());
         panelOpciones.add(ventasPorVendedor.getLabelVendedor());

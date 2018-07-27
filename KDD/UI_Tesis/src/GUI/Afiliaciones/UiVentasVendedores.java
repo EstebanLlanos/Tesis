@@ -36,7 +36,7 @@ public class UiVentasVendedores {
     JComboBox comboBoxCiudades, comboBoxSedes, comboBoxAnioInicio, comboBoxAnioFin, comboBoxCriterioConsulta;
     JLabel labelCiudad, labelSede, labelAnioInicio, labelAnioFin, labelCriterioConsulta, labelVendedor, labelTipoConsulta, separadorBoton;
     JTextField textFieldVendedor;
-    JCheckBox busquedaNombre, busquedaOtrosCriterios;
+    JCheckBox busquedaCodigo, busquedaNombre, busquedaOtrosCriterios;
     JButton botonConsultar;
     
     // Clases para el despligue Gráfico de resultados
@@ -63,7 +63,50 @@ public class UiVentasVendedores {
         labelTipoConsulta = new JLabel();
         inicializarJLabel(labelTipoConsulta , "Tipo de Consulta a Realizar:                              ");
         
-        busquedaNombre = new JCheckBox("Buscar por código de Vendedor");
+        busquedaCodigo = new JCheckBox("Buscar por código de Vendedor");
+        busquedaCodigo.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        busquedaCodigo.setForeground(new java.awt.Color(230, 230, 255));
+        busquedaCodigo.setSelected(false);
+        
+        busquedaCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (busquedaCodigo.isSelected()) {
+                    
+                    busquedaNombre.setSelected(false);
+                    busquedaOtrosCriterios.setSelected(false);
+                    textFieldVendedor.setEnabled(true);
+                    
+                    comboBoxCiudades.setEnabled(false);
+                    comboBoxCiudades.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioInicio.setEnabled(false);
+                    comboBoxAnioInicio.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxAnioFin.setEnabled(false);
+                    comboBoxAnioFin.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxSedes.setEnabled(false);
+                    comboBoxSedes.setSelectedItem("Escoger una Opción...");
+                    
+                    comboBoxCriterioConsulta.setEnabled(false);
+                    comboBoxCriterioConsulta.setSelectedItem("Escoger una Opción...");
+                } else {
+                    busquedaOtrosCriterios.setSelected(true);
+                    
+                    textFieldVendedor.setEnabled(false);
+                    textFieldVendedor.setText("");
+                    
+                    comboBoxCiudades.setEnabled(true);
+                    comboBoxAnioInicio.setEnabled(true);
+                    comboBoxAnioFin.setEnabled(true);
+                    comboBoxSedes.setEnabled(true);
+                    comboBoxCriterioConsulta.setEnabled(true);
+                    comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Ventas");
+                }
+            }
+        });
+        
+        busquedaNombre = new JCheckBox("Buscar por nombre de Vendedor");
         busquedaNombre.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         busquedaNombre.setForeground(new java.awt.Color(230, 230, 255));
         busquedaNombre.setSelected(false);
@@ -71,6 +114,8 @@ public class UiVentasVendedores {
         busquedaNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (busquedaNombre.isSelected()) {
+                    
+                    busquedaCodigo.setSelected(false);
                     busquedaOtrosCriterios.setSelected(false);
                     textFieldVendedor.setEnabled(true);
                     
@@ -112,6 +157,7 @@ public class UiVentasVendedores {
         busquedaOtrosCriterios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (busquedaOtrosCriterios.isSelected()) {
+                    busquedaCodigo.setSelected(false);
                     busquedaNombre.setSelected(false);
                     
                     textFieldVendedor.setEnabled(false);
@@ -124,7 +170,7 @@ public class UiVentasVendedores {
                     comboBoxCriterioConsulta.setEnabled(true);
                     comboBoxCriterioConsulta.setSelectedItem("Mayor Número de Ventas");
                 } else {
-                    busquedaNombre.setSelected(true);
+                    busquedaCodigo.setSelected(true);
                     textFieldVendedor.setEnabled(true);
                     
                     comboBoxCiudades.setEnabled(false);
@@ -192,6 +238,7 @@ public class UiVentasVendedores {
         });
         
         autoCompletar = new AutoSuggestor(textFieldVendedor, ventanaPrincipal, obtenerVendedores(), Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.85f);
+        
         inicializarCiudades(comboBoxCiudades);
         inicializarSedes(comboBoxSedes);
         inicializarAnios(comboBoxAnioInicio);
@@ -212,9 +259,43 @@ public class UiVentasVendedores {
 
         String tituloGrafica = "";
         
-        if (busquedaNombre.isSelected()) {
-            System.out.println("SE SELECCIONO LA BUSQUEDA POR NOMBRE DE VENDEDOR");
-        } else if(true){}
+        if (busquedaCodigo.isSelected()) {
+            tituloGrafica = "Ventas de " + vendedor.split(",")[1] + " en los últimos años";
+        } else if(busquedaOtrosCriterios.isSelected()){
+            
+            if (!ciudad.equals("Escoger una Opción...") && sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Mejores Vendedores en la Ciudad de " + comboBoxCiudades.getSelectedItem();
+            }
+            
+            if (!ciudad.equals("Escoger una Opción...") && sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Peores Vendedores en la Ciudad de " + comboBoxCiudades.getSelectedItem();
+            }
+            
+            if (ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Mejores Vendedores en la Sede de " + comboBoxSedes.getSelectedItem();
+            }
+            
+            if (ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Peores Vendedores en la Sede de " + comboBoxSedes.getSelectedItem();
+            }
+            
+            if (!ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Mejores Vendedores en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en la Sede de " + comboBoxSedes.getSelectedItem();
+            }
+            
+            if (!ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Peores Vendedores en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en la Sede de " + comboBoxSedes.getSelectedItem();
+            }
+            
+            if (!ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Mejores Vendedores en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en la Sede de " + comboBoxSedes.getSelectedItem() + " en el periodo seleccionado";
+            }
+            
+            if (!ciudad.equals("Escoger una Opción...") && !sede.equals("Escoger una Opción...") && !anioInicio.equals("Escoger una Opción...") && criterioConsulta.equals("Menor Número de Ventas")) {
+                tituloGrafica = "Top 5 de Peores Vendedores en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en la Sede de " + comboBoxSedes.getSelectedItem() + " en el periodo seleccionado";
+            }
+            
+        }
         
         ArrayList <String[]> ventasPorVendedor = controladorVentasVendedor.getVentas(vendedor, ciudad, sede, anioInicio, anioFin, criterioConsulta);
 
@@ -239,9 +320,9 @@ public class UiVentasVendedores {
                 }
 
                 if (!ventasPorVendedor.isEmpty()) {
-                    PieChart = new FXPieChart("Top Vendedores", vendedores, ventas);
-                    BarChart = new FXBarChart("Top Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
-                    LineChart = new FXLineChart("Top Vendedores", "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    PieChart = new FXPieChart(tituloGrafica, vendedores, ventas);
+                    BarChart = new FXBarChart(tituloGrafica, "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
+                    LineChart = new FXLineChart(tituloGrafica, "Vendedores", vendedores, "Ventas", ventas, "Ventas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }
@@ -266,8 +347,11 @@ public class UiVentasVendedores {
                     + "FROM dim_vendedor WHERE tipo_vendedor = 'V';");
             
             while (tabla.next()) {
+                vendedores.add(tabla.getObject(2) + " " + tabla.getObject(1) +  ", " + tabla.getObject(3));
                 vendedores.add(tabla.getObject(3) +  ", " + tabla.getObject(2) + " " + tabla.getObject(1));
             }
+            
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -512,6 +596,14 @@ public class UiVentasVendedores {
         this.labelTipoConsulta = labelTipoConsulta;
     }
 
+    public JCheckBox getBusquedaCodigo() {
+        return busquedaCodigo;
+    }
+
+    public void setBusquedaCodigo(JCheckBox busquedaCodigo) {
+        this.busquedaCodigo = busquedaCodigo;
+    }
+    
     public JCheckBox getBusquedaNombre() {
         return busquedaNombre;
     }

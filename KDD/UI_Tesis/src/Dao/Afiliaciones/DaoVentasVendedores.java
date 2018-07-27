@@ -59,9 +59,18 @@ public class DaoVentasVendedores {
         }
         
         if (criterioConsultaVentas.equals("Escoger una Opción...") && !ventasVendedores.getVendedor().equals("")) {
+         
+            int codVendedor = 0;
             String[] datosVendedor = ventasVendedores.getVendedor().split(",");
-            int codVendedor = Integer.parseInt(datosVendedor[0].replaceAll("\\s+",""));
+            
+            if (datosVendedor[0].length() < datosVendedor[1].length()) {
+                codVendedor = Integer.parseInt(datosVendedor[0].replaceAll("\\s+",""));
+            } else {
+                codVendedor = Integer.parseInt(datosVendedor[1].replaceAll("\\s+",""));
+            }
+            
             where = " WHERE id_vendedor = '" + codVendedor + "'";
+            
         } else if(!criterioConsultaVentas.equals("Escoger una Opción...")){
             if (!ventasVendedores.getSede().equals("Escoger una Opción...") && ventasVendedores.getCiudad().equals("Escoger una Opción...")) {
 
