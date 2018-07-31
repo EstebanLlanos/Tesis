@@ -1,0 +1,10 @@
+Análisis de Revisión del Artículo para Medellín
+
+- Revisar la descripción de la Integración en el Modelo
+- Agregar Validaciones? Es un Modelo corto.
+- Mejorar información que indica el "improvement" de los KPI's.
+- Dar contexto sobre la situación actual de la empresa y como calculan sus Indicadores de Desempeño y como será una vez se implemente el Sistema.
+
+ ----- GENERAR CHECKLIST DE OBSERVACIONES REVIEW 1 Y REVIEW 2 -----
+ 
+ SEGUIR REVISANDO UIMA
