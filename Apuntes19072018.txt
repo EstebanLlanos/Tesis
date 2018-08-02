@@ -9,7 +9,7 @@ Mejoras a la Interfaz
 
 Filtros Disponibles
 
-- Ciudad
+- Ciudad  
 - Sede
 - Periodo
 + Criterio
