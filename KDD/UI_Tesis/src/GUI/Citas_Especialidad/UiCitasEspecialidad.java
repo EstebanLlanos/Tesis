@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GUI.Citas_Especialidad;
 
 import ConectorBD.ConexionBD;
@@ -157,6 +153,12 @@ public class UiCitasEspecialidad {
         String anioFin = "" + comboBoxAnioFin.getSelectedItem();
         String criterioConsulta = "" + comboBoxCriterioConsulta.getSelectedItem();
 
+        String tituloGraficos = "";
+        
+        if (!ciudad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
+            //tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas en el Departamento del " + comboBoxDepartamentos.getSelectedItem();
+        }
+        
         ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(ciudad, genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
 
         if (citasPorEspecialidad.isEmpty()) {            
@@ -179,9 +181,9 @@ public class UiCitasEspecialidad {
                 }
 
                 if (!citasPorEspecialidad.isEmpty()) {                    
-                    PieChart = new FXPieChart("Top Especialidades", especialidades, citas);
-                    BarChart = new FXBarChart("Top Especialidades", "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
-                    LineChart = new FXLineChart("Top Especialidades", "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
+                    PieChart = new FXPieChart(tituloGraficos, especialidades, citas);
+                    BarChart = new FXBarChart(tituloGraficos, "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
+                    LineChart = new FXLineChart(tituloGraficos, "Especialidades", especialidades, "Citas", citas, "Citas Realizadas");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha extraido la información");
                 }

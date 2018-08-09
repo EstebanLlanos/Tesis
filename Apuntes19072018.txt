@@ -9,24 +9,180 @@ Mejoras a la Interfaz
 
 Filtros Disponibles
 
-- Ciudad  
-- Sede
-- Periodo
+- ciudad
+- genero
+- estrato 
+- edad 
+- ingresos 
+- anioInicio
+- mesInicio 
+- mesFin
+- anioFin
 + Criterio
 
 Combinaciones Posibles
 
+- Ciudad + Genero + Estrato + Edad + Ingresos + Periodo (Mayor)
+- Ciudad + Genero + Estrato + Edad + Ingresos + Periodo (Menor)
+
+- Genero + Estrato + Edad + Ingresos + Periodo (Mayor)
+- Genero + Estrato + Edad + Ingresos + Periodo (Menor)
+
+- Ciudad + Genero + Estrato + Edad + Periodo (Mayor)
+- Ciudad + Genero + Estrato + Edad + Periodo (Menor)
+
+- Ciudad + Genero + Estrato + Edad + Ingresos (Mayor)
+- Ciudad + Genero + Estrato + Edad + Ingresos (Menor)
+
+- Estrato + Edad + Ingresos + Periodo (Mayor)
+- Estrato + Edad + Ingresos + Periodo (Menor)
+
+- Genero + Estrato + Edad + Periodo (Mayor)
+- Genero + Estrato + Edad + Periodo (Menor)
+
+- Genero + Estrato + Edad + Ingresos (Mayor)
+- Genero + Estrato + Edad + Ingresos (Menor)
+
+- Ciudad + Edad + Ingresos + Periodo (Mayor)
+- Ciudad + Edad + Ingresos + Periodo (Menor)
+
+- Ciudad + Estrato + Edad + Periodo (Mayor)
+- Ciudad + Estrato + Edad + Periodo (Menor)
+
+- Ciudad + Estrato + Edad + Ingresos (Mayor)
+- Ciudad + Estrato + Edad + Ingresos (Menor)
+
+- Ciudad + Genero + Estrato + Periodo (Mayor)
+- Ciudad + Genero + Estrato + Periodo (Menor)
+
+- Ciudad + Genero + Estrato + Ingresos (Mayor)
+- Ciudad + Genero + Estrato + Ingresos (Menor)
+
+- Ciudad + Genero + Estrato + Edad (Mayor)
+- Ciudad + Genero + Estrato + Edad (Menor)
+
+- Edad + Ingresos + Periodo (Mayor)
+- Edad + Ingresos + Periodo (Menor)
+
+- Estrato + Ingresos + Periodo (Mayor)
+- Estrato + Ingresos + Periodo (Menor)
+
+- Estrato + Edad + Periodo (Mayor)
+- Estrato + Edad + Periodo (Menor)
+
+- Estrato + Edad + Ingresos (Mayor)
+- Estrato + Edad + Ingresos (Menor)
+
+- Genero + Ingresos + Periodo (Mayor)
+- Genero + Ingresos + Periodo (Menor)
+
+- Genero + Edad + Periodo (Mayor)
+- Genero + Edad + Periodo (Menor)
+
+- Genero + Edad + Ingresos (Mayor)
+- Genero + Edad + Ingresos (Menor)
+
+- Genero + Estrato + Periodo (Mayor)
+- Genero + Estrato + Periodo (Menor)
+
+- Genero + Estrato + Ingresos (Mayor)
+- Genero + Estrato + Ingresos (Menor)
+
+- Genero + Estrato + Edad (Mayor)
+- Genero + Estrato + Edad (Menor)
+
+- Ciudad + Ingresos + Periodo (Mayor)
+- Ciudad + Ingresos + Periodo (Menor)
+
+- Ciudad + Edad + Periodo (Mayor)
+- Ciudad + Edad + Periodo (Menor)
+
+- Ciudad + Edad + Ingresos (Mayor)
+- Ciudad + Edad + Ingresos (Menor)
+
+- Ciudad + Estrato + Periodo (Mayor)
+- Ciudad + Estrato + Periodo (Menor)
+
+- Ciudad + Estrato + Ingresos (Mayor)
+- Ciudad + Estrato + Ingresos (Menor)
+
+- Ciudad + Estrato + Edad (Mayor)
+- Ciudad + Estrato + Edad (Menor)
+
+- Ciudad + Genero + Periodo (Mayor)
+- Ciudad + Genero + Periodo (Menor)
+
+- Ciudad + Genero + Ingresos (Mayor)
+- Ciudad + Genero + Ingresos (Menor)
+
+- Ciudad + Genero + Edad (Mayor)
+- Ciudad + Genero + Edad (Menor)
+
+- Ciudad + Genero + Estrato (Mayor)
+- Ciudad + Genero + Estrato (Menor)
+
+- Ciudad + Genero (Mayor)
+- Ciudad + Genero (Menor)
+
+- Ciudad + Estrato (Mayor)
+- Ciudad + Estrato (Menor)
+
+- Ciudad + Edad (Mayor)
+- Ciudad + Edad (Menor)
+
+- Ciudad + Ingresos (Mayor)
+- Ciudad + Ingresos (Menor)
+
+- Ciudad + Periodo (Mayor)
+- Ciudad + Periodo (Menor)
+
+- Genero + Estrato (Mayor)
+- Genero + Estrato (Menor)
+
+- Genero + Edad (Mayor)
+- Genero + Edad (Menor)
+
+- Genero + Ingresos (Mayor)
+- Genero + Ingresos (Menor)
+
+- Genero + Periodo (Mayor)
+- Genero + Periodo (Menor)
+
+- Genero + Estrato (Mayor)
+- Genero + Estrato (Menor)
+
+- Genero + Periodo (Mayor)
+- Genero + Periodo (Menor)
+
+- Estrato + Edad (Mayor)
+- Estrato + Edad (Menor)
+
+- Estrato + Ingresos (Mayor)
+- Estrato + Ingresos (Menor)
+
+- Estrato + Periodo (Mayor)
+- Estrato + Periodo (Menor)
+
+- Edad + Ingresos (Mayor)
+- Edad + Ingresos (Menor)
+
+- Edad + Periodo (Mayor)
+- Edad + Periodo (Menor)
+
+- Ingresos + Periodo (Mayor)
+- Ingresos + Periodo (Menor)
+
 - Ciudad (Mayor)
 - Ciudad (Menor)
 
-- Sede (Mayor)
-- Sede (Menor)
+- Genero (Mayor)
+- Genero (Menor)
 
-- Ciudad + Sede (Mayor)
-- Ciudad + Sede (Menor)
+- Estrato (Mayor)
+- Estrato (Menor)
 
-- Ciudad + Sede + Periodo (Mayor)
-- Ciudad + Sede + Periodo (Menor)
+- Edad (Mayor)
+- Edad (Menor)
 
-- Sede + Periodo (Mayor)
-- Sede + Periodo (Menor)
+- Ingresos (Mayor)
+- Ingresos (Menor)
