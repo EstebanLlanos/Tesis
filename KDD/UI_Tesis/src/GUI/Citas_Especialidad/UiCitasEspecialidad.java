@@ -107,7 +107,7 @@ public class UiCitasEspecialidad {
         botonConsultar.setPreferredSize(new Dimension(120, 30));
 
         separadorBoton = new JLabel();
-        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
+        inicializarJLabel(separadorBoton, "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡");
         separadorBoton.setFont(new java.awt.Font("Century Gothic", 1, 6));
         
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,8 +155,464 @@ public class UiCitasEspecialidad {
 
         String tituloGraficos = "";
         
-        if (!ciudad.equals("Escoger una Opción...") && criterioConsulta.equals("Mayor Número de Ventas")) {
-            //tituloGraficos = "Top 5 de Ciudades con Mayor Número de Ventas en el Departamento del " + comboBoxDepartamentos.getSelectedItem();
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas con un Ingreso " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas con un Ingreso " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas con un Ingreso " + comboBoxIngresos.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas con un Ingreso " + comboBoxIngresos.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                !anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " en el Periodo Seleccionado";
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Genero " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Genero " + comboBoxGenero.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " y el Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " y Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " y Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Genero " + comboBoxGenero.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas de Estrato " + comboBoxEstrato.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (ciudad.equals("Escoger una Opción...") &&
+                genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas por Personas con Edad " + comboBoxEdad.getSelectedItem() + " e Ingresos " + comboBoxIngresos.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " y Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                !estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " y Estrato " + comboBoxEstrato.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                !edad.equals("Escoger una Opción...") &&
+                ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " y Edad " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Más Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Más Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " e Ingresos " + comboBoxEdad.getSelectedItem();
+        }
+        
+        if (!ciudad.equals("Escoger una Opción...") &&
+                !genero.equals("Escoger una Opción...") &&
+                estrato.equals("Escoger una Opción...") &&
+                edad.equals("Escoger una Opción...") &&
+                !ingresos.equals("Escoger una Opción...") &&
+                anioInicio.equals("Escoger una Opción...") &&
+                criterioConsulta.equals("Especialidades Menos Solicitadas")) {
+            tituloGraficos = "Top 5 de Especialidades Menos Solicitadas en la Ciudad " + comboBoxCiudades.getSelectedItem() + ", Genero " + comboBoxGenero.getSelectedItem() + " e Ingresos " + comboBoxEdad.getSelectedItem();
         }
         
         ArrayList <String[]> citasPorEspecialidad = controladorCitasEspecialidad.getCitas(ciudad, genero, estrato, edad, ingresos, anioInicio, mesInicio, mesFin, anioFin, criterioConsulta);
