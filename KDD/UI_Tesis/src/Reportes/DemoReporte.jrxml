@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DemoReporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="676e255d-e0ec-4bcf-a8a9-28009afdd5d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT cd.nombre_ciudad, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv INNER JOIN dim_ciudad cd  ON (dv.ciudad_afiliacion = CAST ( cd.cod_ciudad AS BIGINT )) WHERE dv.sede_afiliacion = '1' AND cd.departamento_ciudad = '1' AND (dv.fecha_afiliacion BETWEEN '20160101' AND '20161201')  GROUP BY cd.nombre_ciudad ORDER BY SUM(dv.cantidad_afiliaciones) DESC LIMIT 5;]]>
+	</queryString>
+	<field name="nombre_ciudad" class="java.lang.String"/>
+	<field name="cantidad_afiliaciones" class="java.lang.Long"/>
+	<group name="nombre_ciudad">
+		<groupExpression><![CDATA[$F{nombre_ciudad}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="6bc53d4e-77d8-46e1-aa2c-4afcbc046968"/>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" uuid="a9d3a2f0-d54a-4c79-b8bd-c26c9972dc83"/>
+						<textElement>
+							<font isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{nombre_ciudad}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement x="456" y="0" width="99" height="132" uuid="35275faf-d544-4a95-a8c2-5f1076cfc65e"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="c21d4e2f-73c1-411f-8fdc-6a14500ce99f"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="433" height="66" uuid="0eea2ead-0128-4d0f-8427-80e95f8bb98a"/>
+					<textElement textAlignment="Center">
+						<font size="24" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Top 5 de Ciudades con Mayor Número de Ventas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="147" y="66" width="286" height="29" uuid="84f677de-93aa-4c4b-a016-661a411b5aed"/>
+					<textElement>
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Departamento: Valle - Sede: Pamira - Desde 2016]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="2bc63c82-9620-4e77-9ebd-8c1886886808"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="299" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="01727ddf-89bc-4914-901e-a996835a25f6"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="7" width="555" height="18" forecolor="#000000" uuid="f5c2d1ea-6626-4f4c-8d0b-e27a88dea2ad"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Afiliaciones por Ciudad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="b5437c34-7b9f-4225-8607-ad0c92f5cb9c"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="555" height="18" uuid="74db34a8-18b8-43d0-ab73-74c984a859fd"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantidad_afiliaciones}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="251">
+			<pie3DChart>
+				<chart>
+					<reportElement x="38" y="0" width="473" height="251" uuid="35f4d95e-af68-45b4-a919-71c01cf684b8"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre_ciudad}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad_afiliaciones}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="41" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="14" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="1b19b131-d8f5-4fc9-b975-1bff47688851"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="509" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="1b72fa1b-4ba8-4216-b175-2d56a96f4c81"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="426" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="3db7f922-13f2-4c47-a206-8d83d851b167"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="aae971d2-6c47-4ca2-9fb5-e55a7e5d0e20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
