@@ -43,21 +43,17 @@
 	</background>
 	<title>
 		<band height="132" splitType="Stretch">
-			<image>
-				<reportElement x="456" y="0" width="99" height="132" uuid="35275faf-d544-4a95-a8c2-5f1076cfc65e"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="c21d4e2f-73c1-411f-8fdc-6a14500ce99f"/>
+				<reportElement mode="Opaque" x="0" y="0" width="405" height="95" backcolor="#000000" uuid="c21d4e2f-73c1-411f-8fdc-6a14500ce99f"/>
 				<staticText>
-					<reportElement style="Title" x="0" y="0" width="433" height="66" uuid="0eea2ead-0128-4d0f-8427-80e95f8bb98a"/>
+					<reportElement style="Title" x="0" y="0" width="395" height="66" uuid="0eea2ead-0128-4d0f-8427-80e95f8bb98a"/>
 					<textElement textAlignment="Center">
 						<font size="24" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Top 5 de Ciudades con Mayor Número de Ventas]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="SubTitle" x="147" y="66" width="286" height="29" uuid="84f677de-93aa-4c4b-a016-661a411b5aed"/>
+					<reportElement style="SubTitle" x="109" y="66" width="286" height="29" uuid="84f677de-93aa-4c4b-a016-661a411b5aed"/>
 					<textElement>
 						<font size="14" isBold="false"/>
 					</textElement>
@@ -65,15 +61,19 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="2bc63c82-9620-4e77-9ebd-8c1886886808"/>
+				<reportElement mode="Opaque" x="0" y="100" width="405" height="32" forecolor="#000000" backcolor="#CC0000" uuid="2bc63c82-9620-4e77-9ebd-8c1886886808"/>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="299" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="01727ddf-89bc-4914-901e-a996835a25f6"/>
+					<reportElement x="251" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="01727ddf-89bc-4914-901e-a996835a25f6"/>
 					<textElement textAlignment="Right">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
+			<image>
+				<reportElement x="410" y="0" width="145" height="132" uuid="7d041c4b-064c-42da-8b39-888d4dbb7b19"/>
+				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Recursos\\Logo_Previser.PNG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -108,7 +108,7 @@
 		<band height="251">
 			<pie3DChart>
 				<chart>
-					<reportElement x="38" y="0" width="473" height="251" uuid="35f4d95e-af68-45b4-a919-71c01cf684b8"/>
+					<reportElement x="4" y="0" width="551" height="240" uuid="35f4d95e-af68-45b4-a919-71c01cf684b8"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
