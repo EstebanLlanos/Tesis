@@ -590,6 +590,8 @@ public class Visualizador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuResumenes = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -629,6 +631,10 @@ public class Visualizador extends javax.swing.JFrame {
         panelPestanas.setBorder(new javax.swing.border.MatteBorder(null));
         panelPestanas.setAutoscrolls(true);
 
+        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
         jDesktopPane2Layout.setHorizontalGroup(
@@ -653,9 +659,6 @@ public class Visualizador extends javax.swing.JFrame {
                     .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                     .addComponent(panelPestanas)))
         );
-        jDesktopPane2.setLayer(panelPreguntas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelOpciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelPestanas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         salir.setText("Archivo");
         salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -665,7 +668,7 @@ public class Visualizador extends javax.swing.JFrame {
         Image img = new ImageIcon(getClass().getResource("/Recursos/seleccionar.png")).getImage();
         ImageIcon selectIcon = new ImageIcon(getScaledImage(img, 30, 30));
         menuSeleccionarHecho.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        menuSeleccionarHecho.setIcon(selectIcon);
+        menuSeleccionarHecho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/marketing.png"))); // NOI18N
         menuSeleccionarHecho.setText("Seleccionar Objeto de Consulta...");
         menuSeleccionarHecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -682,7 +685,7 @@ public class Visualizador extends javax.swing.JFrame {
         Image exitImg = new ImageIcon(getClass().getResource("/Recursos/salir.png")).getImage();
         ImageIcon exitIcon = new ImageIcon(getScaledImage(exitImg, 30, 30));
         jMenuItem1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jMenuItem1.setIcon(exitIcon);
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/exit.png"))); // NOI18N
         jMenuItem1.setText("Salir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,7 +703,7 @@ public class Visualizador extends javax.swing.JFrame {
         Image resumeImg = new ImageIcon(getClass().getResource("/Recursos/resumenes.png")).getImage();
         ImageIcon resumeIcon = new ImageIcon(getScaledImage(resumeImg, 30, 30));
         jMenuResumenes.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jMenuResumenes.setIcon(resumeIcon);
+        jMenuResumenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/seo.png"))); // NOI18N
         jMenuResumenes.setText("Resúmenes");
         jMenuResumenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -708,6 +711,13 @@ public class Visualizador extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuResumenes);
+        jMenu1.add(jSeparator2);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/responsive (2).png"))); // NOI18N
+        jMenuItem2.setText("Reportes");
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -831,10 +841,12 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuResumenes;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem menuSeleccionarHecho;
     private javax.swing.JPanel panelOpciones;
     public static javax.swing.JTabbedPane panelPestanas;
