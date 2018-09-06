@@ -71,8 +71,8 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="410" y="0" width="145" height="132" uuid="7d041c4b-064c-42da-8b39-888d4dbb7b19"/>
-				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Recursos\\Logo_Previser.PNG"]]></imageExpression>
+				<reportElement x="405" y="7" width="150" height="123" uuid="e7df08a4-d665-4e61-aa37-c07a7f8a6071"/>
+				<imageExpression><![CDATA["C:\\Users\\Miguel Torrres\\Documents\\Tesis\\KDD\\UI_Tesis\\src\\Recursos\\Logo_Previser.PNG"]]></imageExpression>
 			</image>
 		</band>
 	</title>

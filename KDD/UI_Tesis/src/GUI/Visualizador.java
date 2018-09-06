@@ -1,5 +1,6 @@
 package GUI;
 
+import ConectorBD.ConexionBD;
 import GUI.Afiliaciones.UiVentasCiudades;
 import GUI.Afiliaciones.UiVentasDemografia;
 import GUI.Afiliaciones.UiVentasSedes;
@@ -17,11 +18,19 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 public class Visualizador extends javax.swing.JFrame {
 
@@ -591,7 +600,7 @@ public class Visualizador extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuResumenes = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuReporte = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -713,11 +722,16 @@ public class Visualizador extends javax.swing.JFrame {
         jMenu1.add(jMenuResumenes);
         jMenu1.add(jSeparator2);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/responsive (2).png"))); // NOI18N
-        jMenuItem2.setText("Reportes");
-        jMenu1.add(jMenuItem2);
+        jMenuReporte.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuReporte.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jMenuReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/responsive (2).png"))); // NOI18N
+        jMenuReporte.setText("Generar Reporte");
+        jMenuReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuReporteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuReporte);
 
         jMenuBar1.add(jMenu1);
 
@@ -800,6 +814,28 @@ public class Visualizador extends javax.swing.JFrame {
 //        p.setVisible(true);
 //        p.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuResumenesActionPerformed
+
+    private void jMenuReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReporteActionPerformed
+        JasperReport report;
+        JasperPrint jasperPrint;
+        
+        ConexionBD bd = new ConexionBD();
+        Connection conn = bd.conectar();
+        
+        try {
+            report = (JasperReport) JRLoader.loadObjectFromFile("C:/Users/Miguel Torrres/Documents/Tesis/KDD/UI_Tesis/src/Reportes/DemoReporte.jasper");
+            jasperPrint = JasperFillManager.fillReport(report, null, conn);
+            
+            JFrame frame = new JFrame("Report");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(new JRViewer(jasperPrint));
+            frame.pack();
+            frame.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuReporteActionPerformed
     
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -841,7 +877,7 @@ public class Visualizador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuReporte;
     private javax.swing.JMenuItem jMenuResumenes;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
