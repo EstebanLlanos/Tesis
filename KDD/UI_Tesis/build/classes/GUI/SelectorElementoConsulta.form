@@ -121,13 +121,14 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
-                <StringItem index="0" value="Afiliaciones"/>
+                <StringItem index="0" value="Cupos"/>
                 <StringItem index="1" value="Citas por Especialidad"/>
                 <StringItem index="2" value="Citas por Ex&#xe1;menes"/>
                 <StringItem index="3" value="Citas para Otros Servicios"/>
                 <StringItem index="4" value="Quejas y Comunicaciones Directas con Clientes"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxElementoConsultaActionPerformed"/>

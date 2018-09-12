@@ -65,7 +65,8 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         comboBoxElementoConsulta.setBackground(new java.awt.Color(204, 204, 204));
         comboBoxElementoConsulta.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         comboBoxElementoConsulta.setForeground(new java.awt.Color(0, 153, 153));
-        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afiliaciones", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
+        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cupos", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Quejas y Comunicaciones Directas con Clientes" }));
+        comboBoxElementoConsulta.setToolTipText("");
         comboBoxElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxElementoConsultaActionPerformed(evt);

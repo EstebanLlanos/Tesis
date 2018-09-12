@@ -1,10 +1,10 @@
 package GUI;
 
 import ConectorBD.ConexionBD;
-import GUI.Afiliaciones.UiVentasCiudades;
-import GUI.Afiliaciones.UiVentasDemografia;
-import GUI.Afiliaciones.UiVentasSedes;
-import GUI.Afiliaciones.UiVentasVendedores;
+import GUI.Cupos.UiVentasCiudades;
+import GUI.Cupos.UiVentasDemografia;
+import GUI.Cupos.UiVentasSedes;
+import GUI.Cupos.UiVentasVendedores;
 import GUI.Citas_Especialidad.UiCitasEspecialidad;
 import GUI.Citas_Especialidad.UiCitasEspecialista;
 import GUI.Citas_Examenes.UiCitasExamen;
@@ -12,6 +12,7 @@ import GUI.Citas_Examenes.UiCitasInstitucion;
 import GUI.Citas_Otros_Servicios.UiCitasInstitucionServicio;
 import GUI.Citas_Otros_Servicios.UiCitasTipoServicio;
 import GUI.Resumenes.VisualizadorResumenes;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -19,6 +20,8 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -55,7 +58,7 @@ public class Visualizador extends javax.swing.JFrame {
         elementoSeleccionado = elementoDeConsulta;
         
         switch (elementoSeleccionado) {
-            case "Afiliaciones":
+            case "Cupos":
                 elementoConsultaSeleccionada = 1;
                 break;
             case "Citas por Especialidad":
@@ -86,10 +89,10 @@ public class Visualizador extends javax.swing.JFrame {
                     comboBoxPreguntas = new JComboBox();
                     arregloPreguntas = new String[5][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
-                    arregloPreguntas[1][0] = "Venta de Afiliaciones por Ciudades";
-                    arregloPreguntas[2][0] = "Venta de Afiliaciones por Vendedor";
-                    arregloPreguntas[3][0] = "Venta de Afiliaciones por Sede";
-                    arregloPreguntas[4][0] = "Venta de Afiliaciones por Perfil Demográfico";
+                    arregloPreguntas[1][0] = "Venta de Cupos por Ciudades";
+                    arregloPreguntas[2][0] = "Venta de Cupos por Vendedor";
+                    arregloPreguntas[3][0] = "Venta de Cupos por Sede";
+                    arregloPreguntas[4][0] = "Venta de Cupos por Perfil Demográfico";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -822,17 +825,31 @@ public class Visualizador extends javax.swing.JFrame {
         ConexionBD bd = new ConexionBD();
         Connection conn = bd.conectar();
         
-        try {
-            report = (JasperReport) JRLoader.loadObjectFromFile("C:/Users/Miguel Torrres/Documents/Tesis/KDD/UI_Tesis/src/Reportes/DemoReporte.jasper");
-            jasperPrint = JasperFillManager.fillReport(report, null, conn);
+        if (elementoSeleccionado.equals("Cupos")) {
+            try {
+                
+                Map<String, Object> parametros = new HashMap();
+                parametros.put("id_sede", new String("2"));
+                
+                report = (JasperReport) JRLoader.loadObjectFromFile("C:/Users/Miguel Torrres/Documents/Tesis/KDD/UI_Tesis/src/Reportes/Cupos/DemoReporte.jasper");
+                jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
             
-            JFrame frame = new JFrame("Report");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new JRViewer(jasperPrint));
-            frame.pack();
-            frame.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+                JFrame frame = new JFrame("Reporte Venta de Cupos");
+                frame.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+                frame.getContentPane().add(new JRViewer(jasperPrint));
+                frame.pack();
+                frame.setVisible(true);
+            } catch (JRException ex) {
+                Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+        } else if (elementoSeleccionado.equals("Citas por Especialidad")) {
+              
+        } else if (elementoSeleccionado.equals("Citas por Exámenes")) {
+               
+        } else if (elementoSeleccionado.equals("Citas para Otros Servicios")) {
+              
+        } else if (elementoSeleccionado.equals("Quejas y Comunicaciones Directas con Clientes")) {
+             
         }
         
     }//GEN-LAST:event_jMenuReporteActionPerformed
