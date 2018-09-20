@@ -7,6 +7,7 @@ package GUI.Cupos;
 
 import ConectorBD.ConexionBD;
 import Controlador.Cupos.ControladorVentasCiudades;
+import GUI.Visualizador;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -17,10 +18,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 /*
  * @author Esteban
@@ -264,6 +276,150 @@ public class UiVentasCiudades {
 
         for (int i = 0; i < meses.length; i++) {
             criteriosDeConsulta.addItem(meses[i][0]);
+        }
+    
+    }
+    
+    public int obtenerCodigoDepartamento(String nombreDepartamento){
+        
+        int departamentoSeleccionado = 0;
+        
+        if (nombreDepartamento.equals("VALLE")) {
+            departamentoSeleccionado = 1;
+        } else if (nombreDepartamento.equals("CAUCA")) {
+            departamentoSeleccionado = 2;
+        } else if (nombreDepartamento.equals("RISARALDA")) {
+            departamentoSeleccionado = 3;
+        } else if (nombreDepartamento.equals("QUINDIO")) {
+            departamentoSeleccionado = 4;
+        } else if (nombreDepartamento.equals("NARIÑO")) {
+            departamentoSeleccionado = 5;
+        } else if (nombreDepartamento.equals("CALDAS")) {
+            departamentoSeleccionado = 6;
+        } else if (nombreDepartamento.equals("CHOCO")) {
+            departamentoSeleccionado = 7;
+        } else if (nombreDepartamento.equals("BOGOTA")) {
+            departamentoSeleccionado = 8;
+        } else if (nombreDepartamento.equals("ANTIOQUIA")) {
+            departamentoSeleccionado = 9;
+        } else if (nombreDepartamento.equals("TOLIMA")) {
+            departamentoSeleccionado = 10;
+        } else if (nombreDepartamento.equals("ATLANTICO")) {
+            departamentoSeleccionado = 11;
+        } else if (nombreDepartamento.equals("SANTANDER")) {
+            departamentoSeleccionado = 12;
+        } else if (nombreDepartamento.equals("HUILA")) {
+            departamentoSeleccionado = 13;
+        } else if (nombreDepartamento.equals("META")) {
+            departamentoSeleccionado = 14;
+        } else if (nombreDepartamento.equals("BOYACA")) {
+            departamentoSeleccionado = 15;
+        } else if (nombreDepartamento.equals("BOLIVAR")) {
+            departamentoSeleccionado = 16;
+        } else if (nombreDepartamento.equals("CAQUETA")) {
+            departamentoSeleccionado = 18;
+        } else if (nombreDepartamento.equals("CESAR")) {
+            departamentoSeleccionado = 20;
+        } else if (nombreDepartamento.equals("CORDOBA")) {
+            departamentoSeleccionado = 23;
+        } else if (nombreDepartamento.equals("CUNDINAMARCA")) {
+            departamentoSeleccionado = 25;
+        } else if (nombreDepartamento.equals("LA GUAJIRA")) {
+            departamentoSeleccionado = 44;
+        } else if (nombreDepartamento.equals("MAGDALENA")) {
+            departamentoSeleccionado = 47;
+        } else if (nombreDepartamento.equals("N. DE SANTANDER")) {
+            departamentoSeleccionado = 54;
+        } else if (nombreDepartamento.equals("SUCRE")) {
+            departamentoSeleccionado = 70;
+        } else if (nombreDepartamento.equals("ARAUCA")) {
+            departamentoSeleccionado = 81;
+        } else if (nombreDepartamento.equals("CASANARE")) {
+            departamentoSeleccionado = 85;
+        } else if (nombreDepartamento.equals("PUTUMAYO")) {
+            departamentoSeleccionado = 86;
+        } else if (nombreDepartamento.equals("SAN ANDRES")) {
+            departamentoSeleccionado = 88;
+        } else if (nombreDepartamento.equals("AMAZONAS")) {
+            departamentoSeleccionado = 91;
+        } else if (nombreDepartamento.equals("GUAINIA")) {
+            departamentoSeleccionado = 94;
+        } else if (nombreDepartamento.equals("GUAVIARE")) {
+            departamentoSeleccionado = 95;
+        } else if (nombreDepartamento.equals("VAUPES")) {
+            departamentoSeleccionado = 97;
+        } else if (nombreDepartamento.equals("VICHADA")) {
+            departamentoSeleccionado = 99;
+        }  
+        
+        return departamentoSeleccionado;
+    }
+    
+    public int obtenerCodigoSede(String nombreSede){
+        
+        int sedeSeleccionada = 0;
+        
+        if (nombreSede.equals("SEDE PALMIRA")) {
+            sedeSeleccionada = 1;
+        } else if (nombreSede.equals("SEDE CALI")) {
+            sedeSeleccionada = 2;
+        } else if (nombreSede.equals("SEDE TULUA")) {
+            sedeSeleccionada = 3;
+        } else if (nombreSede.equals("SEDE PEREIRA")) {
+            sedeSeleccionada = 4;
+        } else if (nombreSede.equals("SEDE ARMENIA")) {
+            sedeSeleccionada = 5;
+        }
+        
+        return sedeSeleccionada;
+    }
+    
+    public void generarReporte(){
+    
+        JasperReport report;
+        JasperPrint jasperPrint;
+        
+        ConexionBD bd = new ConexionBD();
+        Connection conn = bd.conectar();
+
+        try {
+
+            Map<String, Object> parametros = new HashMap();
+            System.out.println("Sede: " + obtenerCodigoSede(comboBoxSedes.getSelectedItem().toString()));
+            parametros.put("id_sede", new Long(obtenerCodigoSede(comboBoxSedes.getSelectedItem().toString()) + ""));
+            System.out.println("Departamento: " + obtenerCodigoDepartamento(comboBoxDepartamentos.getSelectedItem().toString()));
+            parametros.put("id_departamento", new Long(obtenerCodigoDepartamento(comboBoxDepartamentos.getSelectedItem().toString()) + ""));
+
+            if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                parametros.put("id_fecha_inicio", new Long("20120101"));
+            } else {
+                System.out.println("id_fecha_inicio: " + comboBoxAnioInicio.getSelectedItem().toString() + "0101");
+                parametros.put("id_fecha_inicio", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "0101"));
+            }
+
+            if (comboBoxAnioFin.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                    parametros.put("id_fecha_fin", new Long("20121201"));   
+                } else {
+                    System.out.println("id_fecha_fin: " + comboBoxAnioInicio.getSelectedItem().toString() + "1201");
+                    parametros.put("id_fecha_fin", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "1201"));   
+                }
+                
+            } else {
+                System.out.println("id_fecha_fin: " + comboBoxAnioFin.getSelectedItem().toString() + "1201");
+                parametros.put("id_fecha_fin", new Long(comboBoxAnioFin.getSelectedItem().toString() + "1201"));
+            }
+
+            report = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\ReporteVentasCiudades.jasper");
+            jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
+
+            JFrame frame = new JFrame("Reporte Venta de Cupos por Ciudad");
+            frame.setPreferredSize(new Dimension(1000, 600));
+            frame.getContentPane().add(new JRViewer(jasperPrint));
+            frame.pack();
+            frame.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }

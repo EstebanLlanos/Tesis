@@ -7,6 +7,7 @@ package GUI.Cupos;
 
 import ConectorBD.ConexionBD;
 import Controlador.Cupos.ControladorVentasDemografia;
+import GUI.Visualizador;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -17,10 +18,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -585,6 +597,133 @@ public class UiVentasDemografia {
         for (int i = 0; i < anios.length; i++) {
             anioVentas.addItem(anios[i][0]);
         }
+    }
+    
+    public int obtenerCodigoEdad(String edad){
+        
+        int codigoEdad = 0;
+        
+        switch (edad) {
+            case "Menor a 18 años":
+                codigoEdad = 1;
+                break;
+            case "De 18 a 25 años":
+                codigoEdad = 2;
+                break;
+            case "De 26 a 40 años":
+                codigoEdad = 3;
+                break;
+            case "De 41 a 50 años":
+                codigoEdad = 4;
+                break;
+            case "De 51 a 60 años":
+                codigoEdad = 5;
+                break;
+            case "Mayor a 60 años":
+                codigoEdad = 6;
+                break;
+        }
+        
+        return codigoEdad;
+    }
+    
+    public int obtenerCodigoIngreso(String ingreso){
+        
+        int codigoIngresos = 0;
+        
+        switch (ingreso) {
+            case "Menor a 1.000.000 de pesos":
+                codigoIngresos = 1;
+                break;
+            case "De 1.000.001 a 2.000.000 de pesos":
+                codigoIngresos = 2;
+                break;
+            case "De 2.000.001 a 4.000.000 de pesos":
+                codigoIngresos = 3;
+                break;
+            case "De 4.000.001 a 5.000.000 de pesos":
+                codigoIngresos = 4;
+                break;
+            case "Mayor a 5.000.000 de pesos":
+                codigoIngresos = 5;
+                break;
+        }
+        
+        return codigoIngresos;
+    }
+    
+    public String obtenerGenero(String genero){
+        
+        String codigoGenero = "";
+        
+        switch (genero) {
+            case "Femenino":
+                codigoGenero = "F";
+                break;
+            case "Masculino":
+                codigoGenero = "M";
+                break;
+        }
+        
+        return codigoGenero;
+    }
+    
+    public void generarReporte(){
+    
+        JasperReport report;
+        JasperPrint jasperPrint;
+        
+        ConexionBD bd = new ConexionBD();
+        Connection conn = bd.conectar();
+
+        try {
+
+            Map<String, Object> parametros = new HashMap();
+            
+            System.out.println("Genero: " + new String(obtenerGenero(comboBoxGenero.getSelectedItem().toString() + "")).getClass());
+            parametros.put("genero_demografia", new String(obtenerGenero(comboBoxGenero.getSelectedItem().toString())));
+            
+            System.out.println("Estrato: " + new Long(comboBoxEstrato.getSelectedItem().toString() + "").getClass());
+            parametros.put("estrato_demografia", new Long(comboBoxEstrato.getSelectedItem().toString() + ""));
+            
+            System.out.println("Edad: " +  new Long(obtenerCodigoEdad(comboBoxEdad.getSelectedItem().toString() + "")).getClass());
+            parametros.put("edad_demografia", new Long(obtenerCodigoEdad(comboBoxEdad.getSelectedItem().toString()) + ""));
+            
+            System.out.println("Ingresos: " + new Long(obtenerCodigoIngreso(comboBoxIngreso.getSelectedItem().toString() + "")).getClass());
+            parametros.put("ingresos_demografia", new Long(obtenerCodigoIngreso(comboBoxIngreso.getSelectedItem().toString()) + ""));
+
+            if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                parametros.put("id_fecha_inicio", new Long("20120101"));
+            } else {
+                System.out.println("id_fecha_inicio: " + comboBoxAnioInicio.getSelectedItem().toString() + "0101");
+                parametros.put("id_fecha_inicio", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "0101"));
+            }
+
+            if (comboBoxAnioFin.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                    parametros.put("id_fecha_fin", new Long("20121201"));   
+                } else {
+                    System.out.println("id_fecha_fin: " + comboBoxAnioInicio.getSelectedItem().toString() + "1201");
+                    parametros.put("id_fecha_fin", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "1201"));   
+                }
+                
+            } else {
+                System.out.println("id_fecha_fin: " + comboBoxAnioFin.getSelectedItem().toString() + "1201");
+                parametros.put("id_fecha_fin", new Long(comboBoxAnioFin.getSelectedItem().toString() + "1201"));
+            }
+
+            report = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\ReporteVentasDemografia.jasper");
+            jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
+
+            JFrame frame = new JFrame("Reporte Venta de Cupos por Perfil Demográfico");
+            frame.setPreferredSize(new Dimension(1000, 600));
+            frame.getContentPane().add(new JRViewer(jasperPrint));
+            frame.pack();
+            frame.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     public JComboBox getComboBoxGenero() {

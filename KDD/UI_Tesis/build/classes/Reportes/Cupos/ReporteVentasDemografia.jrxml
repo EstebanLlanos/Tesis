@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DemoReporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="676e255d-e0ec-4bcf-a8a9-28009afdd5d1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="82"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -13,25 +13,33 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="id_sede" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
-	</parameter>
-	<parameter name="id_departamento" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
-	</parameter>
 	<parameter name="id_fecha_inicio" class="java.lang.Long">
 		<defaultValueExpression><![CDATA[20160101]]></defaultValueExpression>
 	</parameter>
 	<parameter name="id_fecha_fin" class="java.lang.Long">
 		<defaultValueExpression><![CDATA[20161201]]></defaultValueExpression>
 	</parameter>
+	<parameter name="genero_demografia" class="java.lang.String">
+		<defaultValueExpression><![CDATA[M]]></defaultValueExpression>
+	</parameter>
+	<parameter name="estrato_demografia" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<parameter name="edad_demografia" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ingresos_demografia" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT cd.nombre_ciudad, dv.sede_afiliacion, cd.departamento_ciudad, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv INNER JOIN dim_ciudad cd  ON (dv.ciudad_afiliacion = CAST ( cd.cod_ciudad AS BIGINT )) WHERE dv.sede_afiliacion = $P{id_sede} AND cd.departamento_ciudad = CAST ($P{id_departamento} AS VARCHAR) AND (dv.fecha_afiliacion BETWEEN $P{id_fecha_inicio} AND $P{id_fecha_fin}) GROUP BY cd.nombre_ciudad, dv.sede_afiliacion, cd.departamento_ciudad ORDER BY SUM(dv.cantidad_afiliaciones) DESC LIMIT 5;]]>
+		<![CDATA[SELECT cd.nombre_ciudad, dd.genero_demografia, dd.estrato_demografia, dd.edad_demografia, dd.ingresos_demografia, SUM(dv.cantidad_afiliaciones) AS cantidad_afiliaciones FROM datamart_afiliacion dv INNER JOIN dim_ciudad cd ON (dv.ciudad_afiliacion = CAST ( cd.cod_ciudad AS BIGINT )) INNER JOIN dim_demografia dd ON (dv.demografia_afiliacion = CAST ( dd.id_demografia AS BIGINT )) WHERE dd.genero_demografia = $P{genero_demografia} AND dd.estrato_demografia = $P{estrato_demografia} AND dd.edad_demografia = $P{edad_demografia} AND dd.ingresos_demografia = $P{ingresos_demografia} AND (dv.fecha_afiliacion BETWEEN '20120101' AND '20121201') GROUP BY cd.nombre_ciudad, dd.genero_demografia, dd.estrato_demografia, dd.edad_demografia, dd.ingresos_demografia ORDER BY SUM(dv.cantidad_afiliaciones) DESC LIMIT 5;]]>
 	</queryString>
 	<field name="nombre_ciudad" class="java.lang.String"/>
 	<field name="cantidad_afiliaciones" class="java.lang.Long"/>
-	<field name="departamento_ciudad" class="java.lang.String"/>
-	<field name="sede_afiliacion" class="java.lang.String"/>
+	<field name="genero_demografia" class="java.lang.String"/>
+	<field name="estrato_demografia" class="java.lang.String"/>
+	<field name="edad_demografia" class="java.lang.String"/>
+	<field name="ingresos_demografia" class="java.lang.String"/>
 	<group name="nombre_ciudad">
 		<groupExpression><![CDATA[$F{nombre_ciudad}]]></groupExpression>
 		<groupHeader>
@@ -60,19 +68,19 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="405" height="95" backcolor="#000000" uuid="c21d4e2f-73c1-411f-8fdc-6a14500ce99f"/>
 				<staticText>
-					<reportElement style="Title" x="0" y="0" width="395" height="66" uuid="0eea2ead-0128-4d0f-8427-80e95f8bb98a"/>
+					<reportElement style="Title" x="4" y="0" width="401" height="66" uuid="0eea2ead-0128-4d0f-8427-80e95f8bb98a"/>
 					<textElement textAlignment="Center">
 						<font size="24" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Top 5 de Ciudades con Mayor Número de Ventas]]></text>
+					<text><![CDATA[Top 5 de Ciudades con Mayor Número de Ventas por Demografia]]></text>
 				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="2" y="71" width="403" height="24" uuid="84f677de-93aa-4c4b-a016-661a411b5aed"/>
+				<textField>
+					<reportElement x="168" y="66" width="237" height="29" forecolor="#CCCCCC" uuid="2847e146-9e02-434c-91af-617fd06b968f"/>
 					<textElement>
-						<font size="14" isBold="false"/>
+						<font size="11"/>
 					</textElement>
-					<text><![CDATA[Departamento: $F{departamento_ciudad} Sede: $F{sede_afiliacion}]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA["Genero: " + $F{genero_demografia}.toString() + " Estrato: " + $F{estrato_demografia}.toString() + " Edad: " + $F{edad_demografia}.toString() + " Ingresos: " + $F{ingresos_demografia}.toString()]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="100" width="405" height="32" forecolor="#000000" backcolor="#CC0000" uuid="2bc63c82-9620-4e77-9ebd-8c1886886808"/>
@@ -85,8 +93,8 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="412" y="7" width="150" height="123" uuid="e7df08a4-d665-4e61-aa37-c07a7f8a6071"/>
-				<imageExpression><![CDATA["C:\\Users\\Miguel Torrres\\Documents\\Tesis\\KDD\\UI_Tesis\\src\\Recursos\\Logo_Previser.PNG"]]></imageExpression>
+				<reportElement x="410" y="0" width="151" height="132" uuid="21d367ae-99f7-4006-9116-d91a3f1f082a"/>
+				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.PNG"]]></imageExpression>
 			</image>
 		</band>
 	</title>

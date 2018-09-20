@@ -7,6 +7,7 @@ package GUI.Cupos;
 
 import ConectorBD.ConexionBD;
 import Controlador.Cupos.ControladorVentasSedes;
+import GUI.Visualizador;
 import Gráficos.FXBarChart;
 import Gráficos.FXLineChart;
 import Gráficos.FXPieChart;
@@ -17,10 +18,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -246,6 +258,52 @@ public class UiVentasSedes {
         for (int i = 0; i < anios.length; i++) {
             anioVentas.addItem(anios[i][0]);
         }
+    }
+    
+    public void generarReporte(){
+    
+        JasperReport report;
+        JasperPrint jasperPrint;
+        
+        ConexionBD bd = new ConexionBD();
+        Connection conn = bd.conectar();
+
+        try {
+
+            Map<String, Object> parametros = new HashMap();         
+
+            if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                parametros.put("id_fecha_inicio", new Long("20120101"));
+            } else {
+                System.out.println("id_fecha_inicio: " + comboBoxAnioInicio.getSelectedItem().toString() + "0101");
+                parametros.put("id_fecha_inicio", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "0101"));
+            }
+
+            if (comboBoxAnioFin.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                if (comboBoxAnioInicio.getSelectedItem().toString().equals("Escoger una Opción...")) {
+                    parametros.put("id_fecha_fin", new Long("20121201"));   
+                } else {
+                    System.out.println("id_fecha_fin: " + comboBoxAnioInicio.getSelectedItem().toString() + "1201");
+                    parametros.put("id_fecha_fin", new Long(comboBoxAnioInicio.getSelectedItem().toString() + "1201"));   
+                }
+                
+            } else {
+                System.out.println("id_fecha_fin: " + comboBoxAnioFin.getSelectedItem().toString() + "1201");
+                parametros.put("id_fecha_fin", new Long(comboBoxAnioFin.getSelectedItem().toString() + "1201"));
+            }
+
+            report = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\ReporteVentasSedes.jasper");
+            jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
+
+            JFrame frame = new JFrame("Reporte Venta de Cupos por Sede");
+            frame.setPreferredSize(new Dimension(1000, 600));
+            frame.getContentPane().add(new JRViewer(jasperPrint));
+            frame.pack();
+            frame.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     public JButton getBotonConsultar() {

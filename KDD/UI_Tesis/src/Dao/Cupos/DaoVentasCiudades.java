@@ -260,7 +260,7 @@ public class DaoVentasCiudades {
 
                 } else if(ventasCiudades.getMesInicio().equals("Escoger una Opción...") && ventasCiudades.getMesFin().equals("Escoger una Opción...")){
                     where = "WHERE dv.sede_afiliacion = '" + codigoSede + "' AND cd.departamento_ciudad = '" + codigoDepartamento 
-                        + "' AND (dv.fecha_afiliacion BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101)' AND " + (anioFin+"").substring(0, 4) + "1201) ";
+                        + "' AND (dv.fecha_afiliacion BETWEEN '" + (anioInicio+"").substring(0, 4) + "0101' AND '" + (anioFin+"").substring(0, 4) + "1201') ";
                 } else {
                     return "Error Fecha Mes";
                 }

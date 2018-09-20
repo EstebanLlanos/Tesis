@@ -1,6 +1,5 @@
 package GUI;
 
-import ConectorBD.ConexionBD;
 import GUI.Cupos.UiVentasCiudades;
 import GUI.Cupos.UiVentasDemografia;
 import GUI.Cupos.UiVentasSedes;
@@ -12,41 +11,44 @@ import GUI.Citas_Examenes.UiCitasInstitucion;
 import GUI.Citas_Otros_Servicios.UiCitasInstitucionServicio;
 import GUI.Citas_Otros_Servicios.UiCitasTipoServicio;
 import GUI.Resumenes.VisualizadorResumenes;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.swing.JRViewer;
+import javax.swing.JOptionPane;
 
 public class Visualizador extends javax.swing.JFrame {
 
     String arregloPreguntas[][];
     public JComboBox comboBoxPreguntas;
     public int elementoConsultaSeleccionada = 0;
+    int codigoPreguntaSeleccionada = 0;
     public String elementoSeleccionado;
+    
+    UiVentasCiudades ventasPorCiudad;
+    UiVentasVendedores ventasPorVendedor;
+    UiVentasSedes ventasPorSede;
+    UiVentasDemografia ventasPorDemografia;
 
     public Visualizador(String elementoDeConsulta) {
         super("Interfaz de Visualización de Consultas Personalizadas - PREVISER");
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        ventasPorCiudad = new UiVentasCiudades();
+        ventasPorVendedor = new UiVentasVendedores(this);
+        ventasPorSede = new UiVentasSedes();
+        ventasPorDemografia = new UiVentasDemografia();
+        
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
+        
         panelOpciones.setLayout(layout);
         
         //Inicializamos y asignamos las Preguntas
@@ -165,21 +167,23 @@ public class Visualizador extends javax.swing.JFrame {
         //según la pregunta que se elija asignamos unos componentes a la interfaz
         if (elementoConsultaSeleccionada == 1) {
 
+            codigoPreguntaSeleccionada = codigoDePregunta;
+            
             switch (codigoDePregunta) {
                 case 1:
-                    UiVentasCiudades ventasPorCiudad = new UiVentasCiudades();
+                    //UiVentasCiudades ventasPorCiudad = new UiVentasCiudades();
                     asignaComponentesVentasCiudad(ventasPorCiudad);
                     break;
                 case 2:
-                    UiVentasVendedores ventasPorVendedor = new UiVentasVendedores(this);
+                    //UiVentasVendedores ventasPorVendedor = new UiVentasVendedores(this);
                     asignaComponentesVentasVendedor(ventasPorVendedor);
                     break;
                 case 3:
-                    UiVentasSedes ventasPorSede = new UiVentasSedes();
+                    //UiVentasSedes ventasPorSede = new UiVentasSedes();
                     asignaComponentesVentasSede(ventasPorSede);
                     break;
                 case 4:
-                    UiVentasDemografia ventasPorDemografia = new UiVentasDemografia();
+                    //UiVentasDemografia ventasPorDemografia = new UiVentasDemografia();
                     asignaComponentesVentasDemografia(ventasPorDemografia);
                     break;
                 default:
@@ -819,37 +823,19 @@ public class Visualizador extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuResumenesActionPerformed
 
     private void jMenuReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReporteActionPerformed
-        JasperReport report;
-        JasperPrint jasperPrint;
-        
-        ConexionBD bd = new ConexionBD();
-        Connection conn = bd.conectar();
         
         if (elementoSeleccionado.equals("Cupos")) {
-            try {
-                
-                Map<String, Object> parametros = new HashMap();
-                parametros.put("id_sede", new String("2"));
-                
-                report = (JasperReport) JRLoader.loadObjectFromFile("C:/Users/Miguel Torrres/Documents/Tesis/KDD/UI_Tesis/src/Reportes/Cupos/DemoReporte.jasper");
-                jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
-            
-                JFrame frame = new JFrame("Reporte Venta de Cupos");
-                frame.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
-                frame.getContentPane().add(new JRViewer(jasperPrint));
-                frame.pack();
-                frame.setVisible(true);
-            } catch (JRException ex) {
-                Logger.getLogger(Visualizador.class.getName()).log(Level.SEVERE, null, ex);
-            }   
-        } else if (elementoSeleccionado.equals("Citas por Especialidad")) {
-              
-        } else if (elementoSeleccionado.equals("Citas por Exámenes")) {
-               
-        } else if (elementoSeleccionado.equals("Citas para Otros Servicios")) {
-              
-        } else if (elementoSeleccionado.equals("Quejas y Comunicaciones Directas con Clientes")) {
-             
+            if (codigoPreguntaSeleccionada == 1) {
+                ventasPorCiudad.generarReporte();
+            } else if(codigoPreguntaSeleccionada == 2){
+                ventasPorVendedor.generarReporte();
+            } else if(codigoPreguntaSeleccionada == 3){
+                ventasPorSede.generarReporte();
+            } else if(codigoPreguntaSeleccionada == 4){
+                ventasPorDemografia.generarReporte();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aún no ha seleccionado una Opción de Consulta para Generar el Reporte");
+            }
         }
         
     }//GEN-LAST:event_jMenuReporteActionPerformed
