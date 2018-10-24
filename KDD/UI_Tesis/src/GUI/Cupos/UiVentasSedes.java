@@ -292,7 +292,7 @@ public class UiVentasSedes {
                 parametros.put("id_fecha_fin", new Long(comboBoxAnioFin.getSelectedItem().toString() + "1201"));
             }
 
-            report = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\ReporteVentasSedes.jasper");
+            report = (JasperReport) JRLoader.loadObjectFromFile(System.getProperty("user.dir") + "\\src\\Reportes\\Cupos\\ReporteVentasSedes.jasper");
             jasperPrint = JasperFillManager.fillReport(report, parametros, conn);
 
             JFrame frame = new JFrame("Reporte Venta de Cupos por Sede");

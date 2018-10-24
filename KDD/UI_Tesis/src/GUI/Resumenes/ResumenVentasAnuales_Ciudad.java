@@ -180,7 +180,7 @@ public class ResumenVentasAnuales_Ciudad extends javax.swing.JFrame {
         jfx.setScene(scene);
         jfx.setVisible(true);
         
-        jPanelPrueba.addTab("Resumen Prueba", jfx);
+        jPanelPrueba.addTab("Resumen Ventas Anuales por Sede", jfx);
         jPanelFondo.setVisible(true);
         jPanelPrueba.setVisible(true);
     }

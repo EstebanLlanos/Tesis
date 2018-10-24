@@ -37,11 +37,11 @@
 				<frame>
 					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="6bc53d4e-77d8-46e1-aa2c-4afcbc046968"/>
 					<textField isStretchWithOverflow="true">
-						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" uuid="a9d3a2f0-d54a-4c79-b8bd-c26c9972dc83"/>
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="538" height="24" forecolor="#FFFFFF" uuid="a9d3a2f0-d54a-4c79-b8bd-c26c9972dc83"/>
 						<textElement>
 							<font isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{nombre_vendedor}.toString + " " + $F{apellido_vendedor}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{nombre_vendedor}.toString() + " " + $F{apellido_vendedor}.toString()]]></textFieldExpression>
 					</textField>
 				</frame>
 			</band>
@@ -83,8 +83,8 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="410" y="0" width="151" height="132" uuid="21d367ae-99f7-4006-9116-d91a3f1f082a"/>
-				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.PNG"]]></imageExpression>
+				<reportElement x="405" y="0" width="152" height="132" uuid="d206ca2d-8ce0-436d-92ba-aca4fc9aa017"/>
+				<imageExpression><![CDATA["C:\\Users\\Miguel Torrres\\Documents\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.PNG"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -103,7 +103,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="b5437c34-7b9f-4225-8607-ad0c92f5cb9c"/>
 				<textField isStretchWithOverflow="true">

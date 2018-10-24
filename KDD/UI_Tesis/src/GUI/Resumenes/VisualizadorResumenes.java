@@ -130,6 +130,8 @@ public class VisualizadorResumenes extends JFrame {
         panelOpcionesConsultaResumen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, new java.awt.Color(0, 0, 0), null, new java.awt.Color(0, 0, 0)), "Opciones de Consulta de Resumen", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 16), java.awt.Color.white)); // NOI18N
         panelOpcionesConsultaResumen.setOpaque(false);
 
+        comboBoxResumen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Resumen a Consultar", "Total de Ventas Anuales por Sede" }));
+        comboBoxResumen.setToolTipText("");
         comboBoxResumen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxResumenActionPerformed(evt);
@@ -250,7 +252,21 @@ public class VisualizadorResumenes extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxResumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxResumenActionPerformed
-        
+        String resumenSeleccionado = "" + comboBoxResumen.getSelectedItem();
+        System.out.println("El resumen seleccionado fue: " + resumenSeleccionado);
+        if (resumenSeleccionado.equals("Total de Ventas Anuales por Sede")) {
+            textDescripcion.setText("En esta consulta encontrará el resumen consolidado"
+                    + " del total de \nventas realizadas por cada sede hasta la fecha actual.");
+
+            botonConsultar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    ResumenVentasAnuales_Ciudad resumenVentas_Ciudades = new ResumenVentasAnuales_Ciudad();
+                    resumenVentas_Ciudades.setVisible(true);
+                    resumenVentas_Ciudades.setLocationRelativeTo(null);
+                }
+            });
+        }
     }//GEN-LAST:event_comboBoxResumenActionPerformed
 
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
@@ -271,6 +287,7 @@ public class VisualizadorResumenes extends JFrame {
     private void preguntasActionPerformedAfiliaciones(java.awt.event.ActionEvent evt) {
 
         String resumenSeleccionado = "" + comboBoxResumen.getSelectedItem();
+        System.out.println("El resumen seleccionado fue: " + resumenSeleccionado);
         if (resumenSeleccionado.equals("Total de Ventas Anuales por Sede")) {
             textDescripcion.setText("En esta consulta encontrará el resumen consolidado"
                     + " del total de \nventas realizadas por cada sede hasta la fecha actual.");

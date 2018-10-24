@@ -694,7 +694,6 @@ public class Visualizador extends javax.swing.JFrame {
         salir.add(menuSeleccionarHecho);
 
         jSeparator1.setMaximumSize(new java.awt.Dimension(32000, 32000));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(0, 5));
         salir.add(jSeparator1);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -712,7 +711,7 @@ public class Visualizador extends javax.swing.JFrame {
 
         jMenuBar1.add(salir);
 
-        jMenu1.setText("Tipo de Consulta");
+        jMenu1.setText("Reportes Adicionales");
         jMenu1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
 
         jMenuResumenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
@@ -817,9 +816,6 @@ public class Visualizador extends javax.swing.JFrame {
         vis.setLocationRelativeTo(null);
         this.setEnabled(false);
         
-//        ResumenVentasAnuales_Ciudad p = new ResumenVentasAnuales_Ciudad();
-//        p.setVisible(true);
-//        p.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuResumenesActionPerformed
 
     private void jMenuReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReporteActionPerformed
