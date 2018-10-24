@@ -14,8 +14,9 @@ Dimensiones
 
 Tablas de Hechos
 
-- Afiliacion ....
+- Afiliacion
 - Cita_Especialidad
 - Cita_Exámenes
 - Cita_Otros_Servicios
 - Cita_Quejas
+- Solicitud_Servicios

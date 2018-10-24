@@ -155,6 +155,17 @@ CREATE TABLE dim_examen
 );
 
 /*==============================================================*/
+/* Dimensión: Tipo Servicio                                     */
+/*==============================================================*/
+
+CREATE TABLE dim_tipo_servicio
+(
+  id_tipo_servicio INTEGER NOT NULL,
+  nombre_tipo_servicio VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_tipo_servicio)
+);
+
+/*==============================================================*/
 /* Dimensión: Afiliaciones                                      */
 /*==============================================================*/
 
@@ -228,4 +239,20 @@ create table datamart_cita_otros_servicios
   ciudad_cita BIGINT REFERENCES dim_ciudad (id_ciudad),
   cantidad INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (id_cita_otros_servicios)
+);
+
+/*==============================================================*/
+/* Dimensión: Solicitud Servicios                               */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_datamart_solicitud_servicios INCREMENT BY 1 START WITH 1;
+
+create table datamart_solicitud_servicios
+(
+  id_solicitud_servicios BIGINT NOT NULL DEFAULT nextval('seq_datamart_solicitud_servicios'::regclass),
+  fecha_actividad BIGINT REFERENCES dim_fecha (id_dim_fecha),
+  especialidad_solicitud BIGINT REFERENCES dim_especialidad (id_especialidad),
+  ciudad_solicitud BIGINT REFERENCES dim_ciudad (id_ciudad),
+  tipo_servicio_solcitud BIGINT REFERENCES dim_tipo_servicio (id_tipo_servicio),
+  PRIMARY KEY (id_solicitud_servicios)
 );
