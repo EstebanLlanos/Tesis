@@ -146,7 +146,7 @@ if( isset($_REQUEST['cantidad_registros'])
 
 		// SELECCIÓN DE ELEMENTO DIMENSION TIPO_SERVICIO
 
-		$tipo_servicio_seleccionado=intval(rand(0, 44));
+		$tipo_servicio_seleccionado=intval(rand(0, 4));
 
 		// SELECCIÓN DE ELEMENTO DIMENSION ESPECIALIDAD
 
