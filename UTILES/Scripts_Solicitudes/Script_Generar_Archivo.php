@@ -9,7 +9,7 @@ ini_set('display_errors', '0');
 include_once ('../conexionbd/clase_coneccion_bd.php');
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5432";
+$port="5433";
 //$dbname="giossprepagadacoo";
 $dbname="bodega_previser";
 //$user="giossuser";
@@ -143,9 +143,21 @@ if( isset($_REQUEST['cantidad_registros'])
 			$ciudad_seleccionada=intval($resultado_query_info_ciudad_aleatoria[0]['id_ciudad']);
 		}//fin if
 
+		if ($ciudad_seleccionada == 0) {
+			$ciudad_seleccionada = intval(rand(1, 143));
+		}
+
 		// SELECCIÓN DE ELEMENTO DIMENSION TIPO_SERVICIO
 
-		$tipo_servicio_seleccionado=intval(rand(1, 4));
+		$contador_tipo_servicio = 0;
+
+		if($contador_tipo_servicio == 15){
+			$tipo_servicio_seleccionado = 1;
+			$contador_tipo_servicio = 0;
+		} 
+		else {
+			$tipo_servicio_seleccionado=intval(rand(1, 4));
+		}
 
 		// SELECCIÓN DE ELEMENTO DIMENSION ESPECIALIDAD
 
@@ -160,7 +172,11 @@ if( isset($_REQUEST['cantidad_registros'])
 			$especialidad_seleccionada=intval($resultado_query_info_especialidad_aleatoria[0]['id_especialidad']);
 		}//fin if
 
-		$linea_a_escribir="$fecha_seleccionada,$especialidad_seleccionada,$ciudad_seleccionada,$tipo_servicio_seleccionado";
+		if ($especialidad_seleccionada == 0) {
+			$especialidad_seleccionada = intval(rand(1, 158));
+		}
+
+		$linea_a_escribir="$fecha_seleccionada,$especialidad_seleccionada,$ciudad_seleccionada,$tipo_servicio_seleccionado,1";
 
 		$archivoEncontradosBD=fopen($pathArchivoSalida, "a");
 		fwrite($archivoEncontradosBD, $linea_a_escribir."\n");
@@ -169,6 +185,7 @@ if( isset($_REQUEST['cantidad_registros'])
 		ob_flush();
 	  	flush();
 
+	  	$contador_tipo_servicio++;
 		$cont_linea_actual_archivo++;
 	}//fin while
 	

@@ -85,8 +85,8 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="405" y="0" width="150" height="132" uuid="672ae9eb-a28f-4f59-a20f-c0e6d3adb1e7"/>
-				<imageExpression><![CDATA["C:\\Users\\Miguel Torrres\\Documents\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.PNG"]]></imageExpression>
+				<reportElement x="405" y="0" width="150" height="132" uuid="7779f449-a37e-4e7d-bb49-8bfe247d53d5"/>
+				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

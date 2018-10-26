@@ -253,6 +253,6 @@ create table datamart_solicitud_servicios
   fecha_actividad BIGINT REFERENCES dim_fecha (id_dim_fecha),
   especialidad_solicitud BIGINT REFERENCES dim_especialidad (id_especialidad),
   ciudad_solicitud BIGINT REFERENCES dim_ciudad (id_ciudad),
-  tipo_servicio_solcitud BIGINT REFERENCES dim_tipo_servicio (id_tipo_servicio),
+  tipo_servicio_solicitud BIGINT REFERENCES dim_tipo_servicio (id_tipo_servicio),
   PRIMARY KEY (id_solicitud_servicios)
 );

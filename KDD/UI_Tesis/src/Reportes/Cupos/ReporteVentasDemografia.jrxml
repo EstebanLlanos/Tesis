@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DemoReporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="676e255d-e0ec-4bcf-a8a9-28009afdd5d1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="82"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -93,8 +93,8 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="410" y="0" width="151" height="132" uuid="21d367ae-99f7-4006-9116-d91a3f1f082a"/>
-				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.PNG"]]></imageExpression>
+				<reportElement x="405" y="0" width="152" height="132" uuid="10eac9c0-ee8f-4dd4-98ba-f8763c1cf929"/>
+				<imageExpression><![CDATA["C:\\Users\\llani\\OneDrive\\Documentos\\Tesis\\Tesis\\KDD\\UI_Tesis\\src\\Reportes\\Cupos\\Logo_Previser.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
