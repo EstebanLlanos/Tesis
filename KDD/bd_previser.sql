@@ -254,5 +254,6 @@ create table datamart_solicitud_servicios
   especialidad_solicitud BIGINT REFERENCES dim_especialidad (id_especialidad),
   ciudad_solicitud BIGINT REFERENCES dim_ciudad (id_ciudad),
   tipo_servicio_solicitud BIGINT REFERENCES dim_tipo_servicio (id_tipo_servicio),
+  cantidad INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (id_solicitud_servicios)
 );

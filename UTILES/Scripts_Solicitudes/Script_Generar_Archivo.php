@@ -6,10 +6,13 @@ ini_set('memory_limit', '2000M');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
+
 include_once ('../conexionbd/clase_coneccion_bd.php');
+require_once ("/random_compat-2.0.17/lib/random.php");
+
 $coneccionBD = new conexion();
 $host="localhost";
-$port="5433";
+$port="5432";
 //$dbname="giossprepagadacoo";
 $dbname="bodega_previser";
 //$user="giossuser";
@@ -114,7 +117,7 @@ if( isset($_REQUEST['cantidad_registros'])
 		$flag_fecha = false;
 
 		while ($flag_fecha == false) {
-			$posicion_fecha_aleatorio_bd=intval(rand(1, $numero_fechas));
+			$posicion_fecha_aleatorio_bd=intval(random_int(1, $numero_fechas));
 			$query_info_fecha_aleatorio="";
 			$query_info_fecha_aleatorio.="SELECT id_dim_fecha as id_dim_fecha FROM dim_fecha LIMIT 1 OFFSET ".$posicion_fecha_aleatorio_bd."; ";
 			$resultado_query_info_fecha_aleatoria=$coneccionBD->consultar2_no_crea_cierra($query_info_fecha_aleatorio);
@@ -132,7 +135,7 @@ if( isset($_REQUEST['cantidad_registros'])
 
 		// SELECCIÓN DE ELEMENTO DIMENSION CIUDAD
 
-		$posicion_ciudad_aleatoria_bd=intval(rand(1, $numero_ciudades));
+		$posicion_ciudad_aleatoria_bd=intval(random_int(1, $numero_ciudades));
 		$query_info_ciudad_aleatoria="";
 		$query_info_ciudad_aleatoria.="SELECT id_ciudad as id_ciudad FROM dim_ciudad LIMIT 1 OFFSET ".$posicion_ciudad_aleatoria_bd."; ";
 		$resultado_query_info_ciudad_aleatoria=$coneccionBD->consultar2_no_crea_cierra($query_info_ciudad_aleatoria);
@@ -144,7 +147,7 @@ if( isset($_REQUEST['cantidad_registros'])
 		}//fin if
 
 		if ($ciudad_seleccionada == 0) {
-			$ciudad_seleccionada = intval(rand(1, 143));
+			$ciudad_seleccionada = intval(random_int(1, 143));
 		}
 
 		// SELECCIÓN DE ELEMENTO DIMENSION TIPO_SERVICIO
@@ -156,12 +159,12 @@ if( isset($_REQUEST['cantidad_registros'])
 			$contador_tipo_servicio = 0;
 		} 
 		else {
-			$tipo_servicio_seleccionado=intval(rand(1, 4));
+			$tipo_servicio_seleccionado=intval(random_int(1, 4));
 		}
 
 		// SELECCIÓN DE ELEMENTO DIMENSION ESPECIALIDAD
 
-		$posicion_especialidad_aleatoria_bd=intval(rand(1, $numero_especialidades));
+		$posicion_especialidad_aleatoria_bd=intval(random_int(1, $numero_especialidades));
 		$query_info_especialidad_aleatoria="";
 		$query_info_especialidad_aleatoria.="SELECT id_especialidad as id_especialidad FROM dim_especialidad LIMIT 1 OFFSET ".$posicion_especialidad_aleatoria_bd."; ";
 		$resultado_query_info_especialidad_aleatoria=$coneccionBD->consultar2_no_crea_cierra($query_info_especialidad_aleatoria);
@@ -173,7 +176,7 @@ if( isset($_REQUEST['cantidad_registros'])
 		}//fin if
 
 		if ($especialidad_seleccionada == 0) {
-			$especialidad_seleccionada = intval(rand(1, 158));
+			$especialidad_seleccionada = intval(random_int(1, 158));
 		}
 
 		$linea_a_escribir="$fecha_seleccionada,$especialidad_seleccionada,$ciudad_seleccionada,$tipo_servicio_seleccionado,1";
