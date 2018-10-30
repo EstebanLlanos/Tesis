@@ -12,6 +12,7 @@ import GUI.Citas_Otros_Servicios.UiCitasInstitucionServicio;
 import GUI.Citas_Otros_Servicios.UiCitasTipoServicio;
 import GUI.Resumenes.VisualizadorResumenes;
 import GUI.Solicitud_Servicios.UiSolicitudEspecialidad;
+import GUI.Solicitud_Servicios.UiSolicitudTipoServicio;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -267,8 +268,8 @@ public class Visualizador extends javax.swing.JFrame {
                     asignaComponentesSolicitudPorEspecialidad(solicitudPorEspecialidad);
                     break;
                 case 2:
-                    UiCitasInstitucionServicio citasPorInstitucionServicio = new UiCitasInstitucionServicio(this);
-                    asignaComponentesCitasInstitucionServicio(citasPorInstitucionServicio);
+                    UiSolicitudTipoServicio solicitudPorTipoServicio = new UiSolicitudTipoServicio();
+                    asignaComponentesSolicitudTipoServicio(solicitudPorTipoServicio);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -634,6 +635,25 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(solicitudesPorEspecialidad.getBotonConsultar());
         panelOpciones.updateUI();
     
+    }
+    
+    private void asignaComponentesSolicitudTipoServicio(UiSolicitudTipoServicio solicitudesPorTipoServicio){
+    
+        panelOpciones.removeAll();
+        panelOpciones.add(solicitudesPorTipoServicio.getLabelCiudad());
+        panelOpciones.add(solicitudesPorTipoServicio.getComboBoxCiudades());
+        panelOpciones.add(solicitudesPorTipoServicio.getLabelAnioInicio());
+        panelOpciones.add(solicitudesPorTipoServicio.getComboBoxAnioInicio());
+        panelOpciones.add(solicitudesPorTipoServicio.getLabelMesInicio());
+        panelOpciones.add(solicitudesPorTipoServicio.getComboBoxMesInicio());
+        panelOpciones.add(solicitudesPorTipoServicio.getLabelMesFin());
+        panelOpciones.add(solicitudesPorTipoServicio.getComboBoxMesFin());
+        panelOpciones.add(solicitudesPorTipoServicio.getLabelAnioFin());
+        panelOpciones.add(solicitudesPorTipoServicio.getComboBoxAnioFin());
+        panelOpciones.add(solicitudesPorTipoServicio.getSeparadorBoton());
+        panelOpciones.add(solicitudesPorTipoServicio.getBotonConsultar());
+        panelOpciones.updateUI();
+        
     }
     
     /**

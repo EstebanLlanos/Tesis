@@ -11,7 +11,7 @@ package Logico.Solicitud_Servicios;
  */
 public class SolicitudTipoServicio {
     
-    String ciudad, anioInicio, anioFin, mesInicio, mesFin, tipoServicio;
+    String ciudad, anioInicio, anioFin, mesInicio, mesFin;
     
     public SolicitudTipoServicio(){
         ciudad = "";
@@ -19,7 +19,6 @@ public class SolicitudTipoServicio {
         anioFin = "";
         mesInicio = "";
         mesFin = "";
-        tipoServicio = "";
     }
 
     public String getCiudad() {
@@ -60,14 +59,6 @@ public class SolicitudTipoServicio {
 
     public void setMesFin(String mesFin) {
         this.mesFin = mesFin;
-    }
-
-    public String getTipoServicio() {
-        return tipoServicio;
-    }
-
-    public void setTipoServicio(String tipoServicio) {
-        this.tipoServicio = tipoServicio;
     }
 
 }

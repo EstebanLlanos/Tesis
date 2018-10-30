@@ -5,8 +5,8 @@
  */
 package Controlador.Solicitud_Servicios;
 
-import Dao.Citas_Especialidad.DaoCitasEspecialista;
-import Logico.Citas_Especialidad.CitasEspecialista;
+import Dao.Solicitud_Servicios.DaoSolicitudTipoServicio;
+import Logico.Solicitud_Servicios.SolicitudTipoServicio;
 import java.util.ArrayList;
 
 /**
@@ -15,95 +15,87 @@ import java.util.ArrayList;
  */
 public class ControladorSolicitudTipoServicio {
     
-    DaoCitasEspecialista daoCitasEspecialista;
-    ArrayList<String[]> conteoCitas = new ArrayList();
+    DaoSolicitudTipoServicio daoSolicitudTipoServicio;
+    ArrayList<String[]> conteoSolicitudes = new ArrayList();
 
     public ControladorSolicitudTipoServicio() {
-        daoCitasEspecialista = new DaoCitasEspecialista();
+
+        daoSolicitudTipoServicio = new DaoSolicitudTipoServicio();
     }
 
-    public ArrayList<String[]> getCitas(String especialista, String departamento, String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin, String criterioConsulta) {
+    public ArrayList<String[]> getSolicitudes(String ciudad, String anioInicio, String mesInicio, String mesFin, String anioFin) {
 
-        String especialistaCitas = especialista;
+        String ciudadSolicitudes = ciudad;
         
-        String ciudadCitas = ciudad;
-        String departamentoCitas = departamento;
+        String anioInicioSolicitudes = anioInicio;
+        String anioFinSolicitudes = anioFin;
         
-        String anioInicioCitas = anioInicio;
-        String anioFinCitas = anioFin;
+        String mesInicioSolicitudes = mesInicio;
+        String mesFinSolicitudes = mesFin;
         
-        String mesInicioCitas = mesInicio;
-        String mesFinCitas = mesFin;
-        
-        String criterioConsultaVentas = criterioConsulta;
+        SolicitudTipoServicio solicitudTipoServicio = new SolicitudTipoServicio();
+        solicitudTipoServicio.setCiudad(ciudadSolicitudes);
+        solicitudTipoServicio.setAnioInicio(anioInicioSolicitudes);
+        solicitudTipoServicio.setAnioFin(anioFinSolicitudes);
+        solicitudTipoServicio.setMesInicio(mesInicioSolicitudes);
+        solicitudTipoServicio.setMesFin(mesFinSolicitudes);
 
-        CitasEspecialista citasEspecialista = new CitasEspecialista();
-        citasEspecialista.setEspecialista(especialistaCitas);
-        citasEspecialista.setCiudad(ciudadCitas);
-        citasEspecialista.setDepartamento(departamentoCitas);
-        citasEspecialista.setAnioInicio(anioInicioCitas);
-        citasEspecialista.setAnioFin(anioFinCitas);
-        citasEspecialista.setMesInicio(mesInicioCitas);
-        citasEspecialista.setMesFin(mesFinCitas);
-
-        if (!anioInicioCitas.equals("Escoger una Opción...") && !anioFinCitas.equals("Escoger una Opción...") ) {
-            int anioInicial = Integer.parseInt(anioInicioCitas);
-            int anioFinal = Integer.parseInt(anioFinCitas);
+        if (!anioInicioSolicitudes.equals("Escoger una Opción...") && !anioFinSolicitudes.equals("Escoger una Opción...") ) {
+            int anioInicial = Integer.parseInt(anioInicioSolicitudes);
+            int anioFinal = Integer.parseInt(anioFinSolicitudes);
             
             if (anioInicial > anioFinal) {
+                conteoSolicitudes.clear();
                 String[] error = new String[1];
-                error[0] = "Error Fecha";
-                conteoCitas.add(error);
+                error[0] = "Error Fecha Año";
+                conteoSolicitudes.add(error);
 
-                return conteoCitas;   
+                return conteoSolicitudes;   
             }
-        } else if (especialistaCitas.equals("") && criterioConsultaVentas.equals("")) {
-            String[] error = new String[1];
-            error[0] = "Error Especialista";
-            conteoCitas.add(error);
-
-            return conteoCitas;   
         }
         
-        int mesInicial = obtenerCodigoMes(mesInicioCitas);
-        int mesFinal = obtenerCodigoMes(mesFinCitas);
+        int mesInicial = obtenerCodigoMes(mesInicioSolicitudes);
+        int mesFinal = obtenerCodigoMes(mesFinSolicitudes);
         
-        if (!mesInicioCitas.equals("Escoger una Opción...") && !mesFinCitas.equals("Escoger una Opción...") ) {
+        if (!mesInicioSolicitudes.equals("Escoger una Opción...") && !mesFinSolicitudes.equals("Escoger una Opción...") ) {
             if (mesInicial >= mesFinal) {
-                conteoCitas.clear();
+                conteoSolicitudes.clear();
                 String[] error = new String[1];
                 error[0] = "Error Fecha Mes";
-                conteoCitas.add(error);
+                conteoSolicitudes.add(error);
 
-                return conteoCitas; 
+                return conteoSolicitudes; 
             }
         }
         
-        String restriccionesClausulaWhere = daoCitasEspecialista.prepararRestriccionesClausulaWhereCitas(citasEspecialista, criterioConsultaVentas);
+        String restriccionesClausulaWhere = daoSolicitudTipoServicio.prepararRestriccionesClausulaWhereSolicitudes(solicitudTipoServicio);
         
-        if (restriccionesClausulaWhere.equals("Error")) {
+        if (restriccionesClausulaWhere.equals("Error Fecha Año")) {
+            conteoSolicitudes.clear();
+            String[] error = new String[1];
+            error[0] = "Error Fecha Año";
+            conteoSolicitudes.add(error);
+            
+            return conteoSolicitudes;
+        } else if (restriccionesClausulaWhere.equals("Error Fecha Mes")) {
+            conteoSolicitudes.clear();
+            String[] error = new String[1];
+            error[0] = "Error Fecha Mes";
+            conteoSolicitudes.add(error);
+            
+            return conteoSolicitudes;
+        } else if (restriccionesClausulaWhere.equals("Error")) {
+            conteoSolicitudes.clear();
             String[] error = new String[1];
             error[0] = "Error";
-            conteoCitas.add(error);
+            conteoSolicitudes.add(error);
             
-            return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Fecha")) {
-            String[] error = new String[1];
-            error[0] = "Error Fecha";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
-        } else if (restriccionesClausulaWhere.equals("Error Especialista")) {
-            String[] error = new String[1];
-            error[0] = "Error Vendedor";
-            conteoCitas.add(error);
-            
-            return conteoCitas;
+            return conteoSolicitudes;
         }
         
-        conteoCitas = daoCitasEspecialista.conteoCitasEspecialista(restriccionesClausulaWhere);
+        conteoSolicitudes = daoSolicitudTipoServicio.conteoSolicitudes(restriccionesClausulaWhere);
         
-        return conteoCitas;
+        return conteoSolicitudes;
     }
     
     public int obtenerCodigoMes(String nombreMes){
@@ -138,4 +130,5 @@ public class ControladorSolicitudTipoServicio {
         
         return mesSeleccionado;
     }
+    
 }

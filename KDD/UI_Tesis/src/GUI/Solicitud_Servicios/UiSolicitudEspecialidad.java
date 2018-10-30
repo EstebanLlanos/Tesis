@@ -322,10 +322,10 @@ public class UiSolicitudEspecialidad {
 
         String[][] tiposServicio = new String[5][1];
         tiposServicio[0][0] = "Escoger una Opción...";
-        tiposServicio[1][0] = "Salud";
-        tiposServicio[2][0] = "Recreación";
-        tiposServicio[3][0] = "Comercial";
-        tiposServicio[4][0] = "Educación";
+        tiposServicio[1][0] = "SALUD";
+        tiposServicio[2][0] = "RECREACION";
+        tiposServicio[3][0] = "COMERCIAL";
+        tiposServicio[4][0] = "EDUCACION";
 
         for (int i = 0; i < tiposServicio.length; i++) {
             tipoServicioSolicitudes.addItem(tiposServicio[i][0]);
