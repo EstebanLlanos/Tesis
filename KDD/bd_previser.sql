@@ -166,6 +166,18 @@ CREATE TABLE dim_tipo_servicio
 );
 
 /*==============================================================*/
+/* Dimensión: Calificacion                                     */
+/*==============================================================*/
+
+CREATE TABLE dim_calificacion
+(
+  id_calificacion INTEGER NOT NULL,
+  descripcion_calificacion VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_calificacion)
+);
+
+
+/*==============================================================*/
 /* Dimensión: Afiliaciones                                      */
 /*==============================================================*/
 
@@ -256,4 +268,38 @@ create table datamart_solicitud_servicios
   tipo_servicio_solicitud BIGINT REFERENCES dim_tipo_servicio (id_tipo_servicio),
   cantidad INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (id_solicitud_servicios)
+);
+
+/*==============================================================*/
+/* Dimensión: Quejas Especialistas                              */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_datamart_queja_especialistas INCREMENT BY 1 START WITH 1;
+
+create table datamart_queja_especialistas
+(
+  id_queja_especialistas BIGINT NOT NULL DEFAULT nextval('seq_datamart_queja_especialistas'::regclass),
+  fecha_actividad BIGINT REFERENCES dim_fecha (id_dim_fecha),
+  ciudad_queja BIGINT REFERENCES dim_ciudad (id_ciudad),
+  calificacion_queja BIGINT REFERENCES dim_calificacion (id_calificacion),
+  especialista_queja BIGINT REFERENCES dim_especialista (id_especialista),
+  cantidad INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (id_queja_especialistas)
+);
+
+/*==============================================================*/
+/* Dimensión: Quejas Instituciones                              */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_datamart_queja_instituciones INCREMENT BY 1 START WITH 1;
+
+create table datamart_queja_instituciones
+(
+  id_queja_instituciones BIGINT NOT NULL DEFAULT nextval('seq_datamart_queja_instituciones'::regclass),
+  fecha_actividad BIGINT REFERENCES dim_fecha (id_dim_fecha),
+  ciudad_queja BIGINT REFERENCES dim_ciudad (id_ciudad),
+  calificacion_queja BIGINT REFERENCES dim_calificacion (id_calificacion),
+  especialista_queja BIGINT REFERENCES dim_especialista (id_especialista),
+  cantidad INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (id_queja_instituciones)
 );
