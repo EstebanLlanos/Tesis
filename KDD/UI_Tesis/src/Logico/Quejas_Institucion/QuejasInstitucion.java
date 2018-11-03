@@ -11,7 +11,7 @@ package Logico.Quejas_Institucion;
  */
 public class QuejasInstitucion {
     
-    String ciudad, departamento, anioInicio, anioFin, mesInicio, mesFin, institucion;
+    String ciudad, departamento, anioInicio, anioFin, mesInicio, mesFin, calificacion;
     
     public QuejasInstitucion(){
         ciudad = "";
@@ -20,7 +20,7 @@ public class QuejasInstitucion {
         anioFin = "";
         mesInicio = "";
         mesFin = "";
-        institucion = "";
+        calificacion = "";
     }
 
     public String getCiudad() {
@@ -71,12 +71,12 @@ public class QuejasInstitucion {
         this.mesFin = mesFin;
     }
 
-    public String getInstitucion() {
-        return institucion;
+    public String getCalificacion() {
+        return calificacion;
     }
 
-    public void setInstitucion(String institucion) {
-        this.institucion = institucion;
+    public void setCalificacion(String calificacion) {
+        this.calificacion = calificacion;
     }
     
 }

@@ -299,7 +299,7 @@ create table datamart_queja_instituciones
   fecha_actividad BIGINT REFERENCES dim_fecha (id_dim_fecha),
   ciudad_queja BIGINT REFERENCES dim_ciudad (id_ciudad),
   calificacion_queja BIGINT REFERENCES dim_calificacion (id_calificacion),
-  especialista_queja BIGINT REFERENCES dim_especialista (id_especialista),
+  institucion_queja BIGINT REFERENCES dim_institucion (id_institucion),
   cantidad INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (id_queja_instituciones)
 );

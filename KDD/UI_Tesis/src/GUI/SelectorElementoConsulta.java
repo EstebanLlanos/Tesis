@@ -65,7 +65,7 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         comboBoxElementoConsulta.setBackground(new java.awt.Color(204, 204, 204));
         comboBoxElementoConsulta.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         comboBoxElementoConsulta.setForeground(new java.awt.Color(0, 153, 153));
-        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cupos", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Solicitud de Servicios", "Reclamos y Opiniones" }));
+        comboBoxElementoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cupos", "Citas por Especialidad", "Citas por Exámenes", "Citas para Otros Servicios", "Solicitud de Servicios", "Quejas Especialistas", "Quejas Instituciones" }));
         comboBoxElementoConsulta.setToolTipText("");
         comboBoxElementoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,7 +144,6 @@ public class SelectorElementoConsulta extends javax.swing.JFrame {
         
         elementoDeConsulta = comboBoxElementoConsulta.getSelectedItem()+"";
         System.out.println("Se selecciona el elemento de Consulta: " + elementoDeConsulta);
-        System.out.println("Ruta global del proyecto: " + System.getProperty("user.dir"));
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

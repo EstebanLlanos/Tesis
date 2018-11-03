@@ -3,8 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/llani/OneDrive/Documentos/Tesis/Tesis/KDD/UI_Tesis/src/Logico/Quejas_Institucion/QuejasInstitucion.java</file>
-            <file>file:/C:/Users/llani/OneDrive/Documentos/Tesis/Tesis/KDD/UI_Tesis/src/Logico/Quejas_Especialista/QuejasEspecialista.java</file>
+            <file>file:/C:/Users/llani/OneDrive/Documentos/Tesis/Tesis/KDD/UI_Tesis/src/Dao/Quejas_Institucion/DaoQuejasInstitucion.java</file>
         </group>
     </open-files>
 </project-private>

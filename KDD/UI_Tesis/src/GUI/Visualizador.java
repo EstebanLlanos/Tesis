@@ -13,6 +13,8 @@ import GUI.Citas_Otros_Servicios.UiCitasTipoServicio;
 import GUI.Resumenes.VisualizadorResumenes;
 import GUI.Solicitud_Servicios.UiSolicitudEspecialidad;
 import GUI.Solicitud_Servicios.UiSolicitudTipoServicio;
+import GUI.Quejas_Especialista.UiQuejasEspecialista;
+import GUI.Quejas_Institucion.UiQuejasInstitucion;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -77,8 +79,11 @@ public class Visualizador extends javax.swing.JFrame {
             case "Solicitud de Servicios":
                 elementoConsultaSeleccionada = 5;
                 break;
-            case "Reclamos y Opiniones":
-                elementoConsultaSeleccionada = 5;
+            case "Quejas Especialistas":
+                elementoConsultaSeleccionada = 6;
+                break;
+            case "Quejas Instituciones":
+                elementoConsultaSeleccionada = 7;
                 break;
         }
         
@@ -157,8 +162,20 @@ public class Visualizador extends javax.swing.JFrame {
                     break;
                 case 6:
                     comboBoxPreguntas = new JComboBox();
-                    arregloPreguntas = new String[1][1];
+                    arregloPreguntas = new String[2][1];
                     arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Quejas por Especialista";
+
+                    for (String[] arregloPregunta : arregloPreguntas) {
+                        comboBoxPreguntas.addItem(arregloPregunta[0]);
+                    }
+                    
+                    break;
+                case 7:
+                    comboBoxPreguntas = new JComboBox();
+                    arregloPreguntas = new String[2][1];
+                    arregloPreguntas[0][0] = "Seleccione la opción de consulta que desea visualizar...";
+                    arregloPreguntas[1][0] = "Quejas por Institucion";
 
                     for (String[] arregloPregunta : arregloPreguntas) {
                         comboBoxPreguntas.addItem(arregloPregunta[0]);
@@ -270,6 +287,32 @@ public class Visualizador extends javax.swing.JFrame {
                 case 2:
                     UiSolicitudTipoServicio solicitudPorTipoServicio = new UiSolicitudTipoServicio();
                     asignaComponentesSolicitudTipoServicio(solicitudPorTipoServicio);
+                    break;
+                default:
+                    panelOpciones.removeAll();
+                    panelOpciones.updateUI();
+                    break;
+            }
+
+        } else if (elementoConsultaSeleccionada == 6) {
+
+            switch (codigoDePregunta) {
+                case 1:
+                    UiQuejasEspecialista quejasPorEspecialista = new UiQuejasEspecialista();
+                    asignaComponentesQuejasPorEspecialista(quejasPorEspecialista);
+                    break;
+                default:
+                    panelOpciones.removeAll();
+                    panelOpciones.updateUI();
+                    break;
+            }
+
+        } else if (elementoConsultaSeleccionada == 7) {
+
+            switch (codigoDePregunta) {
+                case 1:
+                    UiQuejasInstitucion quejasPorInstitucion = new UiQuejasInstitucion();
+                    asignaComponentesQuejasPorInstitucion(quejasPorInstitucion);
                     break;
                 default:
                     panelOpciones.removeAll();
@@ -654,6 +697,56 @@ public class Visualizador extends javax.swing.JFrame {
         panelOpciones.add(solicitudesPorTipoServicio.getBotonConsultar());
         panelOpciones.updateUI();
         
+    }
+    
+    private void asignaComponentesQuejasPorEspecialista(UiQuejasEspecialista quejasPorEspecialista){
+    
+        panelOpciones.removeAll();
+        panelOpciones.add(quejasPorEspecialista.getLabelCiudad());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxCiudades());
+        panelOpciones.add(quejasPorEspecialista.getLabelDepartamento());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxDepartamento());
+        panelOpciones.add(quejasPorEspecialista.getLabelCalificacion());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxCalificacion());
+        panelOpciones.add(quejasPorEspecialista.getLabelAnioInicio());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxAnioInicio());
+        panelOpciones.add(quejasPorEspecialista.getLabelMesInicio());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxMesInicio());
+        panelOpciones.add(quejasPorEspecialista.getLabelMesFin());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxMesFin());
+        panelOpciones.add(quejasPorEspecialista.getLabelAnioFin());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxAnioFin());
+        panelOpciones.add(quejasPorEspecialista.getLabelCriterioConsulta());
+        panelOpciones.add(quejasPorEspecialista.getComboBoxCriterioConsulta());
+        panelOpciones.add(quejasPorEspecialista.getSeparadorBoton());
+        panelOpciones.add(quejasPorEspecialista.getBotonConsultar());
+        panelOpciones.updateUI();
+    
+    }
+    
+    private void asignaComponentesQuejasPorInstitucion(UiQuejasInstitucion quejasPorInstitucion){
+    
+        panelOpciones.removeAll();
+        panelOpciones.add(quejasPorInstitucion.getLabelCiudad());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxCiudades());
+        panelOpciones.add(quejasPorInstitucion.getLabelDepartamento());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxDepartamento());
+        panelOpciones.add(quejasPorInstitucion.getLabelCalificacion());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxCalificacion());
+        panelOpciones.add(quejasPorInstitucion.getLabelAnioInicio());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxAnioInicio());
+        panelOpciones.add(quejasPorInstitucion.getLabelMesInicio());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxMesInicio());
+        panelOpciones.add(quejasPorInstitucion.getLabelMesFin());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxMesFin());
+        panelOpciones.add(quejasPorInstitucion.getLabelAnioFin());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxAnioFin());
+        panelOpciones.add(quejasPorInstitucion.getLabelCriterioConsulta());
+        panelOpciones.add(quejasPorInstitucion.getComboBoxCriterioConsulta());
+        panelOpciones.add(quejasPorInstitucion.getSeparadorBoton());
+        panelOpciones.add(quejasPorInstitucion.getBotonConsultar());
+        panelOpciones.updateUI();
+    
     }
     
     /**
