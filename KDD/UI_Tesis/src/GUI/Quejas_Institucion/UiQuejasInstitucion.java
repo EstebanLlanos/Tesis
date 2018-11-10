@@ -145,13 +145,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem();
         } else if (!ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem();
         }
         
@@ -159,13 +159,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " con Calificacion " + comboBoxCalificacion.getSelectedItem();
         } else if (!ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " con Calificacion " + comboBoxCalificacion.getSelectedItem();
         }
         
@@ -173,13 +173,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " en el periodo seleccionado";
         } else if (!ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " en el periodo seleccionado";
         }
         
@@ -187,13 +187,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         } else if (!ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Ciudad de " + comboBoxCiudades.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         }
         
@@ -201,13 +201,13 @@ public class UiQuejasInstitucion {
                 !departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem();
         } else if (ciudad.equals("Escoger una Opción...") &&
                 !departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem();
         }
         
@@ -215,13 +215,13 @@ public class UiQuejasInstitucion {
                 !departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem();
         } else if (ciudad.equals("Escoger una Opción...") &&
                 !departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem();
         }
         
@@ -229,13 +229,13 @@ public class UiQuejasInstitucion {
                 !departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " en el periodo seleccionada";
         } else if (ciudad.equals("Escoger una Opción...") &&
                 !departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " en el periodo seleccionada";
         }
         
@@ -243,13 +243,13 @@ public class UiQuejasInstitucion {
                 !departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         } else if (ciudad.equals("Escoger una Opción...") &&
                 !departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en la Departamento de " + comboBoxDepartamento.getSelectedItem() + " con la Calificación " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         }
         
@@ -257,13 +257,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas con la Calificación " + comboBoxCalificacion.getSelectedItem();
         } else if (ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas con la Calificación " + comboBoxCalificacion.getSelectedItem();
         }
         
@@ -271,13 +271,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas en el periodo seleccionado";
         } else if (ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas en el periodo seleccionado";
         }
         
@@ -285,13 +285,13 @@ public class UiQuejasInstitucion {
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Más Solicitadas")) {
+                criterioConsulta.equals("Instituciones Más Mencionadas")) {
             tituloGraficos = "Instituciones con Mayor Número de Quejas con la Calificacion " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         } else if (ciudad.equals("Escoger una Opción...") &&
                 departamento.equals("Escoger una Opción...") &&
                 !calificacion.equals("Escoger una Opción...") &&
                 !anioInicio.equals("Escoger una Opción...") &&
-                criterioConsulta.equals("Instituciones Menos Solicitadas")) {
+                criterioConsulta.equals("Instituciones Menos Mencionadas")) {
             tituloGraficos = "Instituciones con Menor Número de Quejas con la Calificacion " + comboBoxCalificacion.getSelectedItem() + " en el periodo seleccionado";
         }
         
@@ -347,8 +347,8 @@ public class UiQuejasInstitucion {
         criteriosDeConsulta.setMaximumSize(new Dimension(250, 30));
 
         String criterios[][] = new String[2][1];
-        criterios[0][0] = "Instituciones Más Solicitadas";
-        criterios[1][0] = "Instituciones Menos Solicitadas";
+        criterios[0][0] = "Instituciones Más Mencionadas";
+        criterios[1][0] = "Instituciones Menos Mencionadas";
 
         for (int i = 0; i < criterios.length; i++) {
             criteriosDeConsulta.addItem(criterios[i][0]);
@@ -471,9 +471,9 @@ public class UiQuejasInstitucion {
 
         String[][] anios = new String[4][1];
         anios[0][0] = "Escoger una Opción...";
-        anios[1][0] = "2012";
-        anios[2][0] = "2013";
-        anios[3][0] = "2014";
+        anios[1][0] = "POSITIVO";
+        anios[2][0] = "NEUTRAL";
+        anios[3][0] = "NEGATIVO";
 
         for (int i = 0; i < anios.length; i++) {
             calificacionQueja.addItem(anios[i][0]);

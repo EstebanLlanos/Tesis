@@ -497,7 +497,7 @@ public class DaoQuejasInstitucion {
         ArrayList<String[]> conteoQuejas = new ArrayList<String[]>();
         String sql_select = "";
         
-        if (criterioConsultaQuejas.equals("Instituciones Más Solicitadas")) {
+        if (criterioConsultaQuejas.equals("Instituciones Más Mencionadas")) {
             
             sql_select = "SELECT nombre_institucion, SUM(desp.cantidad) AS total_quejas FROM datamart_queja_instituciones desp " +
                          "INNER JOIN dim_institucion esp ON (desp.institucion_queja = esp.id_institucion) " +
@@ -505,10 +505,10 @@ public class DaoQuejasInstitucion {
                          " GROUP BY nombre_institucion " +
                          "ORDER BY total_quejas DESC LIMIT 5;";
 
-        } else if (criterioConsultaQuejas.equals("Instituciones Más Solicitadas")) {
+        } else if (criterioConsultaQuejas.equals("Instituciones Menos Mencionadas")) {
 
             sql_select = "SELECT nombre_institucion, SUM(desp.cantidad) AS total_quejas FROM datamart_queja_instituciones desp " +
-                         "INNER JOIN dim_especialista esp ON (desp.institucion_queja = esp.id_institucion) " +
+                         "INNER JOIN dim_institucion esp ON (desp.institucion_queja = esp.id_institucion) " +
                          "INNER JOIN dim_ciudad cd ON (desp.ciudad_queja = cd.id_ciudad) " + where +
                          " GROUP BY nombre_institucion " +
                          "ORDER BY total_quejas ASC LIMIT 5;";

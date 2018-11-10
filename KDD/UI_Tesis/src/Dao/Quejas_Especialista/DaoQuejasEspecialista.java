@@ -497,7 +497,7 @@ public class DaoQuejasEspecialista {
         ArrayList<String[]> conteoQuejas = new ArrayList<String[]>();
         String sql_select = "";
         
-        if (criterioConsultaQuejas.equals("Especialistas Más Solicitados")) {
+        if (criterioConsultaQuejas.equals("Especialistas Más Mencionados")) {
             
             sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_quejas FROM datamart_queja_especialistas desp " +
                          "INNER JOIN dim_especialista esp ON (desp.especialista_queja = esp.id_especialista) " +
@@ -505,7 +505,7 @@ public class DaoQuejasEspecialista {
                          " GROUP BY nombre_especialista " +
                          "ORDER BY total_quejas DESC LIMIT 5;";
 
-        } else if (criterioConsultaQuejas.equals("Especialistas Menos Solicitados")) {
+        } else if (criterioConsultaQuejas.equals("Especialistas Menos Mencionados")) {
 
             sql_select = "SELECT nombre_especialista, SUM(desp.cantidad) AS total_quejas FROM datamart_queja_especialistas desp " +
                          "INNER JOIN dim_especialista esp ON (desp.especialista_queja = esp.id_especialista) " +
